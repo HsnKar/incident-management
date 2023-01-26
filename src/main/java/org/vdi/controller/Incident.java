@@ -17,6 +17,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import static java.util.Objects.requireNonNull;
@@ -66,7 +67,7 @@ public class Incident {
 
     @POST
     @Transactional
-    public void createIncident(@FormParam("cause") String cause, @FormParam("resolution") String resolution) {
-        org.vdi.model.Incident.create(cause, resolution).persist();
+    public void createIncident(@FormParam("cause") String cause, @FormParam("resolution") String resolution, @FormParam("date_deb")Date date_deb) {
+        org.vdi.model.Incident.create(cause, resolution, date_deb).persist();
     }
 }
