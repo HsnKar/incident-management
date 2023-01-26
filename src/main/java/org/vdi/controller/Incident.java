@@ -44,12 +44,20 @@ public class Incident {
     @Inject
     Template addIncident;
     @Inject
+    Template listIncident;
+    @Inject
     IncidentRepository incidentRepository;
 
     @GET
     public TemplateInstance get() {
         List<Incident> incidents = incidentRepository.listAll();
         return addIncident.data("incidents", incidents);
+    }
+
+    @GET
+    @Path("/list")
+    public TemplateInstance geta() {
+        return listIncident.data("listIncident", org.vdi.model.Incident.listAll());
     }
 
 /*    @POST

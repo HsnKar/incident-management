@@ -1,12 +1,9 @@
 package org.vdi.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.persistence.*;
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
