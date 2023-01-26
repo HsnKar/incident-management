@@ -1,16 +1,18 @@
 package org.vdi.model;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Service  {
+public class Service extends PanacheEntityBase {
     @Id
     @GeneratedValue
-    private Long id;
-    private String name;
+    public Long id;
+    public String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "service")
-    private List<Incident> incident;
+    public List<Incident> incident;
 
     public Long getId() {
         return id;
