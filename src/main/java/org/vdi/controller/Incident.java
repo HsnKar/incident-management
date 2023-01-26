@@ -1,26 +1,16 @@
 package org.vdi.controller;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import io.quarkus.qute.CheckedTemplate;
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
-import io.smallrye.common.annotation.Blocking;
-import io.vertx.ext.web.RoutingContext;
-import org.apache.camel.spi.annotations.RoutesLoader;
 import org.vdi.repository.IncidentRepository;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
-
-import static java.util.Objects.requireNonNull;
 
 @Path("/incidents")
 public class Incident {
@@ -77,7 +67,7 @@ public class Incident {
     @POST
     @Produces(MediaType.APPLICATION_FORM_URLENCODED)
     @Transactional
-    public void createIncident(@FormParam("cause") String cause, @FormParam("resolution") String resolution, @FormParam("date_deb")LocalDateTime date_deb) {
+    public void createIncident(@FormParam("cause") String cause, @FormParam("resolution") String resolution, @FormParam("date_deb") Date date_deb) {
         org.vdi.model.Incident.create(cause, resolution, date_deb).persist();
     }
 }

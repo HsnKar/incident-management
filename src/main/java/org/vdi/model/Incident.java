@@ -1,13 +1,12 @@
 package org.vdi.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
+
 @Entity
 public class Incident extends PanacheEntityBase {
 
@@ -17,7 +16,7 @@ public class Incident extends PanacheEntityBase {
 
     public String cause;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MMM-yyyy")
-    public LocalDateTime date_deb;
+    public Date date_deb;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MMM-yyyy")
     public Date date_fin;
     public Long duree;
@@ -41,7 +40,7 @@ public class Incident extends PanacheEntityBase {
     }
 
 
-    public static Incident create(String cause, String resolution, LocalDateTime date_deb) {
+    public static Incident create(String cause, String resolution, Date date_deb) {
         Incident incident = new Incident();
         incident.cause = cause;
         incident.resolution = resolution;
