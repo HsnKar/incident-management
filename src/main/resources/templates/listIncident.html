@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Les incidents en cours</title>
+</head>
+<body>
+    <h1>Liste des incidents en cours</h1>
+    {#for incident in listIncident}
+        <p>{incident.cause}</p>
+        <p>{incident.resolution}</p>
+    {/for}
+</body>
+</html>
