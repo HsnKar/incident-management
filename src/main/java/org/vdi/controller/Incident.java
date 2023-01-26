@@ -60,6 +60,7 @@ public class Incident {
         return listIncident.data("listIncident", org.vdi.model.Incident.listAll());
     }
 
+
 /*    @POST
     public Response createIncident(@BeanParam org.vdi.model.Incident incident, RoutingContext routingContext) {
         System.out.println("eto");
@@ -74,8 +75,9 @@ public class Incident {
     }*/
 
     @POST
+    @Produces(MediaType.APPLICATION_FORM_URLENCODED)
     @Transactional
-    public void createIncident(@FormParam("cause") String cause, @FormParam("resolution") String resolution, @FormParam("date_deb")Date date_deb) {
+    public void createIncident(@FormParam("cause") String cause, @FormParam("resolution") String resolution, @FormParam("date_deb")LocalDateTime date_deb) {
         org.vdi.model.Incident.create(cause, resolution, date_deb).persist();
     }
 }
