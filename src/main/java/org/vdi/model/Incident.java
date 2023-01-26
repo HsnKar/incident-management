@@ -1,23 +1,24 @@
 package org.vdi.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
-
 @Entity
 public class Incident extends PanacheEntityBase {
-
 
     @Id
     @GeneratedValue
     public Long id;
 
     public String cause;
-//    @JsonFormat(pattern = "yyyy/MM/dd HH:mm")
-    public Date date_deb;
-//    @JsonFormat(pattern = "yyyy/MM/dd HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MMM-yyyy")
+    public LocalDateTime date_deb;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MMM-yyyy")
     public Date date_fin;
     public Long duree;
 /*    @OneToOne*/
@@ -35,10 +36,12 @@ public class Incident extends PanacheEntityBase {
             this.duree = Duration.between(date_deb, date_fin).toMinutes();
     }*/
 
+    public static Incident findByCause(String cause) {
+        return find("cause", cause).firstResult();
+    }
 
 
-
-    public static Incident create(String cause, String resolution, Date date_deb) {
+    public static Incident create(String cause, String resolution, LocalDateTime date_deb) {
         Incident incident = new Incident();
         incident.cause = cause;
         incident.resolution = resolution;
