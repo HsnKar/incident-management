@@ -96,4 +96,20 @@ public class Incident extends PanacheEntityBase {
     public void setResolution(String resolution) {
         this.resolution = resolution;
     }
+
+    public java.sql.Date getDate_deb() {
+        return date_deb;
+    }
+
+    public void setDate_deb(java.sql.Date date_deb) {
+        this.date_deb = date_deb;
+    }
+
+    public Date getDate_fin() {
+        return date_fin;
+    }
+
+    public void setDate_fin(Date date_fin) {
+        this.date_fin = date_fin;
+    }
 }
