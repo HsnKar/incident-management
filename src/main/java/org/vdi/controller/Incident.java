@@ -3,17 +3,16 @@ package org.vdi.controller;
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateException;
 import io.quarkus.qute.TemplateInstance;
+import org.jboss.resteasy.annotations.Form;
 import org.vdi.model.Service;
 import org.vdi.repository.IncidentRepository;
-import org.vdi.repository.ServiceRepository;
 
 import javax.inject.Inject;
-import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.sql.Date;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,11 +56,18 @@ public class Incident {
     @Produces(MediaType.TEXT_HTML)
     public TemplateInstance createUserView()
             throws TemplateException, IOException {
-        org.vdi.model.Incident incident = new org.vdi.model.Incident();
-        Map<String, Object> obj = new HashMap<>();
-        obj.put("incident", incident);
-        obj.put("isUpdate", false);
-        return addIncident.data(obj);
+//        org.vdi.model.Incident incident = new org.vdi.model.Incident();
+//        Service service = new Service();
+//        Map<String, Object> obj = new HashMap<>();
+//        obj.put("incident", incident);
+//        obj.put("isUpdate", false);
+        List<Service> serviceList = Service.listAll();
+//        Map<String, Object> s = new HashMap<>();
+//        s.put("services", serviceList);
+//        Map<String, Object> objList = new HashMap<>();
+//        objList.putAll(obj);
+//        objList.putAll(services);
+        return addIncident.data("services",serviceList);
     }
 
 
@@ -70,16 +76,13 @@ public class Incident {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Path("/create")
     public TemplateInstance createIncident
-            (@FormParam("cause") String cause,
-             @FormParam("date_deb") Date date_deb,
-             @FormParam("date_fin") Date date_fin,
-             @FormParam("service") Service service)
+            (@FormParam("cause") String cause, @FormParam("date_deb") LocalDate date_deb, @FormParam("date_fin") LocalDate date_fin, @FormParam("service") Service service)
             throws TemplateException {
         org.vdi.model.Incident incident = new org.vdi.model.Incident();
         incident.setCause(cause);
         incident.setDate_deb(date_deb);
         incident.setDate_fin(date_fin);
-        incident.service = service;
+        incident.setService(service);
         org.vdi.model.Incident.persist(incident);
         return getAllIncidentView();
     }
