@@ -3,6 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Création des incidents</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Orange and Boosted contributors">
+  <meta name="generator" content="Hugo 0.104.3">
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -43,8 +48,12 @@
             <input type="date" value="date_fin"/><br>
             Résolution
             <input type="text" name="resolution"/><br>
-            Service
-            <input type="text" name="resolution"/><br>
+            <label for="service">Service</label>
+            <select>
+                {#for service in services}
+                    <option value="{service.id}">{service.name}</option>
+                {/for}
+            </select>
             <input type="submit" value="Valider">
        </form>
 </body>
