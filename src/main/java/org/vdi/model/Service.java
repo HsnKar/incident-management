@@ -17,6 +17,7 @@ public class Service extends PanacheEntityBase {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "service")
     public List<Incident> incident;
 
+
     public static Service create(String name) {
         Service s = new Service();
         s.name = name;
