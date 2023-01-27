@@ -1,5 +1,6 @@
 package org.vdi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.persistence.*;
@@ -7,12 +8,20 @@ import java.util.List;
 
 @Entity
 public class Service extends PanacheEntityBase {
+
     @Id
     @GeneratedValue
     public Long id;
     public String name;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "service")
     public List<Incident> incident;
+
+    public static Service create(String name) {
+        Service s = new Service();
+        s.name = name;
+        return s;
+    }
 
     public Long getId() {
         return id;

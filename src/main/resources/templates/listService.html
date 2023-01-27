@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Liste des services</title>
+</head>
+<body>
+    <h1>Liste des services</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+            </tr>
+        </thead>
+        <tbody>
+        {#for service in services}
+            <tr>
+                <td>{service.id}</td>
+                <td>{service.name}</td>
+            </tr>
+         {/for}
+        </tbody>
+    </table>
+</body>
+</html>

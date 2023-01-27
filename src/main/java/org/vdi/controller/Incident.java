@@ -2,7 +2,9 @@ package org.vdi.controller;
 
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
+import org.vdi.model.Service;
 import org.vdi.repository.IncidentRepository;
+import org.vdi.repository.ServiceRepository;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -64,10 +66,10 @@ public class Incident {
         return Response.ok().build();
     }*/
 
-    @POST
+    /*@POST
     @Produces(MediaType.APPLICATION_FORM_URLENCODED)
     @Transactional
-    public void createIncident(@FormParam("cause") String cause, @FormParam("resolution") String resolution, @FormParam("date_deb") Date date_deb) {
-        org.vdi.model.Incident.create(cause, resolution, date_deb).persist();
-    }
+    public void createIncident(@FormParam("cause") String cause, @FormParam("resolution") String resolution, @FormParam("date_deb") java.sql.Date date_deb, @FormParam("service") Service service) {
+        org.vdi.model.Incident.create(cause, resolution, date_deb, service).persist();
+    }*/
 }

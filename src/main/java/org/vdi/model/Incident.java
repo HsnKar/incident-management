@@ -15,8 +15,8 @@ public class Incident extends PanacheEntityBase {
     public Long id;
 
     public String cause;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MMM-yyyy")
-    public Date date_deb;
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MMM-yyyy")
+    public java.sql.Date date_deb;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MMM-yyyy")
     public Date date_fin;
     public Long duree;
@@ -40,11 +40,12 @@ public class Incident extends PanacheEntityBase {
     }
 
 
-    public static Incident create(String cause, String resolution, Date date_deb) {
+    public static Incident create(String cause, String resolution, java.sql.Date date_deb, Service service) {
         Incident incident = new Incident();
         incident.cause = cause;
         incident.resolution = resolution;
         incident.date_deb = date_deb;
+        incident.service = service;
         return incident;
     }
 
