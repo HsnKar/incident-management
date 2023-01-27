@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -15,12 +15,12 @@ public class Incident extends PanacheEntityBase {
     public Long id;
 
     public String cause;
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MMM-yyyy")
-    public java.sql.Date date_deb;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MMM-yyyy")
-    public Date date_fin;
+    //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MMM-yyyy")
+    public LocalDate date_deb;
+    //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MMM-yyyy")
+    public LocalDate date_fin;
     public Long duree;
-/*    @OneToOne*/
+    /*    @OneToOne*/
     public String resolution;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "site")
@@ -39,15 +39,15 @@ public class Incident extends PanacheEntityBase {
         return find("cause", cause).firstResult();
     }
 
-
+/*
     public static Incident create(String cause, String resolution, java.sql.Date date_deb, Service service) {
         Incident incident = new Incident();
         incident.cause = cause;
         incident.resolution = resolution;
         incident.date_deb = date_deb;
-        incident.service = service;
+        incident.setService(service);
         return incident;
-    }
+    }*/
 
     public Long getId() {
         return id;
@@ -97,19 +97,19 @@ public class Incident extends PanacheEntityBase {
         this.resolution = resolution;
     }
 
-    public java.sql.Date getDate_deb() {
+    public LocalDate getDate_deb() {
         return date_deb;
     }
 
-    public void setDate_deb(java.sql.Date date_deb) {
+    public void setDate_deb(LocalDate date_deb) {
         this.date_deb = date_deb;
     }
 
-    public Date getDate_fin() {
+    public LocalDate getDate_fin() {
         return date_fin;
     }
 
-    public void setDate_fin(Date date_fin) {
+    public void setDate_fin(LocalDate date_fin) {
         this.date_fin = date_fin;
     }
 }
