@@ -1,7 +1,6 @@
 package org.vdi.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.persistence.*;
 import java.time.Duration;
@@ -15,18 +14,18 @@ public class Incident {
     private Long id;
 
     private String cause;
-    @JsonFormat(pattern = "dd-MMM-yyyy HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime date_deb;
-    @JsonFormat(pattern = "dd-MMM-yyyy HH:mm")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime date_fin;
     private Long duree;
     /*    @OneToOne*/
     private String resolution;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "site")
+    @JoinColumn(name = "site_id")
     private Site site;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "service")
+    @JoinColumn(name = "service_id")
     private Service service;
     @PrePersist
     @PreUpdate

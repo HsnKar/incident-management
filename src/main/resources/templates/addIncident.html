@@ -11,34 +11,6 @@
   <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 </head>
 <body>
-    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-fluid">
-        <div class="navbar-brand">
-          <a class="stretched-link" href="#">
-            <img src="/docs/5.2/assets/brand/orange-logo.svg" width="50" height="50" alt="Boosted - Back to Home" loading="lazy">
-          </a>
-        </div>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Accueil</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Incidents</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Historique</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled">Admin</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav> -->
 <h1>Incidents</h1>
        <form>
             Cause
@@ -52,7 +24,7 @@
             <label for="service">Service</label>
             <select>
                 {#for service in services}
-                    <option value="{service.id}" id="service">{service.name}</option>
+                    <option id="service" value="{service.id}">{service.name}</option>
                 {/for}
             </select>
             <button id="validation" type="button">valider</button>
@@ -72,7 +44,7 @@
                     "name": name,
                     "date": date,
 										"resolution": resolution,
-										"service": service
+										"service_id": service
                 };
 
                 $.ajax({
@@ -85,12 +57,9 @@
                     alert("incident created");
                 }).fail(function () {
                         alert("failed to create incident");
+                        console.log(incident.service_id);
                     });
             });
-
-            
-
-            
         })
 				</script>
        
