@@ -7,22 +7,15 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Service extends PanacheEntityBase {
+public class Service {
 
     @Id
     @GeneratedValue
-    public Long id;
-    public String name;
+    private Long id;
+    private String name;
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "service")
-    public List<Incident> incident;
-
-
-    public static Service create(String name) {
-        Service s = new Service();
-        s.name = name;
-        return s;
-    }
+    private List<Incident> incident;
 
     public Long getId() {
         return id;

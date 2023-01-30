@@ -8,9 +8,10 @@
   <meta name="description" content="">
   <meta name="author" content="Orange and Boosted contributors">
   <meta name="generator" content="Hugo 0.104.3">
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <div class="navbar-brand">
           <a class="stretched-link" href="#">
@@ -37,24 +38,61 @@
           </ul>
         </div>
       </div>
-    </nav>
+    </nav> -->
 <h1>Incidents</h1>
-       <form method="post" action="/incidents">
+       <form>
             Cause
-            <input type="text" name="cause"><br>
+            <input type="text" name="cause" id="cause"/><br>
             Date de début
-            <input type="date" name="date_deb" ><br>
+            <input type="datetime-local" name="date_deb" id="name"/><br>
             Date de fin
-            <input type="date" value="date_fin"/><br>
+            <input type="datetime-local" id="date"/><br>
             Résolution
-            <input type="text" name="resolution"/><br>
+            <input type="text" name="resolution" id="resolution"/><br>
             <label for="service">Service</label>
             <select>
                 {#for service in services}
-                    <option value="{service.id}">{service.name}</option>
+                    <option value="{service.id}" id="service">{service.name}</option>
                 {/for}
             </select>
-            <input type="submit" value="Valider">
+            <button id="validation" type="button">valider</button>
        </form>
+			 	<script>
+					$(document).ready(function () {
+            $("#validation").click(function (e) {
+                e.preventDefault();
+                var cause = $("#cause").val();
+                var name = $("#name").val();
+                var date = $("#date").val();
+                var resolution = $("#resolution").val();
+                var service = $("#service").val();
+
+                var incident = {
+                    "cause": cause,
+                    "name": name,
+                    "date": date,
+										"resolution": resolution,
+										"service": service
+                };
+
+                $.ajax({
+                    url: "http://localhost:8080/incidents/create",
+                    type: "POST",
+                    data: JSON.stringify(incident),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json"
+                }).done(function () {
+                    alert("incident created");
+                }).fail(function () {
+                        alert("failed to create incident");
+                    });
+            });
+
+            
+
+            
+        })
+				</script>
+       
 </body>
 </html>

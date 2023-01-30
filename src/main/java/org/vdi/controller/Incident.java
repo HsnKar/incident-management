@@ -1,21 +1,15 @@
 package org.vdi.controller;
 
 import io.quarkus.qute.Template;
-import io.quarkus.qute.TemplateException;
-import io.quarkus.qute.TemplateInstance;
-import org.jboss.resteasy.annotations.Form;
-import org.vdi.model.Service;
 import org.vdi.repository.IncidentRepository;
 
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.io.IOException;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.util.HashMap;
+import javax.ws.rs.core.Response;
+import java.net.URI;
 import java.util.List;
-import java.util.Map;
 
 @Path("/incidents")
 public class Incident {
@@ -43,17 +37,17 @@ public class Incident {
     @Inject
     IncidentRepository incidentRepository;
 
-    @GET
+    /*@GET
     @Produces(MediaType.TEXT_HTML)
     public TemplateInstance getAllIncidentView()
             throws TemplateException {
         List<org.vdi.model.Incident> incidents = org.vdi.model.Incident.listAll();
         return listIncident.data(Map.of("incidents", incidents));
-    }
+    }*/
 
-    @GET
+    /*@GET
     @Path("/create")
-    @Produces(MediaType.TEXT_HTML)
+//    @Produces(MediaType.TEXT_HTML)
     public TemplateInstance createUserView()
             throws TemplateException, IOException {
 //        org.vdi.model.Incident incident = new org.vdi.model.Incident();
@@ -68,24 +62,41 @@ public class Incident {
 //        objList.putAll(obj);
 //        objList.putAll(services);
         return addIncident.data("services",serviceList);
+    }*/
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllIncidents() {
+        List<org.vdi.model.Incident> incidents = incidentRepository.listAll();
+        return Response.ok(incidents).build();
     }
-
-
     @POST
-    @Produces(MediaType.TEXT_HTML)
-    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Transactional
     @Path("/create")
-    public TemplateInstance createIncident
-            (@FormParam("cause") String cause, @FormParam("date_deb") LocalDate date_deb, @FormParam("date_fin") LocalDate date_fin, @FormParam("service") Service service)
-            throws TemplateException {
-        org.vdi.model.Incident incident = new org.vdi.model.Incident();
-        incident.setCause(cause);
-        incident.setDate_deb(date_deb);
-        incident.setDate_fin(date_fin);
-        incident.setService(service);
-        org.vdi.model.Incident.persist(incident);
-        return getAllIncidentView();
+    public Response createIncident(org.vdi.model.Incident incident) {
+        incidentRepository.persist(incident);
+        return Response.created(URI.create("/"+ incident.getId())).build();
     }
+
+
+
+
+
+
+//    public TemplateInstance createIncident
+//            (@BeanParam org.vdi.model.Incident incident)
+//            throws TemplateException {
+//        org.vdi.model.Incident incident = new org.vdi.model.Incident();
+//        incident.setCause(cause);
+//        incident.setDate_deb(date_deb);
+//        incident.setDate_fin(date_fin);
+//        incident.setService(service);
+//        org.vdi.model.Incident.persist(incident);
+//        incident.persist();
+//        return getAllIncidentView();
+//    }
 
 
 

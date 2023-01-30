@@ -4,26 +4,35 @@
   <meta charset="UTF-8">
   <title>Services</title>
   <link rel="stylesheet" href="https://unpkg.com/unpoly@2.7.1/unpoly-bootstrap5.min.css">
-  <script src="./jquery-3.6.3.js">
-  $("#service-form").submit(function(e) {
-        e.preventDefault();
-        var formData = {
-          name: $("#name").val()
-        };
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+  <script>
+  $(document).ready(function () {
+            $("#validation").click(function (e) {
+                e.preventDefault();
+                var name = $("#name").val();
 
-        $.ajax({
-            type: "POST",
-            contentType: "application/json",
-            url: "http://localhost:8080/services",
-            data: JSON.stringify(formData),
-            dataType: "json",
-            success: function() {
-              // handle success
-              alert("Service has been added successfully!");
-            },
-            error: function() {
-              // handle error
-            }
+                var service = {
+                    "name": name
+                }
+
+                $.ajax({
+                    url: "http://localhost:8080/services/create",
+                    type: "POST",
+                    data: JSON.stringify(service),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+					crossDomain: "true"
+                }).done(function () {
+                    alert("service created");
+                }).fail(function () {
+                        alert("failed to create service");
+                    });
+            });
+
+            
+
+            
+        })
     </script>
 </head>
 <body>
@@ -34,7 +43,7 @@
 
         Name
         <input type="text" id="name" name="name" value="{#if service.name}{service.name}{/if}"><br>
-        <input type="submit" value="Valider">
+        <input type="submit" value="Valider" id="validation">
 
     </form>
 

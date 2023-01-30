@@ -6,16 +6,16 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Site extends PanacheEntityBase {
+public class Site {
     @Id
     @GeneratedValue
-    public Long id;
+    private Long id;
 
-    public String name;
+    private String name;
 
-    public Long latitude;
+    private Long latitude;
 
-    public Long longitude;
+    private Long longitude;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "site")
     private List<Incident> incident;
