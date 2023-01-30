@@ -6,15 +6,19 @@
 </head>
 <body>
    <h1>Incident réseau</h1>
-   <form method="post" action="/incidents">
+   <form method="post" action="/post">
         Cause
         <input type="text" name="cause"><br>
         Date de début
-        <input type="datetime-local" name="cause" ><br>
+        <input type="datetime-local" name="start-date" ><br>
         Date de fin
-        <input type="datetime-local" value="Valider"/><br>
+        <input type="datetime-local" name="end-date" ><br>
+        Service
+        <input type="text" name="service"/><br>
         Résolution
         <input type="text" name="resolution"/><br>
+        Site
+        <input type="text" name="site"/><br>
         <input type="submit" value="Valider">
    </form>
 </body>

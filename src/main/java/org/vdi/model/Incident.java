@@ -1,61 +1,36 @@
 package org.vdi.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
-
 import javax.persistence.*;
-import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
+@Table(name = "incident")
 public class Incident extends PanacheEntityBase {
-
-
     @Id
-    @GeneratedValue
-    public Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public String cause;
-//    @JsonFormat(pattern = "yyyy/MM/dd HH:mm")
-    public Date date_deb;
-//    @JsonFormat(pattern = "yyyy/MM/dd HH:mm")
-    public Date date_fin;
-    public Long duree;
-/*    @OneToOne*/
-    public String resolution;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "site")
-    public Site site;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "service")
-    public Service service;
-/*    @PrePersist
-    @PreUpdate
-    public void duration() {
-        if (date_deb != null && date_fin !=null)
-            this.duree = Duration.between(date_deb, date_fin).toMinutes();
-    }*/
+    @Column(name = "cause")
+    String cause;
 
+    @Column(name = "start_date")
+    LocalDateTime startDate;
 
+    @Column(name = "end_date")
+    LocalDateTime endDate;
 
+    @Column(name = "site")
+    String site;
 
-    public static Incident create(String cause, String resolution, Date date_deb) {
-        Incident incident = new Incident();
-        incident.cause = cause;
-        incident.resolution = resolution;
-        incident.date_deb = date_deb;
-        return incident;
-    }
+    @Column(name = "service")
+    String service;
 
-    public Long getId() {
-        return id;
-    }
+    @Column(name = "resolution")
+    String resolution;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @Column(name = "duration")
+    long duration;
 
     public String getCause() {
         return cause;
@@ -65,28 +40,44 @@ public class Incident extends PanacheEntityBase {
         this.cause = cause;
     }
 
-    public Long getDuree() {
-        return duree;
+    public LocalDateTime getStartDate() {
+        return startDate;
     }
 
-    public void setDuree(Long duree) {
-        this.duree = duree;
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
     }
 
-    public Site getSite() {
+    public LocalDateTime getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getSite() {
         return site;
     }
 
-    public void setSite(Site site) {
+    public void setSite(String site) {
         this.site = site;
     }
 
-    public Service getService() {
+    public String getService() {
         return service;
     }
 
-    public void setService(Service service) {
+    public void setService(String service) {
         this.service = service;
+    }
+
+    public long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(long duration) {
+        this.duration = duration;
     }
 
     public String getResolution() {

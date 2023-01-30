@@ -1,73 +1,45 @@
 package org.vdi.controller;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import io.quarkus.qute.CheckedTemplate;
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
+import io.quarkus.vertx.web.Route;
+import io.quarkus.vertx.web.RoutingExchange;
 import io.smallrye.common.annotation.Blocking;
-import io.vertx.ext.web.RoutingContext;
-import org.apache.camel.spi.annotations.RoutesLoader;
-import org.vdi.repository.IncidentRepository;
-
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import javax.validation.Valid;
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
-
-import static java.util.Objects.requireNonNull;
 
 @Path("/incidents")
 public class Incident {
 
-/*
-    private final Template addIncident;
-
-    public Incident(Template addIncident) {
-        this.addIncident = requireNonNull(addIncident, "page is required");
-    }
-
-    @GET
-    @Produces(MediaType.TEXT_HTML)
-    public TemplateInstance get(@QueryParam("name") String name) {
-        return addIncident.data("name", name);
-    }
-
-*/
-
-
     @Inject
     Template addIncident;
-    @Inject
-    IncidentRepository incidentRepository;
 
     @GET
     public TemplateInstance get() {
-        List<Incident> incidents = incidentRepository.listAll();
+        List<Incident> incidents = new ArrayList<>();
         return addIncident.data("incidents", incidents);
     }
 
-/*    @POST
-    public Response createIncident(@BeanParam org.vdi.model.Incident incident, RoutingContext routingContext) {
-        System.out.println("eto");
-        System.out.println(incident.getCause());
-        System.out.println(incident.getDate_deb());
-
-        System.out.println("test");
-        System.out.println(routingContext.request().getFormAttribute("cause"));
-
-        incident.persist();
-        return Response.ok().build();
-    }*/
-
-    @POST
+    @Blocking
     @Transactional
-    public void createIncident(@FormParam("cause") String cause, @FormParam("resolution") String resolution, @FormParam("date_deb")Date date_deb) {
-        org.vdi.model.Incident.create(cause, resolution, date_deb).persist();
+    @Route(methods = Route.HttpMethod.POST, path = "/post")
+    public void createIncident(RoutingExchange routingExchange) {
+        org.vdi.model.Incident incident = new org.vdi.model.Incident();
+        incident.setCause(routingExchange.request().getFormAttribute("cause"));
+        incident.setService(routingExchange.request().getFormAttribute("service"));
+        incident.setDuration(ChronoUnit.SECONDS.between(LocalDateTime.parse(routingExchange.request().getFormAttribute("start-date")), LocalDateTime.parse(routingExchange.request().getFormAttribute("end-date"))));
+        incident.setStartDate(LocalDateTime.parse(routingExchange.request().getFormAttribute("start-date")));
+        incident.setEndDate(LocalDateTime.parse(routingExchange.request().getFormAttribute("end-date")));
+        incident.setResolution(routingExchange.request().getFormAttribute("resolution"));
+        incident.setSite(routingExchange.request().getFormAttribute("site"));
+        incident.persist();
+
+        routingExchange.response().end("inserted");
     }
+
 }
