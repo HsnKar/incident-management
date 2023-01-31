@@ -49,16 +49,18 @@ public class Incident {
 
     @POST
     @Transactional
-    public Response createIncident(@FormParam("cause") String cause, @FormParam("site") Long siteId) {
+    public TemplateInstance createIncident(@FormParam("cause") String cause, @FormParam("site") Long siteId) {
         org.vdi.model.Incident incident = new org.vdi.model.Incident();
         Site site = Site.findById(siteId);
         if (site == null) {
-            return Response.status(Response.Status.BAD_REQUEST).build();
+//            return Response.status(Response.Status.BAD_REQUEST).build()
+            throw new NullPointerException("Oh nooo!");
         }
         incident.setCause(cause);
         incident.site = site;
         incident.persist();
-        return Response.status(Response.Status.CREATED).entity(incident).build();
+//        return Response.status(Response.Status.CREATED).entity(incident).build();
+        return get();
     }
 
 
