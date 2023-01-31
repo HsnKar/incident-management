@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class Incident {
 
     @POST
     @Transactional
-    public TemplateInstance createIncident(@FormParam("cause") String cause, @FormParam("site") Long siteId) {
+    public TemplateInstance createIncident(@FormParam("cause") String cause,@FormParam("start-date")String date_deb, @FormParam("end-date")String end_date, @FormParam("site") Long siteId) {
         org.vdi.model.Incident incident = new org.vdi.model.Incident();
         Site site = Site.findById(siteId);
         if (site == null) {
@@ -57,6 +58,9 @@ public class Incident {
             throw new NullPointerException("Oh nooo!");
         }
         incident.setCause(cause);
+        incident.setStartDate(LocalDateTime.parse(date_deb));
+        incident.setEndDate(LocalDateTime.parse(end_date));
+        incident.setDuration(Duration.between(incident.getStartDate(), incident.getEndDate()).toMinutes());
         incident.site = site;
         incident.persist();
 //        return Response.status(Response.Status.CREATED).entity(incident).build();
