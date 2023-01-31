@@ -8,10 +8,7 @@ import org.vdi.model.Status;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -78,6 +75,39 @@ public class Incident {
         incident.service = service;
         incident.persist();
         return getServiceForm();
+    }
+
+    @GET
+    @Path("/reseau/{id}")
+    public TemplateInstance getServiceFormUpdate(@PathParam("id")long id) {
+        List<Site> sites = Site.listAll();
+        return addIncidentReseau.data("sites", sites);
+    }
+
+    @POST
+    @Path("/reseau/{id}")
+    public TemplateInstance updateIncidentReseau(@PathParam("id")Long id,
+                                                 @FormParam("cause") String cause,
+                                                 @FormParam("status") String status,
+                                                 @FormParam("resolution") String resolution,
+                                                 @FormParam("start-date")String date_deb,
+                                                 @FormParam("end-date")String end_date,
+                                                 @FormParam("site") Long siteId) {
+        org.vdi.model.Incident incident = new org.vdi.model.Incident();
+        Site site = Site.findById(siteId);
+        if (site == null) {
+            throw new NullPointerException("Oh nooo!");
+        }
+        incident.id = id;
+        incident.setCause(cause);
+        incident.setResolution(resolution);
+        incident.setStartDate(LocalDateTime.parse(date_deb));
+        incident.setEndDate(LocalDateTime.parse(end_date));
+        incident.setDuration(Duration.between(incident.getStartDate(), incident.getEndDate()).toMinutes());
+        incident.setStatus(Status.valueOf(status));
+        incident.site = site;
+        incident.persist();
+        return getReseauForm();
     }
 
 
