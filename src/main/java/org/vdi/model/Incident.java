@@ -20,10 +20,9 @@ public class Incident extends PanacheEntityBase {
     @Column(name = "end_date")
     LocalDateTime endDate;
 
-    @Column(name = "site")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "site")
-    public String site;
+    public Site site;
 
     @Column(name = "service")
     String service;
@@ -58,11 +57,11 @@ public class Incident extends PanacheEntityBase {
         this.endDate = endDate;
     }
 
-    public String getSite() {
+    public Site getSite() {
         return site;
     }
 
-    public void setSite(String site) {
+    public void setSite(Site site) {
         this.site = site;
     }
 

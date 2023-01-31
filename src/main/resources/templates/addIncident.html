@@ -6,7 +6,7 @@
 </head>
 <body>
    <h1>Incident réseau</h1>
-   <form method="post" action="/post">
+   <form method="post" action="/incidents">
         Cause
         <input type="text" name="cause"><br>
         Date de début
@@ -18,7 +18,11 @@
         Résolution
         <input type="text" name="resolution"/><br>
         Site
-        <input type="text" name="site"/><br>
+        <select name="site" id="site">
+          {#for site in sites}
+          <option value="{site.id}">{site.name}</option>
+          {/for}
+        </select>
         <input type="submit" value="Valider">
    </form>
 </body>

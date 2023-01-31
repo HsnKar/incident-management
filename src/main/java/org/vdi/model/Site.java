@@ -11,10 +11,34 @@ import java.util.List;
 public class Site extends PanacheEntityBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    public Long id;
     @Column(name = "name")
-    private String name;
+    public String name;
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "site")
-    private List<Incident> incidents;
+    public List<Incident> incidents;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Incident> getIncidents() {
+        return incidents;
+    }
+
+    public void setIncidents(List<Incident> incidents) {
+        this.incidents = incidents;
+    }
 }
