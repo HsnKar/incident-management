@@ -30,6 +30,13 @@
         <input type="text" class="form-control" id="resolution" name="resolution">
       </div>
       <div class="mb-3">
+              <label for="resolution" class="form-label">Statut</label>
+              <select name="status" id="status">
+                <option value="EN_COURS">En cours</option>
+                <option value="TERMINE">Terminé</option>
+              </select>
+            </div>
+      <div class="mb-3">
         <label for="site" class="form-label">Site</label>
         <select name="site" id="site" class="selectOptions">
           {#for site in sites}
