@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/css/boosted.min.css" rel="stylesheet" integrity="sha384-zYFw+mxKy6r9zpAc1NoGiYBfQmxfvg7ONEMr81WeU+WLPPaLC9QTrNGFJTBi3EIn" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/js/boosted.bundle.min.js" integrity="sha384-MANW37RG4MpFWPMCcNZBnvSobOkBpIGlbBkEzTtD4FbbOzJXbW8TddND1ak2lfsB" crossorigin="anonymous"></script>
+    <title>Accueil</title>
+</head>
+<body>
+    <style>
+    </style>
+    <div class="container-fluid">
+        <h4 class="h4">Incidents du réseau en cours</h4>
+        <table class="table table-sm align-middle table-responsive">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Cause</th>
+                    <th scope="col">Date de début</th>
+                    <th scope="col">Date de fin</th>
+                    <th scope="col">Résolution</th>
+                    <th scope="col">Site</th>
+                </tr>
+            </thead>
+            <tbody>
+                {#for incident in incidents}
+                {#if incident.site.name != null}
+                <tr>
+                    <td>{incident.id}</td>
+                    <td>{incident.cause}</td>
+                    <td>{incident.startDate}</td>
+                    <td>{incident.endDate}</td>
+                    <td>{incident.resolution}</td>
+                    <td>{incident.site.name}</td>
+                </tr>
+                {#else}
+                <h4>nothing to show!</h4>
+                {/if}
+                {/for}
+            </tbody>
+        </table>
+        <h4 class="h4">Incidents de service en cours</h4>
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Cause</th>
+                    <th scope="col">Date de début</th>
+                    <th scope="col">Date de fin</th>
+                    <th scope="col">Résolution</th>
+                    <th scope="col">Service</th>
+                </tr>
+            </thead>
+            <tbody>
+                {#for incident in incidents}
+                {#if incident.service.name != null}
+                <tr>
+                    <td>{incident.id}</td>
+                    <td>{incident.cause}</td>
+                    <td>{incident.startDate}</td>
+                    <td>{incident.endDate}</td>
+                    <td>{incident.resolution}</td>
+                    <td>{incident.service.name}</td>
+                </tr>
+                {#else}
+                <h4>nothing to show!</h4>
+                {/if}
+                {/for}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

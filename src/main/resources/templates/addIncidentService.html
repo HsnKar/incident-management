@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Incidents</title>
+</head>
+<body>
+   <h1>Incident service</h1>
+   <form method="post" action="/incidents/service">
+        Cause
+        <input type="text" name="cause"><br>
+        Date de début
+        <input type="datetime-local" name="start-date" ><br>
+        Date de fin
+        <input type="datetime-local" name="end-date" ><br>
+        Résolution
+        <input type="text" name="resolution"/><br>
+        Service
+        <select name="service" id="site">
+          {#for service in services}
+          <option value="{service.id}">{service.name}</option>
+          {/for}
+        </select>
+        <input type="submit" value="Valider">
+   </form>
+</body>
+</html>
