@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class Incident extends PanacheEntityBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    public Long id;
 
     @Column(name = "cause")
     String cause;
@@ -23,15 +23,18 @@ public class Incident extends PanacheEntityBase {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "site")
     public Site site;
-
-    @Column(name = "service")
-    String service;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "service")
+    public Service service;
 
     @Column(name = "resolution")
     String resolution;
 
     @Column(name = "duration")
     long duration;
+    @Column(name = "status")
+    @Enumerated
+    public Status status;
 
     public String getCause() {
         return cause;
@@ -65,11 +68,19 @@ public class Incident extends PanacheEntityBase {
         this.site = site;
     }
 
-    public String getService() {
+    public String getResolution() {
+        return resolution;
+    }
+
+    public void setResolution(String resolution) {
+        this.resolution = resolution;
+    }
+
+    public Service getService() {
         return service;
     }
 
-    public void setService(String service) {
+    public void setService(Service service) {
         this.service = service;
     }
 
@@ -81,11 +92,11 @@ public class Incident extends PanacheEntityBase {
         this.duration = duration;
     }
 
-    public String getResolution() {
-        return resolution;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setResolution(String resolution) {
-        this.resolution = resolution;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
