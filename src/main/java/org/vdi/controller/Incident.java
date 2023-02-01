@@ -84,7 +84,7 @@ public class Incident {
         return addIncidentReseau.data("sites", sites);
     }
 
-    @POST
+    @PUT
     @Path("/reseau/{id}")
     public TemplateInstance updateIncidentReseau(@PathParam("id")Long id,
                                                  @FormParam("cause") String cause,
