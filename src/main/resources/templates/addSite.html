@@ -4,14 +4,104 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/css/boosted.min.css" rel="stylesheet" integrity="sha384-zYFw+mxKy6r9zpAc1NoGiYBfQmxfvg7ONEMr81WeU+WLPPaLC9QTrNGFJTBi3EIn" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/js/boosted.bundle.min.js" integrity="sha384-MANW37RG4MpFWPMCcNZBnvSobOkBpIGlbBkEzTtD4FbbOzJXbW8TddND1ak2lfsB" crossorigin="anonymous"></script>
     <title>Site</title>
 </head>
 <body>
-    <h1>Site</h1>
+    <div class="container"></div>
+    <h1 class="h1">Site</h1>
+    <form action="/sites/postsite" method="post">
+        <div class="mb-3">
+            <label for="name" class="form-label is-required">Nom</label>
+            <input type="text" class="form-control" id="name" name="name">
+        </div>
+        <div class="mb-3">
+            <label for="longitude" class="form-label is-required">Longitude</label>
+            <input type="text" class="form-control" id="longitude" name="longitude">
+        </div>
+        <div class="mb-3">
+            <label for="latitude" class="form-label is-required">Latitude</label>
+            <input type="text" class="form-control" id="latitude" name="latitude">
+        </div>
+        <div class="mb-3">
+            <label for="budgetAttachement" class="form-label is-required">Budget d'attachement</label>
+            <input type="text" class="form-control" id="budgetAttachement" name="budgetAttachement">
+        </div>
+        <div class="mb-3">
+            <label for="date_MES_2G" class="form-label ">Date de mise en service 2G</label>
+            <input type="date" class="form-control" id="date_MES_2G" name="date_MES_2G">
+        </div>
+        <div class="mb-3">
+            <label for="date_MES_3G" class="form-label ">Date de mise en service 3G</label>
+            <input type="date" class="form-control" id="date_MES_3G" name="date_MES_3G">
+        </div>
+        <div class="mb-3">
+            <label for="date_MES_4G" class="form-label ">Date de mise en service 4G</label>
+            <input type="date" class="form-control" id="date_MES_4G" name="date_MES_4G">
+        </div>
+        <div class="mb-3">
+            <label for="date_MES_4Gplus" class="form-label ">Date de mise en service 4G+</label>
+            <input type="date" class="form-control" id="date_MES_4Gplus" name="date_MES_4Gplus">
+        </div>
+        <div class="mb-3">
+            <label for="date_MES_4G_TDD" class="form-label ">Date de mise en service 4G TDD</label>
+            <input type="date" class="form-control" id="date_MES_4G_TDD" name="date_MES_4G_TDD">
+        </div>
+        <div class="mb-3">
+            <label for="typologie" class="form-label is-required">Typologie</label>
+            <input type="text" class="form-control" id="typologie" name="typologie">
+        </div>
+        <div class="mb-3">
+            <label for="towerType" class="form-label is-required">Tower type</label>
+            <input type="text" class="form-control" id="towerType" name="towerType">
+        </div>
+        <div class="mb-3">
+            <label for="secteur" class="form-label is-required">Secteur</label>
+            <input type="text" class="form-control" id="secteur" name="secteur">
+        </div>
+        <div class="mb-3">
+            <label for="commune" class="form-label is-required">Commune</label>
+            <input type="text" class="form-control" id="commune" name="commune">
+        </div>
+        <div class="mb-3">
+            <label for="district" class="form-label is-required">District</label>
+            <input type="text" class="form-control" id="district" name="district">
+        </div>
+        <div class="mb-3">
+            <label for="region" class="form-label is-required">Région</label>
+            <input type="text" class="form-control" id="region" name="region">
+        </div>
+        <div class="mb-3">
+            <label for="zoneOrange" class="form-label is-required">Zone Orange</label>
+            <input type="text" class="form-control" id="zoneOrange" name="zoneOrange">
+        </div>
+        <div class="mb-3">
+            <label for="mutualite" class="form-label is-required">Mutualité</label>
+            <input type="text" class="form-control" id="mutualite" name="mutualite">
+        </div>
+        <div class="mb-3">
+            <label for="proprioTrans" class="form-label is-required">Propriétaire transmissions</label>
+            <input type="text" class="form-control" id="proprioTrans" name="proprioTrans">
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Valider</button>
+    </form>
+
+
+
+
+
+
+
+
+
+    <!-- <h1>Site</h1>
     <form action="/postsite" method="post">
         Name
         <input type="text" name="name" id="name">
         <input type="submit" value="Valider">
-    </form>
+    </form> -->
 </body>
 </html>
