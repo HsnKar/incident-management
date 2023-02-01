@@ -21,6 +21,8 @@ public class Incident {
 
     @Inject
     Template addIncidentService;
+    @Inject
+    Template footer;
 
     @GET
     @Path("/reseau")
@@ -38,7 +40,12 @@ public class Incident {
     @POST
     @Path("/reseau")
     @Transactional
-    public TemplateInstance createIncidentReseau(@FormParam("cause") String cause, @FormParam("status") String status,@FormParam("resolution") String resolution,@FormParam("start-date")String date_deb, @FormParam("end-date")String end_date, @FormParam("site") Long siteId) {
+    public TemplateInstance createIncidentReseau(@FormParam("cause") String cause,
+                                                 @FormParam("status") String status,
+                                                 @FormParam("resolution") String resolution,
+                                                 @FormParam("start-date")String date_deb,
+                                                 @FormParam("end-date")String end_date,
+                                                 @FormParam("site") Long siteId) {
         org.vdi.model.Incident incident = new org.vdi.model.Incident();
         Site site = Site.findById(siteId);
         if (site == null) {
@@ -50,7 +57,7 @@ public class Incident {
         incident.setStartDate(LocalDateTime.parse(date_deb));
         incident.setEndDate(LocalDateTime.parse(end_date));
         incident.setDuration(Duration.between(incident.getStartDate(), incident.getEndDate()).toMinutes());
-        incident.setStatus(Status.valueOf(status));
+        incident.setStatus(status);
         incident.site = site;
         incident.persist();
 //        return Response.status(Response.Status.CREATED).entity(incident).build();
@@ -60,7 +67,12 @@ public class Incident {
     @POST
     @Path("/service")
     @Transactional
-    public TemplateInstance createIncidentService(@FormParam("cause") String cause, @FormParam("status") String status,@FormParam("resolution") String resolution,@FormParam("start-date")String date_deb, @FormParam("end-date")String end_date, @FormParam("site") Long serviceId) {
+    public TemplateInstance createIncidentService(@FormParam("cause") String cause,
+                                                  @FormParam("status") String status,
+                                                  @FormParam("resolution") String resolution,
+                                                  @FormParam("start-date")String date_deb,
+                                                  @FormParam("end-date")String end_date,
+                                                  @FormParam("service") Long serviceId) {
         org.vdi.model.Incident incident = new org.vdi.model.Incident();
         Service service = Service.findById(serviceId);
         if (service == null) {
@@ -71,7 +83,8 @@ public class Incident {
         incident.setStartDate(LocalDateTime.parse(date_deb));
         incident.setEndDate(LocalDateTime.parse(end_date));
         incident.setDuration(Duration.between(incident.getStartDate(), incident.getEndDate()).toMinutes());
-        incident.setStatus(Status.valueOf(status));
+//        incident.setStatus(Status.valueOf(status));
+        incident.setStatus(status);
         incident.service = service;
         incident.persist();
         return getServiceForm();
@@ -104,7 +117,7 @@ public class Incident {
         incident.setStartDate(LocalDateTime.parse(date_deb));
         incident.setEndDate(LocalDateTime.parse(end_date));
         incident.setDuration(Duration.between(incident.getStartDate(), incident.getEndDate()).toMinutes());
-        incident.setStatus(Status.valueOf(status));
+        incident.setStatus(status);
         incident.site = site;
         incident.persist();
         return getReseauForm();
