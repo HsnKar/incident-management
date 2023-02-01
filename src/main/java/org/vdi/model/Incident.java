@@ -33,8 +33,7 @@ public class Incident extends PanacheEntityBase {
     @Column(name = "duration")
     long duration;
     @Column(name = "status")
-    @Enumerated
-    public Status status;
+    public String status;
 
     public String getCause() {
         return cause;
@@ -92,11 +91,11 @@ public class Incident extends PanacheEntityBase {
         this.duration = duration;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }
