@@ -21,7 +21,14 @@ CREATE TABLE IF NOT EXISTS `incident` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- Ajout des sites
+INSERT INTO `site` (`id`, `name`) VALUES
+	(1, 'Ankatso'),
+	(2, 'Ankorahotra'),
+	(3, 'Ambatomainty'),
+	(4, 'Tanjombato');
 
-
-
-
+-- Ajout des services
+INSERT INTO `service` (`id`, `name`) VALUES
+	(1, 'Akama Up'),
+	(2, 'Be connect');
