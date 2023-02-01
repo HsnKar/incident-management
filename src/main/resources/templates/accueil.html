@@ -38,12 +38,13 @@
                     <td>{incident.site.name}</td>
                 </tr>
                 {#else}
-                <h4>nothing to show!</h4>
                 {/if}
+                <h4>nothing to show!</h4>
                 {/for}
             </tbody>
         </table>
         <h4 class="h4">Incidents de service en cours</h4>
+        {#if incidents.service.name != null}
         <table class="table table-sm">
             <thead>
                 <tr>
@@ -57,7 +58,6 @@
             </thead>
             <tbody>
                 {#for incident in incidents}
-                {#if incident.service.name != null}
                 <tr>
                     <td>{incident.id}</td>
                     <td>{incident.cause}</td>
@@ -66,12 +66,12 @@
                     <td>{incident.resolution}</td>
                     <td>{incident.service.name}</td>
                 </tr>
-                {#else}
-                <h4>nothing to show!</h4>
-                {/if}
                 {/for}
             </tbody>
         </table>
+        {#else}
+        <p>Nothing to show here!</p>
+        {/if}
     </div>
 </body>
 </html>
