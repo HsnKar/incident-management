@@ -21,6 +21,9 @@ public class Service {
     @Inject
     Template footer;
 
+    @Inject
+    Template navbar;
+
     @GET
     public TemplateInstance get() {
         org.vdi.model.Service service = new org.vdi.model.Service();
