@@ -22,6 +22,9 @@ public class Accueil {
 
     @Inject
     Template footer;
+
+    @Inject
+    Template navbar;
     @GET
     public TemplateInstance getAllIncidents() {
         List<Incident> incidentServices = Incident.list(
