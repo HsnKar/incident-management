@@ -11,7 +11,9 @@ import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Path("/incidents")
 public class Incident {
@@ -23,6 +25,43 @@ public class Incident {
     Template addIncidentService;
     @Inject
     Template footer;
+
+    @Inject
+    Template navbar;
+
+    @Inject
+    Template listAllIncidents;
+
+    @GET
+    public TemplateInstance getAllIncidents() {
+        List<org.vdi.model.Incident> incidentServices = org.vdi.model.Incident.list(
+                "select i.id, " +
+                        "i.cause, " +
+                        "i.startDate, " +
+                        "i.endDate, " +
+                        "i.duration, " +
+                        "i.resolution, " +
+                        "s.name from Incident i join i.service s " +
+                        "where i.status = ?1", "EN_COURS");
+        List<org.vdi.model.Incident> incidentSites = org.vdi.model.Incident.list(
+                "select i.id, " +
+                        "i.cause, " +
+                        "i.startDate, " +
+                        "i.endDate, " +
+                        "i.duration, " +
+                        "i.resolution, " +
+                        "s.name from Incident i join i.site s " +
+                        "where i.status = ?1", "EN_COURS");
+//        long countIncidentSite = Incident.("select count(i) from Incident i join i.site s where i.status = ?1", "EN_COURS");
+        long countIncidentSite = incidentSites.size();
+        long countIncidentService = incidentServices.size();
+        Map<String, Object> obj = new HashMap<>();
+        obj.put("countService", countIncidentService);
+        obj.put("countSite",countIncidentSite);
+        obj.put("incidentServices", incidentServices);
+        obj.put("incidentSites", incidentSites);
+        return listAllIncidents.data(obj);
+    }
 
     @GET
     @Path("/reseau")
@@ -56,6 +95,7 @@ public class Incident {
         incident.setResolution(resolution);
         incident.setStartDate(LocalDateTime.parse(date_deb));
         incident.setEndDate(LocalDateTime.parse(end_date));
+        if (!date_deb.isEmpty() && !end_date.isEmpty())
         incident.setDuration(Duration.between(incident.getStartDate(), incident.getEndDate()).toMinutes());
         incident.setStatus(status);
         incident.site = site;
