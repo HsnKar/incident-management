@@ -21,6 +21,9 @@ public class Site {
     Template listSite;
 
     @Inject
+    Template navbar;
+
+    @Inject
     Template footer;
 
     @GET
