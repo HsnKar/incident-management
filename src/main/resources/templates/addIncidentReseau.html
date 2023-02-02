@@ -2,17 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Incidents</title>
+  <title>Créer un incident du réseau</title>
   <!-- CSS only -->
   <link href="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/css/boosted.min.css" rel="stylesheet" integrity="sha384-zYFw+mxKy6r9zpAc1NoGiYBfQmxfvg7ONEMr81WeU+WLPPaLC9QTrNGFJTBi3EIn" crossorigin="anonymous">
   <!-- JavaScript Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/js/boosted.bundle.min.js" integrity="sha384-MANW37RG4MpFWPMCcNZBnvSobOkBpIGlbBkEzTtD4FbbOzJXbW8TddND1ak2lfsB" crossorigin="anonymous"></script>
 </head>
 <body>
-   <!-- <h1>Incident réseau</h1> -->
+  <style>
+    .content {
+        padding: 100px;
+    }
+    .legende {
+      padding-bottom: 50px;
+    }
+  </style>
+  {#include navbar}
+  {/include}
+  <div class="container-fluid content">
+    <!-- <h1>Incident réseau</h1> -->
    <form method="post" action="/incidents/reseau">
     <fieldset>
-      <legend>Créer un incident du réseau</legend>
+      <legend class="legende">Créer un incident du réseau</legend>
       <div class="mb-3">
         <label for="cause" class="form-label is-required">Cause</label>
         <input type="text" class="form-control" id="cause" name="cause">
@@ -44,9 +55,40 @@
           {/for}
         </select>
       </div>
-      <button type="submit" class="btn btn-primary mt-2">Submit</button>
+        <!-- Button trigger the modal -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          Valider
+        </button>
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title h5" id="staticBackdropLabel">Que voulez-vous faire ?</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"><span class="visually-hidden">Close</span></button>
+              </div>
+              <div class="modal-body">
+                Cliquez sur <strong>enregistrer</strong> pour enregistrer l'incident sans envoyer de mail.<br/>
+                Cliquez sur <strong>enregistrer et envoyer</strong> pour enregistrer l'incident puis envoyer de mail.
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Enregistrer</button>
+                <button type="button" class="btn btn-primary">Enregistrer & Envoyer</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+      <!-- <button type="submit" class="btn btn-primary mt-2">Submit</button> -->
     </fieldset>
   </form>
+  </div>
+   
 
 
 
