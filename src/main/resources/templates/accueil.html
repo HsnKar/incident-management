@@ -12,9 +12,14 @@
 </head>
 <body>
     <style>
+        .content {
+            padding: 100px;
+        }
     </style>
-    <div class="container-fluid">
-        <h4 class="h4">Incidents du réseau en cours {#if countSite lt 1}(aucun incident pour le moment){#else}<span class="badge bg-primary rounded-pill">{countSite}</span>{/if}</h4>
+    {#include navbar}
+    {/include}
+    <div class="container-fluid content">
+        <h4 class="h4">Incidents du réseau en cours {#if countSite lt 1}(rien à afficher pour le moment){#else}<span class="badge bg-primary rounded-pill">{countSite}</span>{/if}</h4>
         {#if countSite lt 1}
         <figure>
             <blockquote class="blockquote">
@@ -51,7 +56,7 @@
             </tbody>
         </table>
         {/if}
-        <h4 class="h4">Incidents de service en cours {#if countService lt 1}(aucun incident pour le moment){#else}<span class="badge bg-primary rounded-pill">{countService}</span>{/if}</h4>
+        <h4 class="h4">Incidents de service en cours {#if countService lt 1}(rien à afficher pour le moment){#else}<span class="badge bg-primary rounded-pill">{countService}</span>{/if}</h4>
         {#if countService lt 1}
         <figure>
             <blockquote class="blockquote">
