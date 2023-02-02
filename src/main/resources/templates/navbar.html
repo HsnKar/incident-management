@@ -1,0 +1,31 @@
+<style>
+    .bord {
+        border-style: none;
+        margin-top: 2px;
+    }
+</style>
+<div class="container text-center  ">
+    <nav class="nav">
+        <ul class="nav fixed-top justify-content-center">
+            <li class="nav-item">
+                <a href="/accueil" class="nav-link">Accueil</a>
+            </li>
+            <span class="dropdown">
+                <a class="btn btn-secondary dropdown-toggle bord" href="#" role="/incidents" data-bs-toggle="dropdown" aria-expanded="false" >
+                    Incident
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/incidents" class="dropdown-item">Liste de tous les incidents en cours</a></li>
+                    <li><a href="/incidents/reseau" class="dropdown-item">Création d'incident du réseau</a></li>
+                    <li><a href="/incidents/service" class="dropdown-item">Création d'incident de service</a></li>
+                </ul>
+            </span>
+            <li class="nav-item">
+                <a href="/historiques" class="nav-link">Historique</a>
+            </li>
+            <li class="nav-item">
+                <a href="/admin" class="nav-link">Admin</a>
+            </li>
+        </ul>
+    </nav>
+</div>

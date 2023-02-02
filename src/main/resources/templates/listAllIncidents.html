@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/css/boosted.min.css" rel="stylesheet" integrity="sha384-zYFw+mxKy6r9zpAc1NoGiYBfQmxfvg7ONEMr81WeU+WLPPaLC9QTrNGFJTBi3EIn" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/js/boosted.bundle.min.js" integrity="sha384-MANW37RG4MpFWPMCcNZBnvSobOkBpIGlbBkEzTtD4FbbOzJXbW8TddND1ak2lfsB" crossorigin="anonymous"></script>
+    <title>Incidents</title>
+</head>
+<body>
+    <style>
+        .content {
+            padding: 100px;
+        }
+    </style>
+    {#include navbar}
+    {/include}
+    <div class="container-fluid content">
+        <h4 class="h4">Incidents du réseau en cours {#if countSite lt 1}(rien à afficher pour le moment){#else}<span class="badge bg-primary rounded-pill">{countSite}</span>{/if}</h4>
+        {#if countSite lt 1}
+        <figure>
+            <blockquote class="blockquote">
+                <figcaption class="blockquote-footer">
+                    Revenez plus tard
+                </figcaption>
+            </blockquote>
+        </figure>
+        {#else}
+        <table class="table table-sm align-middle table-responsive table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Cause</th>
+                    <th scope="col">Date de début</th>
+                    <th scope="col">Date de fin</th>
+                    <th scope="col">Durée</th>
+                    <th scope="col">Résolution</th>
+                    <th scope="col">Site</th>
+                </tr>
+            </thead>
+            <tbody>
+                {#for incidentSite in incidentSites}
+                <tr>
+                    <td>{incidentSite[0]}</td>
+                    <td>{incidentSite[1]}</td>
+                    <td>{incidentSite[2]}</td>
+                    <td>{incidentSite[3]}</td>
+                    <td>{incidentSite[4]}</td>
+                    <td>{incidentSite[5]}</td>
+                    <td>{incidentSite[6]}</td>
+                </tr>
+                {/for}
+            </tbody>
+        </table>
+        {/if}
+        <h4 class="h4">Incidents de service en cours {#if countService lt 1}(rien à afficher pour le moment){#else}<span class="badge bg-primary rounded-pill">{countService}</span>{/if}</h4>
+        {#if countService lt 1}
+        <figure>
+            <blockquote class="blockquote">
+                <figcaption class="blockquote-footer">
+                    Revenez plus tard
+                </figcaption>
+            </blockquote>
+        </figure>
+        {#else}
+        <table class="table table-sm align-middle table-responsive">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Cause</th>
+                    <th scope="col">Date de début</th>
+                    <th scope="col">Date de fin</th>
+                    <th scope="col">Durée</th>
+                    <th scope="col">Résolution</th>
+                    <th scope="col">Service</th>
+                </tr>
+            </thead>
+            <tbody>
+                {#for incidentService in incidentServices}
+                <tr>
+                    <td>{incidentService[0]}</td>
+                    <td>{incidentService[1]}</td>
+                    <td>{incidentService[2]}</td>
+                    <td>{incidentService[3]}</td>
+                    <td>{incidentService[4]}</td>
+                    <td>{incidentService[5]}</td>
+                    <td>{incidentService[6]}</td>
+                </tr>
+                {/for}
+            </tbody>
+        </table>
+        {/if}
+    </div>
+</body>
+</html>
