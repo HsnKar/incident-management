@@ -6,7 +6,9 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "site")
@@ -55,7 +57,13 @@ public class Site extends PanacheEntityBase {
     public String mutualite;
     @Column(name = "proprioTrans")
     public String proprioTrans;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "proprietaire")
+    public Proprietaire proprietaire;
+    @ManyToMany(mappedBy = "site")
+    public Set<Technologie> technologie = new HashSet<Technologie>();
+    @ManyToMany(mappedBy = "site")
+    public Set<Energie> energie = new HashSet<Energie>();
     public Long getId() {
         return id;
     }
@@ -222,5 +230,29 @@ public class Site extends PanacheEntityBase {
 
     public void setProprioTrans(String proprioTrans) {
         this.proprioTrans = proprioTrans;
+    }
+
+    public Proprietaire getProprietaire() {
+        return proprietaire;
+    }
+
+    public void setProprietaire(Proprietaire proprietaire) {
+        this.proprietaire = proprietaire;
+    }
+
+    public Set<Technologie> getTechnologie() {
+        return technologie;
+    }
+
+    public void setTechnologie(Set<Technologie> technologie) {
+        this.technologie = technologie;
+    }
+
+    public Set<Energie> getEnergie() {
+        return energie;
+    }
+
+    public void setEnergie(Set<Energie> energie) {
+        this.energie = energie;
     }
 }
