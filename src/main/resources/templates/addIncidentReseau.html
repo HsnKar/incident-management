@@ -9,19 +9,11 @@
   <script src="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/js/boosted.bundle.min.js" integrity="sha384-MANW37RG4MpFWPMCcNZBnvSobOkBpIGlbBkEzTtD4FbbOzJXbW8TddND1ak2lfsB" crossorigin="anonymous"></script>
 </head>
 <body>
-  <style>
-    .content {
-        padding: 100px;
-    }
-    .legende {
-      padding-bottom: 50px;
-    }
-  </style>
   {#include navbar}
   {/include}
   <div class="container-fluid content">
     <!-- <h1>Incident réseau</h1> -->
-   <form method="post" action="/incidents/reseau">
+   <form method="post" action="{#if !isUpdate}/incidents/reseau{#else}/incidents/reseau/{incident.id} {/if}">
     <fieldset>
       <legend class="legende">Créer un incident du réseau</legend>
       <div class="mb-3">
@@ -32,10 +24,12 @@
         <label for="start-date" class="form-label is-required">Date de début</label>
         <input type="datetime-local" class="form-control" id="start-date" name="start-date">
       </div>
+      {#if isUpdate}
       <div class="mb-3">
         <label for="end-date" class="form-label">Date de fin</label>
         <input type="datetime-local" class="form-control" id="end-date" name="end-date">
       </div>
+      {/if}
       <div class="mb-3">
         <label for="resolution" class="form-label is-required">Résolution</label>
         <input type="text" class="form-control" id="resolution" name="resolution">
