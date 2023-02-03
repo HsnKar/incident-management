@@ -11,7 +11,9 @@
     <title>Site</title>
 </head>
 <body>
-    <div class="container"></div>
+    {#include navbar}
+    {/include}
+    <div class="container-fluid content"></div>
     <h1 class="h1">Site</h1>
     <form action="/sites/postsite" method="post">
         <div class="mb-3">
