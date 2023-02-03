@@ -6,6 +6,8 @@ import org.vdi.model.Service;
 import org.vdi.model.Site;
 import org.vdi.model.Status;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
@@ -16,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @Path("/incidents")
+@PermitAll
 public class Incident {
 
     @Inject
@@ -31,6 +34,9 @@ public class Incident {
 
     @Inject
     Template listAllIncidents;
+
+    @Inject
+    Template updateIncidentReseau;
 
     @GET
     public TemplateInstance getAllIncidents() {
@@ -67,14 +73,20 @@ public class Incident {
     @Path("/reseau")
     public TemplateInstance getReseauForm() {
         List<Site> sites = Site.listAll();
-        return addIncidentReseau.data("sites", sites);
+        Map<String, Object> objSites = new HashMap<>();
+        objSites.put("sites", sites);
+        objSites.put("isUpdate", false);
+        return addIncidentReseau.data(objSites);
     }
 
     @GET
     @Path("/service")
     public TemplateInstance getServiceForm() {
         List<Service> services = Service.listAll();
-        return addIncidentService.data("services", services);
+        Map<String, Object> objSites = new HashMap<>();
+        objSites.put("services", services);
+        objSites.put("isUpdate", false);
+        return addIncidentService.data(objSites);
     }
     @POST
     @Path("/reseau")
@@ -94,8 +106,9 @@ public class Incident {
         incident.setCause(cause);
         incident.setResolution(resolution);
         incident.setStartDate(LocalDateTime.parse(date_deb));
+        if (date_deb != null)
         incident.setEndDate(LocalDateTime.parse(end_date));
-        if (!date_deb.isEmpty() && !end_date.isEmpty())
+        if (date_deb != null && end_date != null)
         incident.setDuration(Duration.between(incident.getStartDate(), incident.getEndDate()).toMinutes());
         incident.setStatus(status);
         incident.site = site;
@@ -121,7 +134,9 @@ public class Incident {
         incident.setCause(cause);
         incident.setResolution(resolution);
         incident.setStartDate(LocalDateTime.parse(date_deb));
+        if (end_date != null)
         incident.setEndDate(LocalDateTime.parse(end_date));
+        if (date_deb != null && end_date != null)
         incident.setDuration(Duration.between(incident.getStartDate(), incident.getEndDate()).toMinutes());
 //        incident.setStatus(Status.valueOf(status));
         incident.setStatus(status);
@@ -131,13 +146,30 @@ public class Incident {
     }
 
     @GET
-    @Path("/reseau/{id}")
+    @Path("/service/{id}")
     public TemplateInstance getServiceFormUpdate(@PathParam("id")long id) {
-        List<Site> sites = Site.listAll();
-        return addIncidentReseau.data("sites", sites);
+        Service service = Service.findById(id);
+        org.vdi.model.Incident incident = org.vdi.model.Incident.findById(id);
+        Map<String, Object> obj = new HashMap<>();
+        obj.put("sites", service);
+        obj.put("incidents", incident);
+        obj.put("isUpdate", true);
+        return addIncidentReseau.data(obj);
     }
 
-    @PUT
+    @GET
+    @Path("/reseau/{id}")
+    public TemplateInstance getReseauFormUpdate(@PathParam("id")long id) {
+//        org.vdi.model.Incident incidentSite = org.vdi.model.Incident.find("select s.name from incident i join site s");
+        org.vdi.model.Incident incident = org.vdi.model.Incident.findById(id);
+        Map<String, Object> obj = new HashMap<>();
+//        obj.put("site", incidentSite);
+        obj.put("incident", incident);
+        obj.put("isUpdate", true);
+        return updateIncidentReseau.data(obj);
+    }
+
+    @POST
     @Path("/reseau/{id}")
     public TemplateInstance updateIncidentReseau(@PathParam("id")Long id,
                                                  @FormParam("cause") String cause,
@@ -159,6 +191,34 @@ public class Incident {
         incident.setDuration(Duration.between(incident.getStartDate(), incident.getEndDate()).toMinutes());
         incident.setStatus(status);
         incident.site = site;
+        incident.persist();
+        return getReseauForm();
+    }
+
+    @PUT
+    @Path("/service/{id}")
+    @Transactional
+    public TemplateInstance updateIncidentService(@PathParam("id")Long id,
+                                                 @FormParam("cause") String cause,
+                                                 @FormParam("status") String status,
+                                                 @FormParam("resolution") String resolution,
+                                                 @FormParam("start-date")String date_deb,
+                                                 @FormParam("end-date")String end_date,
+                                                 @FormParam("site") Long siteId) {
+        org.vdi.model.Incident incident = new org.vdi.model.Incident();
+//        org.vdi.model.Incident incidentUpdate = org.vdi.model.Incident.update("upadate incident ");
+        Service service = Service.findById(siteId);
+        if (service == null) {
+            throw new NullPointerException("Oh nooo!");
+        }
+        incident.id = id;
+        incident.setCause(cause);
+        incident.setResolution(resolution);
+        incident.setStartDate(LocalDateTime.parse(date_deb));
+        incident.setEndDate(LocalDateTime.parse(end_date));
+        incident.setDuration(Duration.between(incident.getStartDate(), incident.getEndDate()).toMinutes());
+        incident.setStatus(status);
+        incident.service = service;
         incident.persist();
         return getReseauForm();
     }
