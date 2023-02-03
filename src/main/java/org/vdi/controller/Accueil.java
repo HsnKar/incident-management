@@ -6,6 +6,7 @@ import org.vdi.model.Incident;
 import org.vdi.model.Site;
 import org.vdi.model.Status;
 
+import javax.annotation.security.PermitAll;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Path("/accueil")
+@PermitAll
 public class Accueil {
 
     @Inject
