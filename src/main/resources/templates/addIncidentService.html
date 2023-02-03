@@ -7,6 +7,7 @@
   <link href="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/css/boosted.min.css" rel="stylesheet" integrity="sha384-zYFw+mxKy6r9zpAc1NoGiYBfQmxfvg7ONEMr81WeU+WLPPaLC9QTrNGFJTBi3EIn" crossorigin="anonymous">
   <!-- JavaScript Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/js/boosted.bundle.min.js" integrity="sha384-MANW37RG4MpFWPMCcNZBnvSobOkBpIGlbBkEzTtD4FbbOzJXbW8TddND1ak2lfsB" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
 </head>
 <body>
   <style>
@@ -20,7 +21,7 @@
   {#include navbar}
   {/include}
    <div class="content-fluid content">
-    <form method="post" action="/incidents/service">
+    <form action="{#if !isUpdate}/incidents/service{#else}/incidents/service/{incident.id} {/if}" method="post">
       <fieldset>
         <legend class="legende">Créer un incident de service</legend>
         <div class="mb-3">
@@ -31,10 +32,12 @@
           <label for="start-date" class="form-label is-required">Date de début</label>
           <input type="datetime-local" class="form-control" id="start-date" name="start-date">
         </div>
+        {#if isUpdate}
         <div class="mb-3">
           <label for="end-date" class="form-label">Date de fin</label>
           <input type="datetime-local" class="form-control" id="end-date" name="end-date">
         </div>
+        {/if}
         <div class="mb-3">
           <label for="resolution" class="form-label is-required">Résolution</label>
           <input type="text" class="form-control" id="resolution" name="resolution">
@@ -81,14 +84,6 @@
 
    </div>
    
-
-
-
-
-
-
-
-
       <!-- Old Form -->
 
         <!-- Cause
