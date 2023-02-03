@@ -8,14 +8,13 @@
     <link href="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/css/boosted.min.css" rel="stylesheet" integrity="sha384-zYFw+mxKy6r9zpAc1NoGiYBfQmxfvg7ONEMr81WeU+WLPPaLC9QTrNGFJTBi3EIn" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/js/boosted.bundle.min.js" integrity="sha384-MANW37RG4MpFWPMCcNZBnvSobOkBpIGlbBkEzTtD4FbbOzJXbW8TddND1ak2lfsB" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
     <title>Service</title>
 </head>
 <body>
-    <!-- Styling -->
-    <style>
-        /* Styles go here */
-    </style>
-    <div class="container" method="post"></div>
+    {#include navbar}
+    {/include}
+    <div class="container-fluid content" method="post"></div>
     <h1 class="h1">Service</h1>
     <form action="/postservice" method="post">
         <div class="mb-3">
@@ -24,19 +23,6 @@
         </div>
         <button type="submit" class="btn btn-primary mt-2">Valider</button>
     </form>
-
-
-
-
-
-
-
-
-
-
-
-
-
     <!-- Old form
     <form action="/postservice" method="post">
         Name
