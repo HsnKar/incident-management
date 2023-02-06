@@ -13,7 +13,7 @@
   {/include}
   <div class="container-fluid content">
 <!-- <h1>Incident réseau</h1> -->
-<form method="put" action="/incidents/reseau/{incident.id}">
+<form method="post" action="/reseau/update">
   <input type="hidden" name="id" id="id" value="{incident.id}">
   <fieldset>
     <legend>Fermer un incident du réseau</legend>
@@ -27,7 +27,7 @@
     </div>
     <div class="mb-3">
       <label for="end-date" class="form-label">Date de fin</label>
-      <input type="datetime-local" class="form-control" id="end-date" name="end-date"  value="{incident.endDate}">
+      <input type="datetime-local" class="form-control" id="end-date" name="end-date">
     </div>
     <div class="mb-3">
       <label for="resolution" class="form-label">Résolution</label>
