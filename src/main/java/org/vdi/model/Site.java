@@ -5,7 +5,6 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -16,6 +15,8 @@ public class Site extends PanacheEntityBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
+    @Column(name = "code_site")
+    public String code_site;
     @Column(name = "name")
     public String name;
     @JsonIgnore
@@ -27,6 +28,8 @@ public class Site extends PanacheEntityBase {
     public long longitude;
     @Column(name = "latitude")
     public long latitude;
+    @Column(name = "date_MES")
+    public LocalDate date_MES;
     @Column(name = "date_MES_2G")
     public LocalDate date_MES_2G;
     @Column(name = "date_MES_3G")
@@ -38,7 +41,7 @@ public class Site extends PanacheEntityBase {
     @Column(name = "date_MES_4G_TDD")
     public LocalDate date_MES_4G_TDD;
     @Column(name = "budgetAttachement")
-    public long budgetAttachement;
+    public String budgetAttachement;
     @Column(name = "typologie")
     public String typologie;
     @Column(name = "towerType")
@@ -152,11 +155,11 @@ public class Site extends PanacheEntityBase {
         this.date_MES_4G_TDD = date_MES_4G_TDD;
     }
 
-    public long getBudgetAttachement() {
+    public String getBudgetAttachement() {
         return budgetAttachement;
     }
 
-    public void setBudgetAttachement(long budgetAttachement) {
+    public void setBudgetAttachement(String budgetAttachement) {
         this.budgetAttachement = budgetAttachement;
     }
 
@@ -254,5 +257,21 @@ public class Site extends PanacheEntityBase {
 
     public void setEnergie(Set<Energie> energie) {
         this.energie = energie;
+    }
+
+    public LocalDate getDate_MES() {
+        return date_MES;
+    }
+
+    public void setDate_MES(LocalDate date_MES) {
+        this.date_MES = date_MES;
+    }
+
+    public String getCode_site() {
+        return code_site;
+    }
+
+    public void setCode_site(String code_site) {
+        this.code_site = code_site;
     }
 }
