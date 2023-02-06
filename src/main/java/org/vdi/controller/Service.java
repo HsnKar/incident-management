@@ -24,7 +24,18 @@ public class Service {
     @Inject
     Template navbar;
 
+    @Inject
+    Template accueilService;
+
     @GET
+    public TemplateInstance getServiceAccueil() {
+        org.vdi.model.Service service = new org.vdi.model.Service();
+        List<org.vdi.model.Service> services = new ArrayList<>();
+        return accueilService.data("services", services);
+    }
+
+    @GET
+    @Path("/postservice")
     public TemplateInstance get() {
         org.vdi.model.Service service = new org.vdi.model.Service();
         List<org.vdi.model.Service> services = new ArrayList<>();
