@@ -2,13 +2,15 @@ package org.vdi.controller;
 
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
+import io.quarkus.vertx.web.Route;
+import io.quarkus.vertx.web.RoutingExchange;
+import io.smallrye.common.annotation.Blocking;
 import org.vdi.model.Service;
 import org.vdi.model.Site;
-import org.vdi.model.Status;
 
 import javax.annotation.security.PermitAll;
-import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import java.time.Duration;
@@ -20,6 +22,9 @@ import java.util.Map;
 @Path("/incidents")
 @PermitAll
 public class Incident {
+
+    @Inject
+    EntityManager entityManager;
 
     @Inject
     Template addIncidentReseau;
@@ -37,6 +42,9 @@ public class Incident {
 
     @Inject
     Template updateIncidentReseau;
+
+    @Inject
+    Template updateIncidentService;
 
     @GET
     public TemplateInstance getAllIncidents() {
@@ -106,7 +114,7 @@ public class Incident {
         incident.setCause(cause);
         incident.setResolution(resolution);
         incident.setStartDate(LocalDateTime.parse(date_deb));
-        if (date_deb != null)
+        if (end_date != null)
         incident.setEndDate(LocalDateTime.parse(end_date));
         if (date_deb != null && end_date != null)
         incident.setDuration(Duration.between(incident.getStartDate(), incident.getEndDate()).toMinutes());
@@ -151,10 +159,10 @@ public class Incident {
         Service service = Service.findById(id);
         org.vdi.model.Incident incident = org.vdi.model.Incident.findById(id);
         Map<String, Object> obj = new HashMap<>();
-        obj.put("sites", service);
-        obj.put("incidents", incident);
+        obj.put("services", service);
+        obj.put("incident", incident);
         obj.put("isUpdate", true);
-        return addIncidentReseau.data(obj);
+        return updateIncidentService.data(obj);
     }
 
     @GET
@@ -169,33 +177,82 @@ public class Incident {
         return updateIncidentReseau.data(obj);
     }
 
-    @POST
+    @PUT
     @Path("/reseau/{id}")
-    public TemplateInstance updateIncidentReseau(@PathParam("id")Long id,
-                                                 @FormParam("cause") String cause,
+    @Transactional
+    public TemplateInstance updateIncidentReseau(@FormParam("cause") String cause,
                                                  @FormParam("status") String status,
                                                  @FormParam("resolution") String resolution,
                                                  @FormParam("start-date")String date_deb,
                                                  @FormParam("end-date")String end_date,
                                                  @FormParam("site") Long siteId) {
+//        org.vdi.model.Incident incident = org.vdi.model.Incident.findById(id);
         org.vdi.model.Incident incident = new org.vdi.model.Incident();
         Site site = Site.findById(siteId);
         if (site == null) {
             throw new NullPointerException("Oh nooo!");
         }
-        incident.id = id;
+//        incident.id = id;
         incident.setCause(cause);
         incident.setResolution(resolution);
         incident.setStartDate(LocalDateTime.parse(date_deb));
         incident.setEndDate(LocalDateTime.parse(end_date));
         incident.setDuration(Duration.between(incident.getStartDate(), incident.getEndDate()).toMinutes());
         incident.setStatus(status);
-        incident.site = site;
-        incident.persist();
+        entityManager.merge(incident);
+//        org.vdi.model.Incident.update("end-date = ?1", end_date);
         return getReseauForm();
     }
 
-    @PUT
+
+    @Blocking
+    @Transactional
+    @Route(path = "reseau/update", methods = Route.HttpMethod.POST)
+    public  void updateReseau(RoutingExchange rx) {
+        org.vdi.model.Incident incident = new org.vdi.model.Incident();
+        org.vdi.model.Incident inc = org.vdi.model.Incident.findById(Long.valueOf(rx.request().getFormAttribute("id")));
+        inc.update("status = ?1 , end_date = ?2, duration = ?3", rx.request().getFormAttribute("status"), LocalDateTime.parse(rx.request().getFormAttribute("end-date")),
+                Duration.between(LocalDateTime.parse(rx.request().getFormAttribute("start-date")), LocalDateTime.parse(rx.request().getFormAttribute("end-date"))).toMinutes());
+        rx.response().end("Incident updated");
+    }
+
+    @Blocking
+    @Transactional
+    @Route(path = "service/update", methods = Route.HttpMethod.POST)
+    public  void updateService(RoutingExchange rx) {
+        org.vdi.model.Incident incident = new org.vdi.model.Incident();
+        org.vdi.model.Incident inc = org.vdi.model.Incident.findById(Long.valueOf(rx.request().getFormAttribute("id")));
+        inc.update("status = ?1 , end_date = ?2, duration = ?3", rx.request().getFormAttribute("status"), LocalDateTime.parse(rx.request().getFormAttribute("end-date")),
+                Duration.between(LocalDateTime.parse(rx.request().getFormAttribute("start-date")), LocalDateTime.parse(rx.request().getFormAttribute("end-date"))).toMinutes());
+        rx.response().end("Incident updated");
+    }
+
+
+
+    /*@PUT
+    @Path("/service/{id}")
+    @Transactional
+    public TemplateInstance updateIncidentService(@PathParam("id")Long id,
+                                                  @FormParam("cause") String cause,
+                                                  @FormParam("status") String status,
+                                                  @FormParam("resolution") String resolution,
+                                                  @FormParam("start-date")String date_deb,
+                                                  @FormParam("end-date")String end_date,
+                                                  @FormParam("site") Long siteId) {
+        org.vdi.model.Incident incident = new org.vdi.model.Incident();
+        Service service = Service.findById(siteId);
+        if (service == null) {
+            throw new NullPointerException("Oh nooo!");
+        }
+
+        incident.setDuration(Duration.between(incident.getStartDate(), incident.getEndDate()).toMinutes());
+        incident.setStatus(status);
+        incident.service = service;
+        incident.persist();
+        return getReseauForm();
+    }*/
+
+    /*@PUT
     @Path("/service/{id}")
     @Transactional
     public TemplateInstance updateIncidentService(@PathParam("id")Long id,
@@ -221,7 +278,7 @@ public class Incident {
         incident.service = service;
         incident.persist();
         return getReseauForm();
-    }
+    }*/
 
 
 
