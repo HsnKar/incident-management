@@ -42,4 +42,13 @@ public class Incident {
         routingExchange.response().end("inserted");
     }
 
+    @Blocking
+    @Transactional
+    @Route(methods = Route.HttpMethod.GET, path = "/update")
+    public void updateIncident(RoutingExchange routingExchange) {
+        org.vdi.model.Incident.update("cause = ?1, site = ?2, start_date = ?4 where id = ?3", "bbbb", "cccc", (long) 1, LocalDateTime.now());
+
+        routingExchange.response().end("updated");
+    }
+
 }
