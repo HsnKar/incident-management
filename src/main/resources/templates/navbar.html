@@ -17,7 +17,7 @@
                 <a href="/accueil" class="nav-link">Accueil</a>
             </li>
             <span class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle bord" href="#" role="/incidents" data-bs-toggle="dropdown" aria-expanded="false" >
+                <a class="btn btn-secondary drop down-toggle bord" href="#" role="/incidents" data-bs-toggle="dropdown" aria-expanded="false" >
                     Incident
                 </a>
                 <ul class="dropdown-menu">
@@ -29,9 +29,15 @@
             <li class="nav-item">
                 <a href="/historiques" class="nav-link">Historique</a>
             </li>
-            <li class="nav-item">
-                <a href="/admin" class="nav-link">Admin</a>
-            </li>
+            <span class="dropdown">
+                <a href="#" class="btn btn-secondary drop down-toggle bord" role="/Admin" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/sites" class="dropdown-item">Administration des sites</a></li>
+                        <li><a href="/incidents/reseau" class="dropdown-item">Administration des utilisateur</a></li>
+                        <li><a href="/services" class="dropdown-item">Administration des services</a></li>
+                    </ul>
+            </span>
+            
         </ul>
     </nav>
 </div>
