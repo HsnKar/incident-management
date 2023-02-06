@@ -26,13 +26,33 @@ public class Site {
     @Inject
     Template footer;
 
+    @Inject
+    Template accueilSite;
+
+
     @GET
+    public TemplateInstance getSiteList() {
+        org.vdi.model.Site site = new org.vdi.model.Site();
+        List<Site> sites = new ArrayList<>();
+        return accueilSite.data("sites", sites);
+    }
+
+    @GET
+    @Path("/listsite")
+    public TemplateInstance getAllSiteList() {
+        org.vdi.model.Site site = new org.vdi.model.Site();
+        List<Site> sites = new ArrayList<>();
+        return listSite.data("sites", sites);
+    }
+
+
+    @GET
+    @Path("/postsite")
     public TemplateInstance getSiteForm() {
         org.vdi.model.Site site = new org.vdi.model.Site();
         List<Site> sites = new ArrayList<>();
         return addSite.data("sites", sites);
     }
-
 
     @POST
     @Path("/postsite")
@@ -40,7 +60,7 @@ public class Site {
     public TemplateInstance createSite(@FormParam("name") String name,
                                @FormParam("longitude") long longitude,
                                @FormParam("latitude") long latitude,
-                               @FormParam("budgetAttachement") long budgetAttachement,
+                               @FormParam("budgetAttachement") String budgetAttachement,
                                @FormParam("date_MES_2G") String dms2G,
                                @FormParam("date_MES_3G") String dms3G,
                                @FormParam("date_MES_4G") String dms4G,
