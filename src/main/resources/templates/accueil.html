@@ -8,6 +8,10 @@
     <link href="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/css/boosted.min.css" rel="stylesheet" integrity="sha384-zYFw+mxKy6r9zpAc1NoGiYBfQmxfvg7ONEMr81WeU+WLPPaLC9QTrNGFJTBi3EIn" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/js/boosted.bundle.min.js" integrity="sha384-MANW37RG4MpFWPMCcNZBnvSobOkBpIGlbBkEzTtD4FbbOzJXbW8TddND1ak2lfsB" crossorigin="anonymous"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDye57mH11Ysuan5-X9KsTy7nluhs1qkz8&callback=initMap"defer></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <script type="module" src="/index.js"></script>
     <title>Accueil</title>
 </head>
 <body>
@@ -18,7 +22,21 @@
     </style>
     {#include navbar}
     {/include}
+
+    
+
+
+
+
+
+
     <div class="container-fluid content">
+        <h3>Google Map</h3>
+        <!-- div element for the map -->
+        <div id="map">
+
+        </div>
+
         <h4 class="h4">Incidents du réseau en cours {#if countSite lt 1}(rien à afficher pour le moment){#else}<span class="badge bg-primary rounded-pill">{countSite}</span>{/if}</h4>
         {#if countSite lt 1}
         <figure>
