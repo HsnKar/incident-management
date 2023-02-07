@@ -34,6 +34,11 @@ public class Incident extends PanacheEntityBase {
     long duration;
     @Column(name = "status")
     public String status;
+    @Column(name = "priority")
+    public String priority;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category")
+    public Category category;
 
     public String getCause() {
         return cause;
