@@ -16,13 +16,31 @@
     {/include}
     <div class="container-fluid content" method="post"></div>
     <h1 class="h1">Service</h1>
-    <form action="/postservice" method="post">
+    <form>
         <div class="mb-3">
             <label for="name" class="form-label is-required">Name</label>
             <input type="text" class="form-control" id="name" name="name">
         </div>
-        <button type="submit" class="btn btn-primary mt-2">Valider</button>
+        <button type="submit" class="btn btn-primary mt-2" onclick="addService()">Valider</button>
     </form>
+
+
+    <script>
+        function addService() {
+            var name = $('#name').val;
+            
+            $.ajax({
+                url:"http://localhost:8080/services/postservice",
+                method:'post',
+                data: {
+                    name:name
+                }
+            }).done(function()){
+                alert("Service inserted");
+            };
+        }
+
+    </script>
     <!-- Old form
     <form action="/postservice" method="post">
         Name
