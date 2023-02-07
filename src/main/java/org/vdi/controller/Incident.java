@@ -211,8 +211,11 @@ public class Incident {
     public  void updateReseau(RoutingExchange rx) {
         org.vdi.model.Incident incident = new org.vdi.model.Incident();
         org.vdi.model.Incident inc = org.vdi.model.Incident.findById(Long.valueOf(rx.request().getFormAttribute("id")));
-        inc.update("status = ?1 , end_date = ?2, duration = ?3", rx.request().getFormAttribute("status"), LocalDateTime.parse(rx.request().getFormAttribute("end-date")),
-                Duration.between(LocalDateTime.parse(rx.request().getFormAttribute("start-date")), LocalDateTime.parse(rx.request().getFormAttribute("end-date"))).toMinutes());
+        inc.update("status = ?1 , end_date = ?2, duration = ?3, cause = ?4",
+                rx.request().getFormAttribute("status"),
+                LocalDateTime.parse(rx.request().getFormAttribute("end-date")),
+                Duration.between(LocalDateTime.parse(rx.request().getFormAttribute("start-date")), LocalDateTime.parse(rx.request().getFormAttribute("end-date"))).toMinutes(),
+                rx.request().getFormAttribute("cause"));
         rx.response().end("Incident updated");
     }
 
@@ -222,8 +225,11 @@ public class Incident {
     public  void updateService(RoutingExchange rx) {
         org.vdi.model.Incident incident = new org.vdi.model.Incident();
         org.vdi.model.Incident inc = org.vdi.model.Incident.findById(Long.valueOf(rx.request().getFormAttribute("id")));
-        inc.update("status = ?1 , end_date = ?2, duration = ?3", rx.request().getFormAttribute("status"), LocalDateTime.parse(rx.request().getFormAttribute("end-date")),
-                Duration.between(LocalDateTime.parse(rx.request().getFormAttribute("start-date")), LocalDateTime.parse(rx.request().getFormAttribute("end-date"))).toMinutes());
+        inc.update("status = ?1 , end_date = ?2, duration = ?3, cause =?4",
+                rx.request().getFormAttribute("status"),
+                LocalDateTime.parse(rx.request().getFormAttribute("end-date")),
+                Duration.between(LocalDateTime.parse(rx.request().getFormAttribute("start-date")), LocalDateTime.parse(rx.request().getFormAttribute("end-date"))).toMinutes(),
+                rx.request().getFormAttribute("cause"));
         rx.response().end("Incident updated");
     }
 
