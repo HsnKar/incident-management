@@ -1,3 +1,5 @@
+<script src="https://unpkg.com/unpoly@2.7.1/unpoly.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/unpoly@2.7.1/unpoly.min.css">
 <style>
     .bord {
         border-style: none;
@@ -14,27 +16,27 @@
     <nav class="nav">
         <ul class="nav fixed-top justify-content-center">
             <li class="nav-item">
-                <a href="/accueil" class="nav-link">Accueil</a>
+                <a href="/accueil" class="nav-link" up-follow up-target=".content">Accueil</a>
             </li>
             <span class="dropdown">
                 <a class="btn btn-secondary drop down-toggle bord" href="#" role="/incidents" data-bs-toggle="dropdown" aria-expanded="false" >
                     Incident
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="/incidents" class="dropdown-item">Liste de tous les incidents en cours</a></li>
-                    <li><a href="/incidents/reseau" class="dropdown-item">Création d'incident du réseau</a></li>
-                    <li><a href="/incidents/service" class="dropdown-item">Création d'incident de service</a></li>
+                    <li><a href="/incidents" class="dropdown-item" up-target=".content">Liste de tous les incidents en cours</a></li>
+                    <li><a href="/incidents/reseau" class="dropdown-item" up-target=".content">Création d'incident du réseau</a></li>
+                    <li><a href="/incidents/service" class="dropdown-item" up-target=".content">Création d'incident de service</a></li>
                 </ul>
             </span>
             <li class="nav-item">
-                <a href="/historiques" class="nav-link">Historique</a>
+                <a href="/historiques" class="nav-link" up-follow up-target=".content">Reporting</a>
             </li>
             <span class="dropdown">
                 <a href="#" class="btn btn-secondary drop down-toggle bord" role="/Admin" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
                     <ul class="dropdown-menu">
                         <li><a href="/sites" class="dropdown-item">Administration des sites</a></li>
-                        <li><a href="/incidents/reseau" class="dropdown-item">Administration des utilisateur</a></li>
-                        <li><a href="/services" class="dropdown-item">Administration des services</a></li>
+                        <li><a href="/incidents/reseau" class="dropdown-item" p-follow up-target=".content">Administration des utilisateur</a></li>
+                        <li><a href="/services" class="dropdown-item" p-follow up-target=".content">Administration des services</a></li>
                     </ul>
             </span>
             

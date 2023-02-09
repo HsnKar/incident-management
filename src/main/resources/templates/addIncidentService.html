@@ -8,6 +8,9 @@
   <!-- JavaScript Bundle with Popper -->
   <script src="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/js/boosted.bundle.min.js" integrity="sha384-MANW37RG4MpFWPMCcNZBnvSobOkBpIGlbBkEzTtD4FbbOzJXbW8TddND1ak2lfsB" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+  <!-- Unpoly -->
+  <script src="https://unpkg.com/unpoly@2.7.1/unpoly.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/unpoly@2.7.1/unpoly.min.css">
 </head>
 <body>
   <style>
@@ -21,7 +24,7 @@
   {#include navbar}
   {/include}
    <div class="content-fluid content">
-    <form action="{#if !isUpdate}/incidents/service{#else}/incidents/service/{incident.id} {/if}" method="post">
+    <form action="{#if !isUpdate}/incidents/service{#else}/incidents/service/{incident.id} {/if}" method="post" up-submit>
       <fieldset>
         <legend class="legende">Créer un incident de service</legend>
         <div class="mb-3">
