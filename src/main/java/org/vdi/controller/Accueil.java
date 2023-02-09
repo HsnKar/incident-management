@@ -1,5 +1,7 @@
 package org.vdi.controller;
 
+import io.quarkus.hibernate.orm.panache.PanacheQuery;
+import io.quarkus.panache.common.Page;
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
 import org.vdi.model.Incident;
@@ -38,6 +40,16 @@ public class Accueil {
                         "i.resolution, " +
                         "s.name from Incident i join i.service s " +
                         "where i.status = ?1", "EN_COURS");
+        PanacheQuery<Incident> incidentPanacheQuery = Incident.find("select i.id, " +
+                "i.cause, " +
+                "i.startDate, " +
+                "i.endDate, " +
+                "i.duration, " +
+                "i.resolution, " +
+                "s.name from Incident i join i.site s " +
+                "where i.status = ?1", "EN_COURS");
+        incidentPanacheQuery.page(Page.of(0,3));
+        List<Incident> firstpage = incidentPanacheQuery.list();
         List<Incident> incidentSites = Incident.list(
                 "select i.id, " +
                         "i.cause, " +
@@ -54,7 +66,7 @@ public class Accueil {
         obj.put("countService", countIncidentService);
         obj.put("countSite",countIncidentSite);
         obj.put("incidentServices", incidentServices);
-        obj.put("incidentSites", incidentSites);
+        obj.put("incidentSites", firstpage);
         return accueil.data(obj);
     }
 }
