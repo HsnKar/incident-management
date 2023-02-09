@@ -23,29 +23,6 @@ CREATE TABLE IF NOT EXISTS `contenu` (
 
 -- Listage des données de la table vdi.contenu : ~0 rows (environ)
 
--- Listage de la structure de la table vdi. incident
-CREATE TABLE IF NOT EXISTS `incident` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `cause` varchar(255) DEFAULT NULL,
-  `duration` bigint(20) DEFAULT NULL,
-  `end_date` datetime(6) DEFAULT NULL,
-  `priority` varchar(255) DEFAULT NULL,
-  `resolution` varchar(255) DEFAULT NULL,
-  `start_date` datetime(6) DEFAULT NULL,
-  `status` varchar(255) DEFAULT NULL,
-  `category` bigint(20) DEFAULT NULL,
-  `service` bigint(20) DEFAULT NULL,
-  `site` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK5ikgagk6f3h241uujlrnulh0s` (`category`),
-  KEY `FKcai2wu3s9b714rnu9tarkg21l` (`service`),
-  KEY `FK6s0qitw9lv59cadlpjridymds` (`site`),
-  CONSTRAINT `FK5ikgagk6f3h241uujlrnulh0s` FOREIGN KEY (`category`) REFERENCES `category` (`id`),
-  CONSTRAINT `FK6s0qitw9lv59cadlpjridymds` FOREIGN KEY (`site`) REFERENCES `site` (`id`),
-  CONSTRAINT `FKcai2wu3s9b714rnu9tarkg21l` FOREIGN KEY (`service`) REFERENCES `service` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Listage des données de la table vdi.incident : ~0 rows (environ)
 
 -- Listage de la structure de la table vdi. service
 CREATE TABLE IF NOT EXISTS `service` (
@@ -1017,4 +994,29 @@ CREATE TABLE IF NOT EXISTS `users` (
   `role` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+-- Listage de la structure de la table vdi. incident
+CREATE TABLE IF NOT EXISTS `incident` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `cause` varchar(255) DEFAULT NULL,
+  `duration` bigint(20) DEFAULT NULL,
+  `end_date` datetime(6) DEFAULT NULL,
+  `priority` varchar(255) DEFAULT NULL,
+  `resolution` varchar(255) DEFAULT NULL,
+  `start_date` datetime(6) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `category` bigint(20) DEFAULT NULL,
+  `service` bigint(20) DEFAULT NULL,
+  `site` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK5ikgagk6f3h241uujlrnulh0s` (`category`),
+  KEY `FKcai2wu3s9b714rnu9tarkg21l` (`service`),
+  KEY `FK6s0qitw9lv59cadlpjridymds` (`site`),
+  CONSTRAINT `FK5ikgagk6f3h241uujlrnulh0s` FOREIGN KEY (`category`) REFERENCES `category` (`id`),
+  CONSTRAINT `FK6s0qitw9lv59cadlpjridymds` FOREIGN KEY (`site`) REFERENCES `site` (`id`),
+  CONSTRAINT `FKcai2wu3s9b714rnu9tarkg21l` FOREIGN KEY (`service`) REFERENCES `service` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Listage des données de la table vdi.incident : ~0 rows (environ)
 
