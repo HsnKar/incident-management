@@ -17,6 +17,7 @@ import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import javax.validation.Validator;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -32,6 +33,8 @@ import java.util.stream.Stream;
 @Path("/incidents")
 @PermitAll
 public class Incident {
+    @Inject
+    Validator validator;
 
     @Inject
     EntityManager entityManager;
@@ -248,16 +251,9 @@ public class Incident {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/listincidents")
     public List<org.vdi.model.Incident> getAll() {
-        return  org.vdi.model.Incident.list(
-                "select i.id, " +
-                        "i.cause, " +
-                        "i.startDate, " +
-                        "i.endDate, " +
-                        "i.duration, " +
-                        "i.resolution, " +
-                        "s.name from Incident i join i.site s " +
-                        "where i.status = ?1", "EN_COURS");
+        return org.vdi.model.Incident.list("status = ?1", "EN_COURS");
     }
+
 
 
 
