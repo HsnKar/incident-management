@@ -2,7 +2,9 @@ package org.vdi.model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "incident")
@@ -10,10 +12,9 @@ public class Incident extends PanacheEntityBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
-
+    @NotBlank(message = "Cause cannot be blank")
     @Column(name = "cause")
     String cause;
-
     @Column(name = "start_date")
     LocalDateTime startDate;
 
@@ -23,6 +24,7 @@ public class Incident extends PanacheEntityBase {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "site")
     public Site site;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service")
     public Service service;
@@ -32,13 +34,20 @@ public class Incident extends PanacheEntityBase {
 
     @Column(name = "duration")
     long duration;
+
     @Column(name = "status")
     public String status;
-    @Column(name = "priority")
-    public String priority;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category")
     public Category category;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "type")
+    public Type type;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "criticality")
+    public Criticality criticality;
 
     public String getCause() {
         return cause;
@@ -102,5 +111,21 @@ public class Incident extends PanacheEntityBase {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 }
