@@ -46,20 +46,20 @@ public class Site {
     }
 
 
-    @GET
+    /*@GET
     @Path("/postsite")
     public TemplateInstance getSiteForm() {
         org.vdi.model.Site site = new org.vdi.model.Site();
         List<Site> sites = new ArrayList<>();
         return addSite.data("sites", sites);
-    }
+    }*/
 
-    @POST
+    /*@POST
     @Path("/postsite")
     @Transactional
     public TemplateInstance createSite(@FormParam("name") String name,
-                               @FormParam("longitude") long longitude,
-                               @FormParam("latitude") long latitude,
+                               @FormParam("longitude") Double longitude,
+                               @FormParam("latitude") Double latitude,
                                @FormParam("budgetAttachement") String budgetAttachement,
                                @FormParam("date_MES_2G") String dms2G,
                                @FormParam("date_MES_3G") String dms3G,
@@ -102,6 +102,6 @@ public class Site {
         site.setProprioTrans(proprioTrans);
         site.persist();
         return getSiteForm();
-    }
+    }*/
 
 }
