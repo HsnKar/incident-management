@@ -3,7 +3,9 @@ package org.vdi.model;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -37,6 +39,11 @@ public class Incident extends PanacheEntityBase {
 
     @Column(name = "status")
     public String status;
+
+    @Column(name = "created_at")
+    public LocalDate createdAt;
+    @Column(name = "closed_at")
+    public LocalDate closedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category")
@@ -127,5 +134,34 @@ public class Incident extends PanacheEntityBase {
 
     public void setType(Type type) {
         this.type = type;
+    }
+
+    public LocalDate getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDate getClosedAt() {
+        return closedAt;
+    }
+
+    public void setClosedAt(LocalDate closedAt) {
+        this.closedAt = closedAt;
+    }
+
+    public Criticality getCriticality() {
+        return criticality;
+    }
+
+    public void setCriticality(Criticality criticality) {
+        this.criticality = criticality;
+    }
+    @PreUpdate
+    @PrePersist
+    public void createdAt() {
+        this.createdAt = LocalDate.now();
     }
 }
