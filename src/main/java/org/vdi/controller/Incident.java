@@ -11,6 +11,7 @@ import io.smallrye.mutiny.Uni;
 import io.vertx.ext.web.RoutingContext;
 import org.vdi.model.Service;
 import org.vdi.model.Site;
+import org.vdi.model.Type;
 
 import javax.annotation.security.PermitAll;
 import javax.enterprise.event.Observes;
@@ -116,10 +117,12 @@ public class Incident {
                                                  @FormParam("status") String status,
                                                  @FormParam("resolution") String resolution,
                                                  @FormParam("start-date")String date_deb,
+                                                 @FormParam("type")Long typeId,
                                                  @FormParam("end-date")String end_date,
                                                  @FormParam("site") Long siteId) {
         org.vdi.model.Incident incident = new org.vdi.model.Incident();
         Site site = Site.findById(siteId);
+        Type type = Type.findById(typeId);
         if (site == null) {
 //            return Response.status(Response.Status.BAD_REQUEST).build()
             throw new NullPointerException("Oh nooo!");
@@ -132,6 +135,7 @@ public class Incident {
         if (date_deb != null && end_date != null)
         incident.setDuration(Duration.between(incident.getStartDate(), incident.getEndDate()).toMinutes());
         incident.setStatus(status);
+        incident.type = type;
         incident.site = site;
         incident.persist();
 //        return Response.status(Response.Status.CREATED).entity(incident).build();
@@ -146,9 +150,11 @@ public class Incident {
                                                   @FormParam("resolution") String resolution,
                                                   @FormParam("start-date")String date_deb,
                                                   @FormParam("end-date")String end_date,
+                                                  @FormParam("type")Long typeId,
                                                   @FormParam("service") Long serviceId) {
         org.vdi.model.Incident incident = new org.vdi.model.Incident();
         Service service = Service.findById(serviceId);
+        Type type = Type.findById(typeId);
         if (service == null) {
             throw new NullPointerException("Oh nooo!");
         }
@@ -162,6 +168,7 @@ public class Incident {
 //        incident.setStatus(Status.valueOf(status));
         incident.setStatus(status);
         incident.service = service;
+        incident.type = type;
         incident.persist();
         return getServiceForm();
     }
@@ -224,12 +231,13 @@ public class Incident {
     public  void updateReseau(RoutingExchange rx) {
         org.vdi.model.Incident incident = new org.vdi.model.Incident();
         org.vdi.model.Incident inc = org.vdi.model.Incident.findById(Long.valueOf(rx.request().getFormAttribute("id")));
-        inc.update("status = ?1 , end_date = ?2, duration = ?3, cause = ?4",
+        inc.update("status = ?1 , end_date = ?2, duration = ?3, cause = ?4 where id = ?5",
                 rx.request().getFormAttribute("status"),
                 LocalDateTime.parse(rx.request().getFormAttribute("end-date")),
                 Duration.between(LocalDateTime.parse(rx.request().getFormAttribute("start-date")), LocalDateTime.parse(rx.request().getFormAttribute("end-date"))).toMinutes(),
-                rx.request().getFormAttribute("cause"));
-        rx.response().end("Incident updated");
+                rx.request().getFormAttribute("cause"),
+                Long.valueOf(rx.request().getFormAttribute("id")));
+        rx.response().end("Incident updated" + inc.getCause());
     }
 
     @Blocking
@@ -242,7 +250,8 @@ public class Incident {
                 rx.request().getFormAttribute("status"),
                 LocalDateTime.parse(rx.request().getFormAttribute("end-date")),
                 Duration.between(LocalDateTime.parse(rx.request().getFormAttribute("start-date")), LocalDateTime.parse(rx.request().getFormAttribute("end-date"))).toMinutes(),
-                rx.request().getFormAttribute("cause"));
+                rx.request().getFormAttribute("cause"),
+                Long.valueOf(rx.request().getFormAttribute("id")));
         rx.response().end("Incident updated");
     }
 
