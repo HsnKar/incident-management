@@ -1,103 +1,32 @@
-
-DROP DATABASE IF EXISTS `vdi`;
-CREATE DATABASE IF NOT EXISTS `vdi` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */;
-USE `vdi`;
-
-
-DROP TABLE IF EXISTS `category`;
-CREATE TABLE IF NOT EXISTS `category` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-
-DROP TABLE IF EXISTS `contenu`;
-CREATE TABLE IF NOT EXISTS `contenu` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(255) DEFAULT NULL,
-  `category` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK3t2mpllr43grhedlip6ic9bng` (`category`),
-  CONSTRAINT `FK3t2mpllr43grhedlip6ic9bng` FOREIGN KEY (`category`) REFERENCES `category` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `nurcontents` (`id`, `name`, `networkUnavailabilityReport`) VALUES
+	(1, 'Energie_TOM/NUR TOWERCO', 1),
+	(2, 'Problème énergie_Jirama', 1),
+	(3, 'problème énergie_PS', 1),
+	(4, 'Problème énergie proprio', 1),
+	(5, 'Problème énergie_GE', 1),
+	(6, 'Energie_HELIOS/NUR_Sharing', 1),
+	(7, 'IPMPLS', 2),
+	(8, 'Liaison Backbone', 2),
+	(9, 'Transmission', 2),
+	(10, 'Transmission_AIRTEL/NUR_Sharing', 2),
+	(11, 'System', 3),
+	(12, 'Works', 4),
+	(13, 'Site Sharing Energie', 6),
+	(14, 'Cyclone', 6),
+	(15, 'Délestage JIRAMA', 6),
+	(16, 'Site Foudroyé', 6),
+	(17, 'Autres_Accès sites_insecurité', 7);
 
 
-DROP TABLE IF EXISTS `criticality`;
-CREATE TABLE IF NOT EXISTS `criticality` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `criticality` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `networkunavailabilityreport` (`id`, `name`) VALUES
+	(1, 'Energy'),
+	(2, 'Transmission'),
+	(3, 'System'),
+	(4, 'Works'),
+	(5, 'Others'),
+	(6, 'Disastsers'),
+	(7, 'Insecurity');
 
-
-INSERT INTO `criticality` (`id`, `criticality`) VALUES
-	(1, 'sévère'),
-	(2, 'moyen'),
-	(3, 'négligeable');
-
-
-DROP TABLE IF EXISTS `incident`;
-CREATE TABLE IF NOT EXISTS `incident` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `cause` varchar(255) DEFAULT NULL,
-  `closed_at` date DEFAULT NULL,
-  `created_at` date DEFAULT NULL,
-  `duration` bigint(20) DEFAULT NULL,
-  `end_date` datetime(6) DEFAULT NULL,
-  `resolution` varchar(255) DEFAULT NULL,
-  `start_date` datetime(6) DEFAULT NULL,
-  `status` varchar(255) DEFAULT NULL,
-  `category` bigint(20) DEFAULT NULL,
-  `criticality` bigint(20) DEFAULT NULL,
-  `service` bigint(20) DEFAULT NULL,
-  `site` bigint(20) DEFAULT NULL,
-  `type` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK5ikgagk6f3h241uujlrnulh0s` (`category`),
-  KEY `FK48tt0ot9ujw2ykoxv1rm2t9y2` (`criticality`),
-  KEY `FKcai2wu3s9b714rnu9tarkg21l` (`service`),
-  KEY `FK6s0qitw9lv59cadlpjridymds` (`site`),
-  KEY `FKamn6wvlgeeirslcuixml18hjy` (`type`),
-  CONSTRAINT `FK48tt0ot9ujw2ykoxv1rm2t9y2` FOREIGN KEY (`criticality`) REFERENCES `criticality` (`id`),
-  CONSTRAINT `FK5ikgagk6f3h241uujlrnulh0s` FOREIGN KEY (`category`) REFERENCES `category` (`id`),
-  CONSTRAINT `FK6s0qitw9lv59cadlpjridymds` FOREIGN KEY (`site`) REFERENCES `site` (`id`),
-  CONSTRAINT `FKamn6wvlgeeirslcuixml18hjy` FOREIGN KEY (`type`) REFERENCES `type` (`id`),
-  CONSTRAINT `FKcai2wu3s9b714rnu9tarkg21l` FOREIGN KEY (`service`) REFERENCES `service` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-
-
-DROP TABLE IF EXISTS `mails`;
-CREATE TABLE IF NOT EXISTS `mails` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `mail` bigint(20) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-xx
--- Listage de la structure de la table vdi. service
-DROP TABLE IF EXISTS `service`;
-CREATE TABLE IF NOT EXISTS `service` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- Listage des données de la table vdi.service : ~0 rows (environ)
-/*!40000 ALTER TABLE `service` DISABLE KEYS */;
-/*!40000 ALTER TABLE `service` ENABLE KEYS */;
-
--- Listage de la structure de la table vdi. site
-DROP TABLE IF EXISTS `site`;
-CREATE TABLE IF NOT EXISTS `site` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `code_site` varchar(255) DEFAULT NULL,
-  `latitude` double DEFAULT NULL,
-  `longitude` double DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1024 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 INSERT INTO `site` (`id`, `code_site`, `latitude`, `longitude`, `name`) VALUES
@@ -1040,27 +969,3 @@ INSERT INTO `site` (`id`, `code_site`, `latitude`, `longitude`, `name`) VALUES
 	(937, '', 0, 0, ''),
 	(938, '', 0, 0, ''),
 	(939, '', 0, 0, '');
-
-
-DROP TABLE IF EXISTS `type`;
-CREATE TABLE IF NOT EXISTS `type` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-
-
-INSERT INTO `type` (`id`, `name`) VALUES
-	(1, 'site'),
-	(2, 'service');
-
-
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `password` varchar(255) DEFAULT NULL,
-  `role` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
