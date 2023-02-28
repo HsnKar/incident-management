@@ -20,6 +20,52 @@
     <fieldset>
       <legend class="legende">Créer un incident du réseau</legend>
       <div class="mb-3">
+        <label for="resolution" class="form-label is-required">Niveau de criticité</label>
+        <select name="status" id="status">
+          <option value="CRITIQUE">Sévère</option>
+          <option value="MOYEN">Moyen</option>
+          <option value="FAIBLE">Faible</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="nurContent" class="form-label is-required">Problème</label>
+        <select name="nurContent" id="nurContent">
+          <optgroup label="Energy">
+            {#for energy in energies}
+            <option value="{energy.id}">{energy.name}</option>
+            {/for}
+          </optgroup>
+          <optgroup label="Transmission">
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+          </optgroup>
+          <optgroup label="System">
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+          </optgroup>
+          <optgroup label="Works">
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+          </optgroup>
+          <optgroup label="Others">
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+          </optgroup>
+          <optgroup label="Disasters">
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+          </optgroup>
+          <optgroup label="Insecurity">
+            <option value="mercedes">Mercedes</option>
+            <option value="audi">Audi</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="responsable" class="form-label is-required">Responsable</label>
+        <input type="text" class="form-control" id="responsable" name="responsable">
+      </div>
+      <div class="mb-3">
         <label for="cause" class="form-label is-required">Cause</label>
         <input type="text" class="form-control" id="cause" name="cause">
       </div>
