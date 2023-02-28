@@ -1,12 +1,11 @@
 package org.vdi.model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "incident")
@@ -14,6 +13,17 @@ public class Incident extends PanacheEntityBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
+
+
+    @SequenceGenerator(
+            name = "is",
+            sequenceName = "inc_id_seq",
+            allocationSize = 1,
+            initialValue = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "is")
+    @Column(name = "ticket_id")
+    public String ticket_id;
     @NotBlank(message = "Cause cannot be blank")
     @Column(name = "cause")
     String cause;
@@ -55,6 +65,9 @@ public class Incident extends PanacheEntityBase {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "criticality")
     public Criticality criticality;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "nur")
+    public Nur nur;
 
     public String getCause() {
         return cause;
@@ -163,5 +176,21 @@ public class Incident extends PanacheEntityBase {
     @PrePersist
     public void createdAt() {
         this.createdAt = LocalDate.now();
+    }
+
+    public String getTicket_id() {
+        return ticket_id;
+    }
+
+    public void setTicket_id(String ticket_id) {
+        this.ticket_id = ticket_id;
+    }
+
+    public Nur getNur() {
+        return nur;
+    }
+
+    public void setNur(Nur nur) {
+        this.nur = nur;
     }
 }
