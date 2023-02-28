@@ -38,7 +38,8 @@ public class Accueil {
                         "i.endDate, " +
                         "i.duration, " +
                         "i.resolution, " +
-                        "s.name from Incident i join i.service s " +
+                        "c.criticality, " +
+                        "s.name from Incident i join i.service s join i.criticality c "  +
                         "where i.status = ?1", "EN_COURS");
         PanacheQuery<Incident> incidentPanacheQuery = Incident.find("select i.id, " +
                 "i.cause, " +
