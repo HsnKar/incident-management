@@ -49,7 +49,8 @@
         <table class="table table-sm align-middle table-responsive table-striped">
             <thead>
                 <tr>
-                    <th scope="col">Id</th>
+                    <th scope="col">Numéro ticket</th>
+                    <th scope="col">Criticité</th>
                     <th scope="col">Cause</th>
                     <th scope="col">Date de début</th>
                     <th scope="col">Date de fin</th>
@@ -62,6 +63,7 @@
                 {#for incidentSite in incidentSites}
                 <tr>
                     <td>{incidentSite[0]}</td>
+                    <td>{incidentSite[6]}</td>
                     <td>{incidentSite[1]}</td>
                     <td>{incidentSite[2]}</td>
                     <td>{incidentSite[3]}</td>
@@ -86,7 +88,8 @@
         <table class="table table-sm align-middle table-responsive">
             <thead>
                 <tr>
-                    <th scope="col">Id</th>
+                    <th scope="col">Numéro ticket</th>
+                    <th scope="col">Criticité</th>
                     <th scope="col">Cause</th>
                     <th scope="col">Date de début</th>
                     <th scope="col">Date de fin</th>
@@ -96,15 +99,16 @@
                 </tr>
             </thead>
             <tbody>
-                {#for incidentService in incidentServices}
+                {#for incidentSite in incidentSites}
                 <tr>
-                    <td>{incidentService[0]}</td>
-                    <td>{incidentService[1]}</td>
-                    <td>{incidentService[2]}</td>
-                    <td>{incidentService[3]}</td>
-                    <td>{incidentService[4]}</td>
-                    <td>{incidentService[5]}</td>
-                    <td>{incidentService[6]}</td>
+                    <td>{incidentSite[0]}</td>
+                    <td>{incidentSite[6]}</td>
+                    <td>{incidentSite[1]}</td>
+                    <td>{incidentSite[2]}</td>
+                    <td>{incidentSite[3]}</td>
+                    <td>{incidentSite[4]}</td>
+                    <td>{incidentSite[5]}</td>
+                    <td>{incidentSite[6]}</td>
                 </tr>
                 {/for}
             </tbody>
