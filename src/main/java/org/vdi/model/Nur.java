@@ -17,8 +17,8 @@ public class Nur extends PanacheEntityBase {
     public String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "nur")
-    public Nur nur;
+    @JoinColumn(name = "nurs")
+    public Nurs nurs;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "nur")
@@ -40,12 +40,12 @@ public class Nur extends PanacheEntityBase {
         this.name = name;
     }
 
-    public Nur getNur() {
-        return nur;
+    public Nurs getNur() {
+        return nurs;
     }
 
-    public void setNur(Nur nur) {
-        this.nur = nur;
+    public void setNur(Nurs nurs) {
+        this.nurs = nurs;
     }
 
     public List<Incident> getIncident() {

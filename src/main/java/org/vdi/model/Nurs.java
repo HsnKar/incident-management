@@ -16,7 +16,7 @@ public class Nurs extends PanacheEntityBase {
     @Column(name = "name")
     public String name;
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nur")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nurs")
     public List<Nur> nur;
 
     public Long getId() {
