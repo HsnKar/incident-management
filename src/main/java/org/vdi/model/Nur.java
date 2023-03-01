@@ -17,12 +17,12 @@ public class Nur extends PanacheEntityBase {
     public String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "nur")
-    public Nur nur;
+    @JoinColumn(name = "nurs")
+    public Nurs nurs;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "nur")
-    public List<Incident> incident;
+    public List<Incident> incidents;
 
     public Long getId() {
         return id;
@@ -40,19 +40,19 @@ public class Nur extends PanacheEntityBase {
         this.name = name;
     }
 
-    public Nur getNur() {
-        return nur;
+    public Nurs getNurs() {
+        return nurs;
     }
 
-    public void setNur(Nur nur) {
-        this.nur = nur;
+    public void setNurs(Nurs nurs) {
+        this.nurs = nurs;
     }
 
-    public List<Incident> getIncident() {
-        return incident;
+    public List<Incident> getIncidents() {
+        return incidents;
     }
 
-    public void setIncident(List<Incident> incident) {
-        this.incident = incident;
+    public void setIncidents(List<Incident> incidents) {
+        this.incidents = incidents;
     }
 }

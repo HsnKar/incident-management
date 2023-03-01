@@ -5,7 +5,6 @@ import io.quarkus.qute.TemplateInstance;
 import io.quarkus.vertx.web.Route;
 import io.quarkus.vertx.web.RoutingExchange;
 import io.smallrye.common.annotation.Blocking;
-import org.vdi.model.Nur;
 import org.vdi.model.Service;
 import org.vdi.model.Site;
 import org.vdi.model.Type;
@@ -93,23 +92,9 @@ public class Incident {
     @Path("/reseau")
     public TemplateInstance getReseauForm() {
         List<Site> sites = Site.listAll();
-//        List<Nur> nurEnergy = Nur.list("select c.id, c.name from NurContent c join c.nur n where c.nur = ?1", 1);
-//        List<NurContents> nurTransmission = NurContents.list("select id, name from NurContent where NetworkUnavailabilityReport = ?1", 2);
-//        List<NurContents> nurSystem = NurContents.list("select id, name from NurContent where NetworkUnavailabilityReport = ?1", 3);
-//        List<NurContents> nurWorks = NurContents.list("select id, name from NurContent where NetworkUnavailabilityReport = ?1", 4);
-//        List<NurContents> nurOthers = NurContents.list("select id, name from NurContent where NetworkUnavailabilityReport = ?1", 5);
-//        List<NurContents> nurDisasters = NurContents.list("select id, name from NurContent where NetworkUnavailabilityReport = ?1", 6);
-//        List<NurContents> nurInsecurity = NurContents.list("select id, name from NurContent where NetworkUnavailabilityReport = ?1", 7);
         Map<String, Object> objSites = new HashMap<>();
         objSites.put("sites", sites);
         objSites.put("isUpdate", false);
-//        objSites.put("energies", nurEnergy);
-//        objSites.put("transmissions", nurTransmission);
-//        objSites.put("systems", nurSystem);
-//        objSites.put("works", nurWorks);
-//        objSites.put("others", nurOthers);
-//        objSites.put("disasters", nurDisasters);
-//        objSites.put("insecurity", nurInsecurity);
         return addIncidentReseau.data(objSites);
     }
 
@@ -131,10 +116,8 @@ public class Incident {
                                                  @FormParam("start-date")String date_deb,
                                                  @FormParam("type")Long typeId,
                                                  @FormParam("end-date")String end_date,
-                                                 @FormParam("nurContent")Long nurContentId,
                                                  @FormParam("site") Long siteId) {
         org.vdi.model.Incident incident = new org.vdi.model.Incident();
-        Nur nurContent = Nur.findById(nurContentId);
         Site site = Site.findById(siteId);
         Type type = Type.findById(typeId);
         if (site == null) {
@@ -142,7 +125,6 @@ public class Incident {
             throw new NullPointerException("Oh nooo!");
         }
         incident.setCause(cause);
-        incident.nur = nurContent;
         incident.setResolution(resolution);
         incident.setStartDate(LocalDateTime.parse(date_deb));
         if (end_date != null)
