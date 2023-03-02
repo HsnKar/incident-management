@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Incidents</title>
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/css/boosted.min.css" rel="stylesheet" integrity="sha384-zYFw+mxKy6r9zpAc1NoGiYBfQmxfvg7ONEMr81WeU+WLPPaLC9QTrNGFJTBi3EIn" crossorigin="anonymous">
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/js/boosted.bundle.min.js" integrity="sha384-MANW37RG4MpFWPMCcNZBnvSobOkBpIGlbBkEzTtD4FbbOzJXbW8TddND1ak2lfsB" crossorigin="anonymous"></script>
+</head>
+<body>
+  {#include navbar}
+  {/include}
+  <div class="container-fluid content">
+<!-- <h1>Incident réseau</h1> -->
+<form method="post" action="/reseau/update">
+  <input type="hidden" name="id" id="id" value="{incident.id}">
+  <fieldset>
+    <legend>Fermer un incident du réseau</legend>
+    <div class="mb-3">
+      <label for="cause" class="form-label">Cause</label>
+      <input type="text" class="form-control" id="cause" name="cause" value="{incident.cause}">
+    </div>
+    <div class="mb-3">
+      <label for="start-date" class="form-label">Date de début</label>
+      <input type="datetime-local" class="form-control" id="start-date" name="start-date" value="{incident.startDate}">
+    </div>
+    <div class="mb-3">
+      <label for="end-date" class="form-label">Date de fin</label>
+      <input type="datetime-local" class="form-control" id="end-date" name="end-date">
+    </div>
+    <div class="mb-3">
+      <label for="resolution" class="form-label">Résolution</label>
+      <input type="text" class="form-control" id="resolution" name="resolution"  value="{incident.resolution}">
+    </div>
+    <div class="mb-3">
+      <label for="resolution" class="form-label">Statut</label>
+      <select name="status" id="status">
+        <option value="EN_COURS">En cours</option>
+        <option value="TERMINE" selected>Terminé</option>
+      </select>
+    </div>
+    <!-- <div class="mb-3">
+      <label for="site" class="form-label">Site</label>
+      <select name="site" id="site" class="selectOptions">
+        <option value="{!site.id!}" selected>{!site.name!}</option>
+      </select>
+    </div> -->
+    <button type="submit" class="btn btn-primary mt-2">Submit</button>
+  </fieldset>
+</form>
+  </div>
+   
+
+   <!-- <form method="post" action="/incidents/reseau">
+        Cause
+        <input type="text" name="cause"><br>
+        Date de début
+        <input type="datetime-local" name="start-date" ><br>
+        Date de fin
+        <input type="datetime-local" name="end-date" ><br>
+        Résolution
+        <input type="text" name="resolution"/><br>
+        Site
+        <select name="site" id="site">
+          {!#for site in sites!}
+          <option value="{!site.id!}">{!site.name!}</option>
+          {!/for!}
+        </select>
+        <input type="submit" value="Valider">
+   </form> -->
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/css/boosted.min.css" rel="stylesheet" integrity="sha384-zYFw+mxKy6r9zpAc1NoGiYBfQmxfvg7ONEMr81WeU+WLPPaLC9QTrNGFJTBi3EIn" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/js/boosted.bundle.min.js" integrity="sha384-MANW37RG4MpFWPMCcNZBnvSobOkBpIGlbBkEzTtD4FbbOzJXbW8TddND1ak2lfsB" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <title>Service</title>
+</head>
+<body>
+    {#include navbar}
+    {/include}
+    <div class="container-fluid content" method="post"></div>
+    <h1 class="h1">Service</h1>
+    <form action="/postservice" method="post">
+        <div class="mb-3">
+            <label for="name" class="form-label is-required">Name</label>
+            <input type="text" class="form-control" id="name" name="name">
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Valider</button>
+    </form>
+
+
+    <script>
+        // function addService() {
+        //     var name = $('#name').val;
+            
+        //     $.ajax({
+        //         url:"http://localhost:8080/services/postservice",
+        //         method:'post',
+        //         data: {
+        //             name:name
+        //         }
+        //     }).done(function(){
+        //         alert("Service inserted");
+        //     });
+        // }
+
+    </script>
+    <!-- Old form
+    <form action="/postservice" method="post">
+        Name
+        <input type="text" name="name" id="name">
+        <input type="submit" value="Valider">
+    </form> -->
+</body>
+</html>
