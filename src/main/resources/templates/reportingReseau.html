@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/css/boosted.min.css" rel="stylesheet" integrity="sha384-zYFw+mxKy6r9zpAc1NoGiYBfQmxfvg7ONEMr81WeU+WLPPaLC9QTrNGFJTBi3EIn" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/js/boosted.bundle.min.js" integrity="sha384-MANW37RG4MpFWPMCcNZBnvSobOkBpIGlbBkEzTtD4FbbOzJXbW8TddND1ak2lfsB" crossorigin="anonymous"></script>
+    <title>Reporting des tickets liés au réseau</title>
+</head>
+<body>
+    {#include navbar}
+    {/include}
+    <table class="table table-sm align-middle table-responsive table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Numéro ticket</th>
+                <th scope="col">Criticité</th>
+                <th scope="col">Cause</th>
+                <th scope="col">Date de début</th>
+                <th scope="col">Date de fin</th>
+                <th scope="col">Durée</th>
+                <th scope="col">Résolution</th>
+                <th scope="col">Site</th>
+            </tr>
+        </thead>
+        <tbody>
+        <script src="text/javascript">
+            // fetching the incidents
+            const ab = () => {
+            const incidents = fetch(`http://localhost:8080/reporting/tick-net`);
+            incidents.then(data => 
+                    data.json().then(incidents => {
+                        incidents.forEach(element => {
+                            const {cause, startDate, criticality, nursingle, site, createdAt, closedAt} = element;
+                            console.log(`${cause} - ${startDate} - ${element.site.longitude} - ${element.site.latitude}`);
+                            // let tableData ="";
+                            // tableData += `
+                            //     <tr>
+                            //         <td>${''}</td>
+                            //         <td>${criticality}</td>
+                            //         <td>${cause}</td>
+                            //         <td>${startDate}</td>
+                            //         <td>${""}</td>
+                            //         <td>${''}</td>
+                            //         <td>${''}</td>
+                            //         <td>${site.name}</td>
+                            //     </tr>
+                            // `;
+                            
+
+                        });
+                    })
+                ).catch(error => console.log('There was an error with the fetch operation'));
+            };
+
+            ab();
+        </script>
+            <!-- <tr>
+                <td>{incident[0]}</td>
+                <td>{incident[7]}</td>
+                <td>{incident[1]}</td>
+                <td>{incident[2]}</td>
+                <td>{incident[3]}</td>
+                <td>{incident[4]}</td>
+                <td>{incident[8]}</td>
+                <td>{incident[9]}</td>
+            </tr> -->
+        </tbody>
+    </table>
+</body>
+</html>
