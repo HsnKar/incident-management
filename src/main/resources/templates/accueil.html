@@ -15,6 +15,7 @@
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
     integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
     crossorigin=""></script>
+    
 
     <link rel="stylesheet" type="text/css" href="/style.css" />
     <script type="module" src="/index.js"></script>
@@ -30,7 +31,7 @@
     {/include}
 
     <div class="container-fluid content">
-        <h3>Google Map</h3>
+        <h3>Carte</h3>
         <!-- div element for the map -->
         <div id="map">
 
@@ -69,7 +70,7 @@
                     <td>{incidentSite[3]}</td>
                     <td>{incidentSite[4]}</td>
                     <td>{incidentSite[5]}</td>
-                    <td>{incidentSite[6]}</td>
+                    <td>{incidentSite[7]}</td>
                 </tr>
                 {/for}
             </tbody>
@@ -99,16 +100,16 @@
                 </tr>
             </thead>
             <tbody>
-                {#for incidentSite in incidentSites}
+                {#for incidentService in incidentServices}
                 <tr>
-                    <td>{incidentSite[0]}</td>
-                    <td>{incidentSite[6]}</td>
-                    <td>{incidentSite[1]}</td>
-                    <td>{incidentSite[2]}</td>
-                    <td>{incidentSite[3]}</td>
-                    <td>{incidentSite[4]}</td>
-                    <td>{incidentSite[5]}</td>
-                    <td>{incidentSite[6]}</td>
+                    <td>{incidentService[0]}</td>
+                    <td>{incidentService[6]}</td>
+                    <td>{incidentService[1]}</td>
+                    <td>{incidentService[2]}</td>
+                    <td>{incidentService[3]}</td>
+                    <td>{incidentService[4]}</td>
+                    <td>{incidentService[5]}</td>
+                    <td>{incidentService[7]}</td>
                 </tr>
                 {/for}
             </tbody>
@@ -116,5 +117,6 @@
         {/if}
     </div>
     <script src="./index.js"></script>
+    
 </body>
 </html>

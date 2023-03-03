@@ -44,18 +44,20 @@ public class Accueil {
                     "i.endDate, " +
                     "i.duration, " +
                     "i.resolution, " +
+                    "i.criticality, " +
                     "s.name from Incident i join i.site s " +
                     "where i.status = ?1", "EN_COURS");
             incidentPanacheQuery.page(Page.of(0, 3));
             List<org.vdi.model.Incident> firstpage = incidentPanacheQuery.list();
             List<org.vdi.model.Incident> incidentSites = Incident.list(
                     "select i.id, " +
-                            "i.cause, " +
+                            "n.name, " +
                             "i.startDate, " +
                             "i.endDate, " +
                             "i.duration, " +
                             "i.resolution, " +
-                            "s.name from Incident i join i.site s " +
+                            "i.criticality, " +
+                            "s.name from Incident i join i.site s join i.nursingle n " +
                             "where i.status = ?1", "EN_COURS");
             long countIncidentSite = incidentSites.size();
             long countIncidentService = incidentServices.size();
@@ -63,7 +65,7 @@ public class Accueil {
             obj.put("countService", countIncidentService);
             obj.put("countSite", countIncidentSite);
             obj.put("incidentServices", incidentServices);
-            obj.put("incidentSites", firstpage);
+            obj.put("incidentSites", incidentSites);
             return accueil.data(obj);
         }
     }

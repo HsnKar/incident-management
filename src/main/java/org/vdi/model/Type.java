@@ -1,5 +1,6 @@
 package org.vdi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ public class Type extends PanacheEntityBase {
     @Column(name = "name")
     public String name;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "type")
     public List<Incident> incident;
 

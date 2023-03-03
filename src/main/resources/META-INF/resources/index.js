@@ -10,18 +10,23 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png'
 
 // fetching the incidents
 const ab = () => {
-    const incidents = fetch(`http://localhost:8080/incidents/listincidents
-`);
+    const incidents = fetch(`http://localhost:8080/incidents/showonmap`);
     incidents.then(data => 
             data.json().then(incidents => {
                 incidents.forEach(element => {
-                    const {cause, startDate} = element;
+                    const {cause, startDate, criticality, nursingle, site} = element;
                     var lat = element.site.latitude;
                     var lgt = element.site.longitude;
                     console.log(`${cause} - ${startDate} - ${element.site.longitude} - ${element.site.latitude}`)
                     
                     // var marker = L.marker([51.5, -0.09]).addTo(map);
                     var marker = L.marker([lat, lgt]).addTo(map);
+                    marker.bindPopup(`<b><strong>Niveau de criticité:</strong> ${criticality}!</b><br><strong>Problème</strong>: ${nursingle.name}<br><strong>Lieu:</strong> ${site.name}<br><strong>date de début: </strong> ${startDate}.`).openPopup();
+                    // var popup = L.popup()
+                    // .setLatLng([lat, lgt])
+                    // .setContent(`<b><strong>Niveau de criticité:</strong> ${criticality}!</b><br><strong>Problème</strong>: ${nursingle.name}<br><strong>Lieu:</strong> ${site.name}<br><strong>date de début: </strong> ${startDate}.`)
+                    // .openOn(map);
+
 
 
                 });

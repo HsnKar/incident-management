@@ -28,6 +28,14 @@
       <fieldset>
         <legend class="legende">Créer un incident de service</legend>
         <div class="mb-3">
+          <label for="criticality" class="form-label is-required">Niveau de criticité</label>
+          <select name="criticality" id="criticality">
+            <option value="CRITIQUE">Critique</option>
+            <option value="MOYEN">Moyen</option>
+            <option value="FAIBLE">Faible</option>
+          </select>
+        </div>
+        <div class="mb-3">
           <label for="cause" class="form-label is-required">Cause</label>
           <input type="text" class="form-control" id="cause" name="cause">
         </div>
@@ -54,6 +62,8 @@
             <option value="EN_COURS">En cours</option>
             <option value="TERMINE">Terminé</option>
           </select>
+          <input type="hidden" name="type" value="1">
+
         </div>
         <div class="mb-3">
           <label for="service" class="form-label is-required">Service</label>
@@ -62,6 +72,9 @@
             <option value="{service.id}">{service.name}</option>
             {/for}
           </select>
+        </div>
+        <div class="mb-3">
+          <input type="hidden" class="form-control" id="type" name="type" value="2">
         </div>
         <!-- Button trigger the modal -->
         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -72,16 +85,16 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h1 class="modal-title h5" id="staticBackdropLabel">Que voulez-vous faire ?</h1>
+                <h1 class="modal-title h5" id="staticBackdropLabel">Est-ce que toutes les informations sont valides ?</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"><span class="visually-hidden">Close</span></button>
               </div>
-              <div class="modal-body">
+              <!-- <div class="modal-body">
                 Cliquez sur <strong>enregistrer</strong> pour enregistrer l'incident sans envoyer de mail.<br/>
                 Cliquez sur <strong>enregistrer et envoyer</strong> pour enregistrer l'incident puis envoyer de mail.
-              </div>
+              </div> -->
               <div class="modal-footer">
                 <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Enregistrer</button>
-                <button type="button" class="btn btn-primary">Enregistrer & Envoyer</button>
+                <!-- <button type="button" class="btn btn-primary">Enregistrer & Envoyer</button> -->
               </div>
             </div>
           </div>

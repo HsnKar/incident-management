@@ -1,5 +1,6 @@
 package org.vdi.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.persistence.*;
@@ -18,8 +19,17 @@ public class Nursingle extends PanacheEntityBase {
     @JoinColumn(name = "nurgeneral")
     public Nurgeneral nurgeneral;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "nursingle")
     public List<Incident> incident;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

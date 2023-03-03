@@ -13,7 +13,7 @@
   {/include}
   <div class="container-fluid content">
 <!-- <h1>Incident réseau</h1> -->
-<form method="post" action="/reseau/update">
+<form method="post" action="/reseau/update" id="myform">
   <input type="hidden" name="id" id="id" value="{incident.id}">
   <fieldset>
     <legend>Fermer un incident du réseau</legend>
@@ -46,11 +46,20 @@
         <option value="{!site.id!}" selected>{!site.name!}</option>
       </select>
     </div> -->
-    <button type="submit" class="btn btn-primary mt-2">Submit</button>
+    <button type="submit" class="btn btn-primary mt-2" id="submit">Submit</button>
   </fieldset>
 </form>
   </div>
-   
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/patternfly/3.24.0/js/patternfly.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+  <script src="formvalidation.js"></script>
+
+
+
 
    <!-- <form method="post" action="/incidents/reseau">
         Cause
@@ -69,5 +78,51 @@
         </select>
         <input type="submit" value="Valider">
    </form> -->
+   <script type="text/javascript">
+    $(document).ready(function () {
+    $("#submit").click(function (e) {
+        e.preventDefault();
+        var cause = $("#cause").val();
+        var dd = $("#start-date").val();
+        var de = $("#end-date").val();
+        var res = $("#resolution").val();
+        var stat = $("#status").val();
+
+        if (dd >= de){
+          alert("Starting date cannot be greater than the ending date");
+        }else if (de == '') {
+          alert("Ending date cannot be empyt");
+        } else {
+          var book = {
+            "cause": cause,
+            "start-date": dd,
+            "end-date": de,
+            "resolution": res,
+            "status": stat
+        }
+
+        $.ajax({
+            url: "/incidents/reseau/update",
+            type: "POST",
+            data: JSON.stringify(book),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+          'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+          }
+          }).done(function (d) {
+              alert("Incident updated")
+          }).fail(function () {
+                alert("Incident cannot be updated")
+            });
+        }
+
+        
+    });
+  
+    })
+   </script>
 </body>
 </html>

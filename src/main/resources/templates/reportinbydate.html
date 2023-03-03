@@ -13,6 +13,7 @@
     crossorigin=""/>
     <script src="https://code.jquery.comui/1.13.2/jquery-ui.js" integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.js"></script>
     <title>Reporting</title>
 </head>
 <body>
@@ -30,16 +31,17 @@
             <input type="date" name="from_date" id="from_date" class="form-control" placeholder="from date"><br>
         </div>
         <div class="col-md-3">
-            <input type="date" name="to_date" id="to_date" class="form-control" placeholder="to date"><br>
+            <input type="text" name="to_date" id="to_date" class="form-control" placeholder="to date"><br>
         </div>
         <div class="col-md-3">
-            <input type="button" name="filter" id="filter" class="filter" onclick="getIncidents()" value="filter">
+            <input type="button" name="filter" id="filter" class="filter" value="filter">
         </div>
         <div style="clear: both;"></div>
         <br>
 
+      
 
-        // Using this one
+// Using this one
 
         <table id="incidentTable">
             <thead>
@@ -69,17 +71,10 @@
 
 
     </div>
-<script>
-    $(document).ready(function(){  
-           $.datepicker.setDefaults({  
-                dateFormat: 'yy-mm-dd'   
-           });  
-           $(function(){  
-                $("#from_date").datepicker();  
-                $("#to_date").datepicker();  
-           });  
+    <script>
 
-           $(document).ready(function(){  
+
+$(document).ready(function(){  
            $.datepicker.setDefaults({  
                 dateFormat: 'yy-mm-dd'   
            });  
@@ -87,6 +82,7 @@
                 $("#from_date").datepicker();  
                 $("#to_date").datepicker();  
            });  
+        });
 
             const ab = () => {
     const incidents = fetch(`http://localhost:8080/incidents/listinciden`);
@@ -116,16 +112,10 @@
                     });
                 })
                 .catch(error => console.error(error));
-        }
+            };
 
-
-
-                });
-            })
-        ).catch(error => console.log('There was an error with the fetch operation'));
-};
 
 ab();
-</script>
+    </script>
 </body>
 </html>

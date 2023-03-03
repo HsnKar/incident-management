@@ -10,6 +10,11 @@
   <!-- Unpoly -->
   <script src="https://unpkg.com/unpoly@2.7.1/unpoly.min.js"></script>
   <link rel="stylesheet" href="https://unpkg.com/unpoly@2.7.1/unpoly.min.css">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
 </head>
 <body>
   {#include navbar}
@@ -66,6 +71,9 @@
             {/for}
           </optgroup>
         </select>
+        <div class="mb-3">
+          <input type="hidden" class="form-control" id="type" name="type" value="1">
+        </div>
       </div>
       <div class="mb-3">
         <label for="responsable" class="form-label is-required">Responsable</label>
@@ -76,8 +84,10 @@
         <input type="text" class="form-control" id="cause" name="cause">
       </div>
       <div class="mb-3">
-        <label for="start-date" class="form-label is-required">Date de début</label>
-        <input type="datetime-local" class="form-control" id="start-date" name="start-date">
+        <div class="form-group">
+          <label for="start-date" class="form-label is-required">Date de début</label>
+          <input type="datetime-local" class="form-control" id="start-date" name="start-date">
+        </div>
       </div>
       {#if isUpdate}
       <div class="mb-3">
@@ -116,16 +126,16 @@
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h1 class="modal-title h5" id="staticBackdropLabel">Que voulez-vous faire ?</h1>
+                <h1 class="modal-title h5" id="staticBackdropLabel">Est-ce que toutes les informations sont valides ?</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"><span class="visually-hidden">Close</span></button>
               </div>
-              <div class="modal-body">
+              <!-- <div class="modal-body">
                 Cliquez sur <strong>enregistrer</strong> pour enregistrer l'incident sans envoyer de mail.<br/>
                 Cliquez sur <strong>enregistrer et envoyer</strong> pour enregistrer l'incident puis envoyer de mail.
-              </div>
+              </div> -->
               <div class="modal-footer">
-                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Enregistrer</button>
-                <button type="button" class="btn btn-primary">Enregistrer & Envoyer</button>
+                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal" id="submit">Valider</button>
+                <!-- <button type="button" class="btn btn-primary">Enregistrer & Envoyer</button> -->
               </div>
             </div>
           </div>
@@ -143,9 +153,52 @@
    
 
 
+  
 
+<script>
+  // $(document).ready(function () {
+  //   $("#submit").click(function (e) {
+  //       e.preventDefault();
+  //       var crit = $("#criticality").val();
+  //       var nur = $("#nursingle").val();
+  //       var cause = $("#cause").val();
+  //       var dd = $("#start-date").val();
+  //       var de = $("#end-date").val();
+  //       var res = $("#resolution").val();
+  //       var stat = $("#status").val();
 
+  //       var book = {
+  //           "cause": cause,
+  //           "start-date": dd,
+  //           "end-date": de,
+  //           "resolution": res,
+  //           "status": stat
+  //       }
 
+        
+
+  //       $.ajax({
+  //           url: "/incidents/reseau",
+  //           type: "POST",
+  //           data: JSON.stringify(book),
+  //           contentType: "application/json; charset=utf-8",
+  //           dataType: "json",
+  //           headers: {
+  //         'Access-Control-Allow-Origin': '*',
+  //         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+  //         'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+  //         }
+  //         }).done(function (d) {
+  //             alert("Incident created");
+  //         }).fail(function () {
+  //               alert("Cannot create this incident");
+  //           });
+
+        
+  //   });
+  
+  //   })
+</script>
 
 
 
@@ -166,5 +219,15 @@
         </select>
         <input type="submit" value="Valider">
    </form> -->
+
+
+   <script type="text/javascript">
+       $( function() {
+    $( "#dfs-date" ).datepicker({
+      dateFormat: "yy-mm-dd hh:mm"
+    });
+    
+  } );
+   </script>
 </body>
 </html>

@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.zip.DataFormatException;
 
 @Path("/incidents")
 public class Incident {
@@ -49,6 +50,8 @@ public class Incident {
 
     @Inject
     Template updateIncidentService;
+    @Inject
+    Template accueil;
 
     @GET
     public TemplateInstance getAllIncidents() {
@@ -74,7 +77,7 @@ public class Incident {
                         "i.closedAt, " +
                         "i.criticality, " +
                         "i.resolution, " +
-                        "s.name from Incident i join i.site s " +
+                        "s.name from Incident i join i.site s join i.nursingle n " +
                         "where i.status = ?1", "EN_COURS");
 //        long countIncidentSite = Incident.("select count(i) from Incident i join i.site s where i.status = ?1", "EN_COURS");
         long countIncidentSite = incidentSites.size();
@@ -163,6 +166,7 @@ public class Incident {
                                                   @FormParam("status") String status,
                                                   @FormParam("resolution") String resolution,
                                                   @FormParam("start-date") String date_deb,
+                                                  @FormParam("criticality") String criticality,
                                                   @FormParam("end-date") String end_date,
                                                   @FormParam("type") Long typeId,
                                                   @FormParam("service") Long serviceId) {
@@ -173,6 +177,7 @@ public class Incident {
             throw new NullPointerException("Oh nooo!");
         }
         incident.setCause(cause);
+        incident.setCriticality(criticality);
         incident.setResolution(resolution);
         incident.setStartDate(LocalDateTime.parse(date_deb));
         if (end_date != null)
@@ -241,16 +246,22 @@ public class Incident {
     @Blocking
     @Transactional
     @Route(path = "reseau/update", methods = Route.HttpMethod.POST)
-    public void updateReseau(RoutingExchange rx) {
+    public void updateReseau(RoutingExchange rx) throws DataFormatException {
         org.vdi.model.Incident incident = new org.vdi.model.Incident();
+        List<org.vdi.model.Incident> a = org.vdi.model.Incident.listAll();
         org.vdi.model.Incident inc = org.vdi.model.Incident.findById(Long.valueOf(rx.request().getFormAttribute("id")));
-        inc.update("status = ?1 , end_date = ?2, duration = ?3, cause = ?4 where id = ?5",
-                rx.request().getFormAttribute("status"),
-                LocalDateTime.parse(rx.request().getFormAttribute("end-date")),
-                Duration.between(LocalDateTime.parse(rx.request().getFormAttribute("start-date")), LocalDateTime.parse(rx.request().getFormAttribute("end-date"))).toMinutes(),
-                rx.request().getFormAttribute("cause"),
-                Long.valueOf(rx.request().getFormAttribute("id")));
-        rx.response().end("Incident updated" + inc.getCause());
+        int result = LocalDateTime.parse(rx.request().getFormAttribute("start-date")).compareTo(LocalDateTime.parse(rx.request().getFormAttribute("end-date")));
+//        if (result > 0) {
+//            throw new DataFormatException("this date is not valid");
+//        } else {
+            inc.update("status = ?1 , end_date = ?2, duration = ?3, cause = ?4 where id = ?5",
+                    rx.request().getFormAttribute("status"),
+                    LocalDateTime.parse(rx.request().getFormAttribute("end-date")),
+                    Duration.between(LocalDateTime.parse(rx.request().getFormAttribute("start-date")), LocalDateTime.parse(rx.request().getFormAttribute("end-date"))).toMinutes(),
+                    rx.request().getFormAttribute("cause"),
+                    Long.valueOf(rx.request().getFormAttribute("id")));
+            rx.response().end("Incident updated" + inc.getCause());
+//        }
     }
 
     @Blocking
@@ -273,7 +284,13 @@ public class Incident {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/listincidents")
     public List<org.vdi.model.Incident> getAll() {
-        return org.vdi.model.Incident.list("status = ?1", "EN_COURS");
+        return org.vdi.model.Incident.list("status = ?1 ", "EN_COURS");
     }
 
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/showonmap")
+    public List<org.vdi.model.Incident> showOnMap() {
+        return org.vdi.model.Incident.list("type.id =?1 and status = ?2", 1L, "EN_COURS");
+    }
 }
