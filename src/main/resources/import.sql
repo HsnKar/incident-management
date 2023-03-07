@@ -1,3 +1,117 @@
+DROP DATABASE IF EXISTS `vdi`;
+CREATE DATABASE IF NOT EXISTS `vdi`;
+USE `vdi`;
+
+
+DROP TABLE IF EXISTS `category`;
+CREATE TABLE IF NOT EXISTS `category` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+DROP TABLE IF EXISTS `contenu`;
+CREATE TABLE IF NOT EXISTS `contenu` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(255) DEFAULT NULL,
+  `category` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKsiqsfqlduc2ehkjnbrsriomox` (`category`),
+  CONSTRAINT `FKsiqsfqlduc2ehkjnbrsriomox` FOREIGN KEY (`category`) REFERENCES `category` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+
+DROP TABLE IF EXISTS `nurgeneral`;
+CREATE TABLE IF NOT EXISTS `nurgeneral` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+DROP TABLE IF EXISTS `nursingle`;
+CREATE TABLE IF NOT EXISTS `nursingle` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `nurgeneral` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKpuokdtirtlt2a5bly1wxkhadw` (`nurgeneral`),
+  CONSTRAINT `FKpuokdtirtlt2a5bly1wxkhadw` FOREIGN KEY (`nurgeneral`) REFERENCES `nurgeneral` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+DROP TABLE IF EXISTS `site`;
+CREATE TABLE IF NOT EXISTS `site` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `code_site` varchar(255) DEFAULT NULL,
+  `latitude` double DEFAULT NULL,
+  `longitude` double DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+DROP TABLE IF EXISTS `type`;
+CREATE TABLE IF NOT EXISTS `type` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+DROP TABLE IF EXISTS `service`;
+CREATE TABLE IF NOT EXISTS `service` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+DROP TABLE IF EXISTS `type`;
+CREATE TABLE IF NOT EXISTS `type` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+DROP TABLE IF EXISTS `incident`;
+CREATE TABLE IF NOT EXISTS `incident` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `cause` varchar(255) DEFAULT NULL,
+  `closed_at` date DEFAULT NULL,
+  `created_at` datetime(6) DEFAULT NULL,
+  `criticality` varchar(255) DEFAULT NULL,
+  `customId` varchar(255) DEFAULT NULL,
+  `duration` bigint(20) DEFAULT NULL,
+  `end_date` datetime(6) DEFAULT NULL,
+  `resolution` varchar(255) DEFAULT NULL,
+  `start_date` datetime(6) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `category` bigint(20) DEFAULT NULL,
+  `nursingle` bigint(20) DEFAULT NULL,
+  `service` bigint(20) DEFAULT NULL,
+  `site` bigint(20) DEFAULT NULL,
+  `type` bigint(20) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKcn6of9cgrdni3rltw622c9t4x` (`category`),
+  KEY `FK5jy4bi8o0g91xtiwt7u8nd83x` (`nursingle`),
+  KEY `FKcai2wu3s9b714rnu9tarkg21l` (`service`),
+  KEY `FK6s0qitw9lv59cadlpjridymds` (`site`),
+  KEY `FKamn6wvlgeeirslcuixml18hjy` (`type`),
+  CONSTRAINT `FK5jy4bi8o0g91xtiwt7u8nd83x` FOREIGN KEY (`nursingle`) REFERENCES `nursingle` (`id`),
+  CONSTRAINT `FK6s0qitw9lv59cadlpjridymds` FOREIGN KEY (`site`) REFERENCES `site` (`id`),
+  CONSTRAINT `FKamn6wvlgeeirslcuixml18hjy` FOREIGN KEY (`type`) REFERENCES `type` (`id`),
+  CONSTRAINT `FKcai2wu3s9b714rnu9tarkg21l` FOREIGN KEY (`service`) REFERENCES `service` (`id`),
+  CONSTRAINT `FKcn6of9cgrdni3rltw622c9t4x` FOREIGN KEY (`category`) REFERENCES `category` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- Insertion des données
+
+
+
 INSERT INTO `nurgeneral` (`id`, `name`) VALUES
 (1, 'Energy'),
 (2, 'Transmission'),
@@ -1004,6 +1118,6 @@ INSERT INTO `service` (`id`, `name`) VALUES
 INSERT INTO `type` (`id`, `name`) VALUES
     (1, 'reseau'),
     (2, 'service');
-INSERT INTO `incident` (`id`, `cause`, `closed_at`, `created_at`, `criticality`, `duration`, `end_date`, `resolution`, `start_date`, `status`, `category`, `nursingle`, `service`, `site`, `type`) VALUES
-    (1, 'dfg', NULL, '2023-03-03 16:21:21.248963', 'FAIBLE', 0, NULL, 'sdfg', '2023-03-09 03:21:00.000000', 'TERMINE', NULL, 1, NULL, 1, 1),
-    (2, 'sdfg', NULL, '2023-03-03 16:22:16.622439', 'CRITIQUE', 0, NULL, 'dfgh', '2023-03-01 03:21:00.000000', 'TERMINE', NULL, 9, NULL, 1, 1);
+--INSERT INTO `incident` (`id`, `cause`, `closed_at`, `created_at`, `criticality`, `duration`, `end_date`, `resolution`, `start_date`, `status`, `category`, `nursingle`, `service`, `site`, `type`) VALUES
+--    (1, 'dfg', NULL, '2023-03-03 16:21:21.248963', 'FAIBLE', 0, NULL, 'sdfg', '2023-03-09 03:21:00.000000', 'TERMINE', NULL, 1, NULL, 1, 1),
+--    (2, 'sdfg', NULL, '2023-03-03 16:22:16.622439', 'CRITIQUE', 0, NULL, 'dfgh', '2023-03-01 03:21:00.000000', 'TERMINE', NULL, 9, NULL, 1, 1);

@@ -4,6 +4,7 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -13,12 +14,15 @@ public class Incident extends PanacheEntityBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "site")
     public Site site;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "service")
     public Service service;
+
     @Column(name = "status")
     public String status;
     @Column(name = "created_at")
@@ -33,20 +37,23 @@ public class Incident extends PanacheEntityBase {
 
     @JoinColumn(name = "type")
     public Type type;
-
     @Column(name = "criticality")
     public String criticality;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "nursingle")
     public Nursingle nursingle;
+    @Column(name = "customId")
+    String customId;
     @NotBlank(message = "Cause cannot be blank")
     @Column(name = "cause")
     String cause;
+    @NotNull
     @Column(name = "start_date")
     LocalDateTime startDate;
     @Column(name = "end_date")
     LocalDateTime endDate;
+    @NotBlank
     @Column(name = "resolution")
     String resolution;
     @Column(name = "duration")
@@ -56,6 +63,9 @@ public class Incident extends PanacheEntityBase {
     @PrePersist
     public void createdAt() {
         this.createdAt = LocalDateTime.now();
+        Long count = Incident.count();
+        String customId = "ALR" + String.format("%04d", count + 1);
+        this.customId = customId;
     }
 
     public Site getSite() {
@@ -169,4 +179,13 @@ public class Incident extends PanacheEntityBase {
     public void setNursingle(Nursingle nursingle) {
         this.nursingle = nursingle;
     }
+
+    public String getCustomId() {
+        return customId;
+    }
+
+    public void setCustomId(String customId) {
+        this.customId = customId;
+    }
+
 }

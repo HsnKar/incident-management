@@ -5,6 +5,7 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.persistence.*;
 import java.util.List;
+
 @Entity
 @Table(name = "category")
 public class Category extends PanacheEntityBase {

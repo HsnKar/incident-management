@@ -79,50 +79,50 @@
         <input type="submit" value="Valider">
    </form> -->
    <script type="text/javascript">
-    $(document).ready(function () {
-    $("#submit").click(function (e) {
-        e.preventDefault();
-        var cause = $("#cause").val();
-        var dd = $("#start-date").val();
-        var de = $("#end-date").val();
-        var res = $("#resolution").val();
-        var stat = $("#status").val();
+    // $(document).ready(function () {
+    // $("#submit").click(function (e) {
+    //     e.preventDefault();
+    //     var cause = $("#cause").val();
+    //     var dd = $("#start-date").val();
+    //     var de = $("#end-date").val();
+    //     var res = $("#resolution").val();
+    //     var stat = $("#status").val();
 
-        if (dd >= de){
-          alert("Starting date cannot be greater than the ending date");
-        }else if (de == '') {
-          alert("Ending date cannot be empyt");
-        } else {
-          var book = {
-            "cause": cause,
-            "start-date": dd,
-            "end-date": de,
-            "resolution": res,
-            "status": stat
-        }
+    //     if (dd >= de){
+    //       alert("Starting date cannot be greater than the ending date");
+    //     }else if (de == '') {
+    //       alert("Ending date cannot be empyt");
+    //     } else {
+    //       var book = {
+    //         "cause": cause,
+    //         "start-date": dd,
+    //         "end-date": de,
+    //         "resolution": res,
+    //         "status": stat
+    //     }
 
-        $.ajax({
-            url: "/incidents/reseau/update",
-            type: "POST",
-            data: JSON.stringify(book),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
-          'Access-Control-Allow-Headers': 'Content-Type, Authorization'
-          }
-          }).done(function (d) {
-              alert("Incident updated")
-          }).fail(function () {
-                alert("Incident cannot be updated")
-            });
-        }
+    //     $.ajax({
+    //         url: "/incidents/reseau/update",
+    //         type: "POST",
+    //         data: JSON.stringify(book),
+    //         contentType: "application/json; charset=utf-8",
+    //         dataType: "json",
+    //         headers: {
+    //       'Access-Control-Allow-Origin': '*',
+    //       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
+    //       'Access-Control-Allow-Headers': 'Content-Type, Authorization'
+    //       }
+    //       }).done(function (d) {
+    //           alert("Incident updated")
+    //       }).fail(function () {
+    //             alert("Incident cannot be updated")
+    //         });
+    //     }
 
         
-    });
+    // });
   
-    })
+    // })
    </script>
 </body>
 </html>

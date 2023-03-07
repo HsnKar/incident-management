@@ -9,13 +9,12 @@ import org.vdi.model.Incident;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Response;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Path("/reporting")
+//@Path("/reporting")
 public class Report {
     //    @Inject
 //    Template getreporting;
@@ -69,8 +68,7 @@ public class Report {
 
     @GET
     @Path("/by-date")
-    public List<Incident> getByDate(@QueryParam("startDate") String startDateStr,
-                                    @QueryParam("endDate") String endDateStr) {
+    public List<Incident> getByDate(@QueryParam("startDate") String startDateStr, @QueryParam("endDate") String endDateStr) {
 
         LocalDate startDate = LocalDate.parse(startDateStr);
         LocalDate endDate = LocalDate.parse(endDateStr);
@@ -81,7 +79,7 @@ public class Report {
     @GET
     @Path("/reseau")
     public TemplateInstance getAllNetInc() {
-        List<Incident> incidents = Incident.list("type.id =?1 and status =?2",  1L, "TERMINE");
+        List<Incident> incidents = Incident.list("type.id =?1 and status =?2", 1L, "TERMINE");
         Map<String, Object> obj = new HashMap<>();
         obj.put("incidents", incidents);
         return reportingReseau.data(obj);
@@ -90,7 +88,7 @@ public class Report {
     @GET
     @Path("/tick-net")
     public List<Incident> getAllNetTic() {
-        return Incident.list("type.id =?1 and status =?2",  1L, "TERMINE");
+        return Incident.list("type.id =?1 and status =?2", 1L, "TERMINE");
     }
 
 }

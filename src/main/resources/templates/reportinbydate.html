@@ -1,21 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/css/boosted.min.css" rel="stylesheet" integrity="sha384-zYFw+mxKy6r9zpAc1NoGiYBfQmxfvg7ONEMr81WeU+WLPPaLC9QTrNGFJTBi3EIn" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/css/boosted.min.css" rel="stylesheet"
+        integrity="sha384-zYFw+mxKy6r9zpAc1NoGiYBfQmxfvg7ONEMr81WeU+WLPPaLC9QTrNGFJTBi3EIn" crossorigin="anonymous">
     <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/js/boosted.bundle.min.js" integrity="sha384-MANW37RG4MpFWPMCcNZBnvSobOkBpIGlbBkEzTtD4FbbOzJXbW8TddND1ak2lfsB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/js/boosted.bundle.min.js"
+        integrity="sha384-MANW37RG4MpFWPMCcNZBnvSobOkBpIGlbBkEzTtD4FbbOzJXbW8TddND1ak2lfsB"
+        crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
-    integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
-    crossorigin=""/>
-    <script src="https://code.jquery.comui/1.13.2/jquery-ui.js" integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+        integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+    <script src="https://code.jquery.comui/1.13.2/jquery-ui.js"
+        integrity="sha256-xLD7nhI62fcsEZK2/v8LsBcb4lG7dgULkuXoXB/j91c=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.js"
+        integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.js"></script>
     <title>Reporting</title>
 </head>
+
 <body>
     <style>
         .content {
@@ -39,9 +45,9 @@
         <div style="clear: both;"></div>
         <br>
 
-      
 
-// Using this one
+
+        // Using this one
 
         <table id="incidentTable">
             <thead>
@@ -74,48 +80,49 @@
     <script>
 
 
-$(document).ready(function(){  
-           $.datepicker.setDefaults({  
-                dateFormat: 'yy-mm-dd'   
-           });  
-           $(function(){  
-                $("#from_date").datepicker();  
-                $("#to_date").datepicker();  
-           });  
+        $(document).ready(function () {
+            $.datepicker.setDefaults({
+                dateFormat: 'yy-mm-dd'
+            });
+            $(function () {
+                $("#from_date").datepicker();
+                $("#to_date").datepicker();
+            });
         });
 
-            const ab = () => {
-    const incidents = fetch(`http://localhost:8080/incidents/listinciden`);
-    incidents.then(data => 
-            data.json().then(incidents => {
-                incidents.forEach(element => {
-                    const tableBody = document.getElementById('incidentTableBody');
-                    tableBody.innerHTML = '';
-                    
-                    incidents.forEach(incident => {
-                        const row = tableBody.insertRow();
-                        row.insertCell().textContent = incident.id;
-                        row.insertCell().textContent = incident.site.name;
-                        row.insertCell().textContent = incident.service.name;
-                        row.insertCell().textContent = incident.status;
-                        row.insertCell().textContent = incident.createdAt;
-                        row.insertCell().textContent = incident.closedAt;
-                        row.insertCell().textContent = incident.category.name;
-                        row.insertCell().textContent = incident.type.name;
-                        row.insertCell().textContent = incident.criticality;
-                        row.insertCell().textContent = incident.cause;
-                        row.insertCell().textContent = incident.startDate;
-                        row.insertCell().textContent = incident.endDate;
-                        row.insertCell().textContent = incident.resolution;
-                        row.insertCell().textContent = incident.duration;
-                        row.insertCell().textContent = incident.nursingle.name;
-                    });
-                })
-                .catch(error => console.error(error));
-            };
+        const ab = () => {
+            const incidents = fetch(`http://localhost:8080/incidents/listinciden`);
+            incidents.then(data =>
+                data.json().then(incidents => {
+                    incidents.forEach(element => {
+                        const tableBody = document.getElementById('incidentTableBody');
+                        tableBody.innerHTML = '';
+
+                        incidents.forEach(incident => {
+                            const row = tableBody.insertRow();
+                            row.insertCell().textContent = incident.id;
+                            row.insertCell().textContent = incident.site.name;
+                            row.insertCell().textContent = incident.service.name;
+                            row.insertCell().textContent = incident.status;
+                            row.insertCell().textContent = incident.createdAt;
+                            row.insertCell().textContent = incident.closedAt;
+                            row.insertCell().textContent = incident.category.name;
+                            row.insertCell().textContent = incident.type.name;
+                            row.insertCell().textContent = incident.criticality;
+                            row.insertCell().textContent = incident.cause;
+                            row.insertCell().textContent = incident.startDate;
+                            row.insertCell().textContent = incident.endDate;
+                            row.insertCell().textContent = incident.resolution;
+                            row.insertCell().textContent = incident.duration;
+                            row.insertCell().textContent = incident.nursingle.name;
+                        });
+                    })
+                        .catch(error => console.error(error));
+                };
 
 
-ab();
+            ab();
     </script>
 </body>
+
 </html>

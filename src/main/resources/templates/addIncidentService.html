@@ -1,111 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Créer un incident de service</title>
-  <!-- CSS only -->
-  <link href="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/css/boosted.min.css" rel="stylesheet" integrity="sha384-zYFw+mxKy6r9zpAc1NoGiYBfQmxfvg7ONEMr81WeU+WLPPaLC9QTrNGFJTBi3EIn" crossorigin="anonymous">
-  <!-- JavaScript Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/js/boosted.bundle.min.js" integrity="sha384-MANW37RG4MpFWPMCcNZBnvSobOkBpIGlbBkEzTtD4FbbOzJXbW8TddND1ak2lfsB" crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
-  <!-- Unpoly -->
-  <script src="https://unpkg.com/unpoly@2.7.1/unpoly.min.js"></script>
-  <link rel="stylesheet" href="https://unpkg.com/unpoly@2.7.1/unpoly.min.css">
-</head>
-<body>
-  <style>
-    .content {
-        padding: 100px;
-    }
-    .legende {
-      padding-bottom: 50px;
-    }
-  </style>
-  {#include navbar}
-  {/include}
-   <div class="content-fluid content">
-    <form action="{#if !isUpdate}/incidents/service{#else}/incidents/service/{incident.id} {/if}" method="post" up-submit>
-      <fieldset>
-        <legend class="legende">Créer un incident de service</legend>
-        <div class="mb-3">
-          <label for="criticality" class="form-label is-required">Niveau de criticité</label>
-          <select name="criticality" id="criticality">
-            <option value="CRITIQUE">Critique</option>
-            <option value="MOYEN">Moyen</option>
-            <option value="FAIBLE">Faible</option>
-          </select>
-        </div>
-        <div class="mb-3">
-          <label for="cause" class="form-label is-required">Cause</label>
-          <input type="text" class="form-control" id="cause" name="cause">
-        </div>
-        <div class="mb-3">
-          <label for="start-date" class="form-label is-required">Date de début</label>
-          <input type="datetime-local" class="form-control" id="start-date" name="start-date">
-        </div>
-        {#if isUpdate}
-        <div class="mb-3">
-          <label for="end-date" class="form-label">Date de fin</label>
-          <input type="datetime-local" class="form-control" id="end-date" name="end-date">
-        </div>
-        {/if}
-        <div class="mb-3">
-          <label for="resolution" class="form-label is-required">Résolution</label>
-          <input type="text" class="form-control" id="resolution" name="resolution">
-        </div>
-        <div class="mb-3">
-          <input type="hidden" class="form-control" id="type" name="type" value="2">
-        </div>
-        <div class="mb-3">
-          <label for="resolution" class="form-label is-required">Statut</label>
-          <select name="status" id="status">
-            <option value="EN_COURS">En cours</option>
-            <option value="TERMINE">Terminé</option>
-          </select>
-          <input type="hidden" name="type" value="1">
 
-        </div>
-        <div class="mb-3">
-          <label for="service" class="form-label is-required">Service</label>
-          <select name="service" id="service" class="form-select" aria-label="size 3 select example">
-            {#for service in services}
-            <option value="{service.id}">{service.name}</option>
-            {/for}
-          </select>
-        </div>
-        <div class="mb-3">
-          <input type="hidden" class="form-control" id="type" name="type" value="2">
-        </div>
-        <!-- Button trigger the modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-          Valider
-        </button>
-        <!-- Modal -->
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title h5" id="staticBackdropLabel">Est-ce que toutes les informations sont valides ?</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"><span class="visually-hidden">Close</span></button>
-              </div>
-              <!-- <div class="modal-body">
+<head>
+    <meta charset="UTF-8">
+    <title>Créer un incident de service</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/css/boosted.min.css" rel="stylesheet"
+        integrity="sha384-zYFw+mxKy6r9zpAc1NoGiYBfQmxfvg7ONEMr81WeU+WLPPaLC9QTrNGFJTBi3EIn" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/js/boosted.bundle.min.js"
+        integrity="sha384-MANW37RG4MpFWPMCcNZBnvSobOkBpIGlbBkEzTtD4FbbOzJXbW8TddND1ak2lfsB"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.js"
+        integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <!-- Unpoly -->
+    <script src="https://unpkg.com/unpoly@2.7.1/unpoly.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/unpoly@2.7.1/unpoly.min.css">
+</head>
+
+<body>
+    <style>
+        .content {
+            padding: 100px;
+        }
+
+        .legende {
+            padding-bottom: 50px;
+        }
+    </style>
+    {#include navbar}
+    {/include}
+    <div class="content-fluid content">
+        <form action="{#if !isUpdate}/incidents/service{#else}/incidents/service/{incident.id} {/if}" method="post"
+            up-submit>
+            <fieldset>
+                <legend class="legende">Créer un incident de service</legend>
+                <div class="mb-3">
+                    <label for="criticality" class="form-label is-required">Niveau de criticité</label>
+                    <select name="criticality" id="criticality">
+                        <option value="CRITIQUE">Critique</option>
+                        <option value="MOYEN">Moyen</option>
+                        <option value="FAIBLE">Faible</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="cause" class="form-label is-required">Cause</label>
+                    <input type="text" class="form-control" id="cause" name="cause">
+                </div>
+                <div class="mb-3">
+                    <label for="start-date" class="form-label is-required">Date de début</label>
+                    <input type="datetime-local" class="form-control" id="start-date" name="start-date">
+                </div>
+                {#if isUpdate}
+                <div class="mb-3">
+                    <label for="end-date" class="form-label">Date de fin</label>
+                    <input type="datetime-local" class="form-control" id="end-date" name="end-date">
+                </div>
+                {/if}
+                <div class="mb-3">
+                    <label for="resolution" class="form-label is-required">Résolution</label>
+                    <input type="text" class="form-control" id="resolution" name="resolution">
+                </div>
+                <div class="mb-3">
+                    <input type="hidden" class="form-control" id="type" name="type" value="2">
+                </div>
+                <div class="mb-3">
+                    <label for="resolution" class="form-label is-required">Statut</label>
+                    <select name="status" id="status">
+                        <option value="EN_COURS">En cours</option>
+                        <option value="TERMINE">Terminé</option>
+                    </select>
+                    <input type="hidden" name="type" value="1">
+
+                </div>
+                <div class="mb-3">
+                    <label for="service" class="form-label is-required">Service</label>
+                    <select name="service" id="service" class="form-select" aria-label="size 3 select example">
+                        {#for service in services}
+                        <option value="{service.id}">{service.name}</option>
+                        {/for}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <input type="hidden" class="form-control" id="type" name="type" value="2">
+                </div>
+                <!-- Button trigger the modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    Valider
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title h5" id="staticBackdropLabel">Est-ce que toutes les informations
+                                    sont valides ?</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"><span
+                                        class="visually-hidden">Close</span></button>
+                            </div>
+                            <!-- <div class="modal-body">
                 Cliquez sur <strong>enregistrer</strong> pour enregistrer l'incident sans envoyer de mail.<br/>
                 Cliquez sur <strong>enregistrer et envoyer</strong> pour enregistrer l'incident puis envoyer de mail.
               </div> -->
-              <div class="modal-footer">
-                <button type="submit" class="btn btn-secondary" data-bs-dismiss="modal">Enregistrer</button>
-                <!-- <button type="button" class="btn btn-primary">Enregistrer & Envoyer</button> -->
-              </div>
-            </div>
-          </div>
-        <!-- <button type="submit" class="btn btn-primary mt-2">Submit</button> -->
-      </fieldset>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-secondary"
+                                    data-bs-dismiss="modal">Enregistrer</button>
+                                <!-- <button type="button" class="btn btn-primary">Enregistrer & Envoyer</button> -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <button type="submit" class="btn btn-primary mt-2">Submit</button> -->
+            </fieldset>
 
-   </div>
-   
-      <!-- Old Form -->
+    </div>
 
-        <!-- Cause
+    <!-- Old Form -->
+
+    <!-- Cause
         <input type="text" name="cause"><br>
         Date de début
         <input type="datetime-local" name="start-date" ><br>
@@ -120,6 +132,7 @@
           {/for}
         </select>
         <input type="submit" value="Valider"> -->
-   </form>
+    </form>
 </body>
+
 </html>

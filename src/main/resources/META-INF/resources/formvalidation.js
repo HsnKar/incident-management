@@ -9,7 +9,7 @@ $("#myform").validate({
     required: "please enter a valid cause",
     minlenght: "Enter a valid cause"
   },
-  submitHandler: function(form) {
+  submitHandler: function (form) {
     form.submit();
   }
 });

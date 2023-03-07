@@ -5,6 +5,7 @@ import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 
 import javax.persistence.*;
 import java.util.List;
+
 @Entity
 @Table(name = "nurgeneral")
 public class Nurgeneral extends PanacheEntityBase {
