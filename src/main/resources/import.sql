@@ -81,13 +81,14 @@ DROP TABLE IF EXISTS `incident`;
 CREATE TABLE IF NOT EXISTS `incident` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `cause` varchar(255) DEFAULT NULL,
-  `closed_at` date DEFAULT NULL,
+  `closed_at` datetime(6) DEFAULT NULL,
   `created_at` datetime(6) DEFAULT NULL,
   `criticality` varchar(255) DEFAULT NULL,
   `customId` varchar(255) DEFAULT NULL,
   `duration` bigint(20) DEFAULT NULL,
   `end_date` datetime(6) DEFAULT NULL,
   `resolution` varchar(255) DEFAULT NULL,
+  `root_cause` varchar(255) DEFAULT NULL,
   `start_date` datetime(6) DEFAULT NULL,
   `status` varchar(255) DEFAULT NULL,
   `category` bigint(20) DEFAULT NULL,
@@ -1112,7 +1113,12 @@ INSERT INTO `service` (`id`, `name`) VALUES
     (28, 'Interop OrangeMoney-Airtel Money'),
     (29, 'Paiement facture Canal + via OM'),
     (30, 'Broker (Addon local Orange Money)'),
-    (31, 'M-kajy');
+    (31, 'My Orange (Za sy Orange)'),
+    (32, 'API SMS'),
+    (33, 'Google RCS'),
+    (34, 'RMS'),
+    (35, 'Rapport DWH GR'),
+    (36, 'Messaging Pro');
 
 
 INSERT INTO `type` (`id`, `name`) VALUES

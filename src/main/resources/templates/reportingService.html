@@ -28,27 +28,77 @@
         <table class="table table-sm align-middle table-responsive">
             <thead>
                 <tr>
-                    <th></th>
-                    {#for week in numberOfWeek}
-                    <th rowspan="{servicesCount}">Semaine {week}</th>
-                    {/for}
+                    <th scope="col">Numéro ticket</th>
+                    <th scope="col">Criticité</th>
+                    <th scope="col">Cause</th>
+                    <th scope="col">Date de début</th>
+                    <th scope="col">Date de fin</th>
+                    <th scope="col">Durée</th>
+                    <th scope="col">Résolution</th>
+                    <th scope="col">Service</th>
+                    <th scope="col">Cause principale</th>
+                    <th scope="col">Statut</th>
                 </tr>
             </thead>
             <tbody>
+                {#for incident in incidents}
                 <tr>
-                    <th rowspan="{servicesCount}">Temps d'indisponibilité des services</th>
-                </tr>
-                <tr>
-                    {#for listService in serviceList}
-                <tr>
-                    <td>{listService.name}</td>
+                    <td>{incident[0]}</td>
+                    <td>{incident[1]}</td>
+                    <td>{incident[2]}</td>
+                    <td>{incident[3]}</td>
+                    <td>{incident[4]}</td>
+                    <td>{incident[5]}</td>
+                    <td>{incident[6]}</td>
+                    <td>{incident[7]}</td>
+                    <td>{incident[9]}</td>
+                    <td class="status">{incident[8]}</td>
                 </tr>
                 {/for}
-                </tr>
             </tbody>
         </table>
     </div>
 
+    <!-- Not using this one for the moment -->
+
+    <!-- <div class="table-responsive-sm">
+        <table class="table table-sm align-middle table-responsive">
+            <thead>
+                <tr>
+                    <th></th>
+                    {!#for week in numberOfWeek!}
+                    <th rowspan="{!servicesCount!}">Semaine {!week!}</th>
+                    {!/for!}
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th rowspan="{!servicesCount!}">Temps d'indisponibilité des services</th>
+                </tr>
+                <tr>
+                    {!#for listService in serviceList!}
+                <tr>
+                    <td>{!listService.name!}</td>
+                </tr>
+                {!/for!}
+                </tr>
+            </tbody>
+        </table>
+    </div> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+        integrity="sha512-3P8rXCuGJdNZOnUx/03c1jOTnMn3rP63nBip5gOP2qmUh5YAdVAvFZ1E+QLZZbC1rtMrQb+mah3AfYW11RUrWA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        // $(document).ready(function () {
+        //     console.log("ready!");
+        //     let status = $(".status").val;
+        //     if ( status == "EN_COURS" ) {
+        //         $(".status").css({ "backgroundColor": "green" });
+        //     } else {
+        //         $(".status").css({ "backgroundColor": "red" });
+        //     }
+        // });
+    </script>
 </body>
 
 </html>

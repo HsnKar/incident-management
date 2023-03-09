@@ -12,11 +12,14 @@
     <script src="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/js/boosted.bundle.min.js"
         integrity="sha384-MANW37RG4MpFWPMCcNZBnvSobOkBpIGlbBkEzTtD4FbbOzJXbW8TddND1ak2lfsB"
         crossorigin="anonymous"></script>
+    <div class="incidents"></div>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
         integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
     <!-- Make sure you put this AFTER Leaflet's CSS -->
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
         integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    <script src="https://unpkg.com/unpoly@2.7.2/unpoly.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/unpoly@2.7.2/unpoly.min.css">
 
 
     <link rel="stylesheet" type="text/css" href="/style.css" />
@@ -42,13 +45,26 @@
     <div class="container-fluid content">
         <h3>Carte</h3>
         <!-- div element for the map -->
-        <div id="map">
+        <!-- <div id="map">
+        </div> -->
+        <div id="incidents"></div>
 
-        </div>
+        <script src="http://localhost:8080/jquery-3.6.3.js"></script>
+        <script>
+            $(document).ready(function () {
+                console.log("ready!");
+                $("button").click(function () {
+                    alert("qmsdlfkjqmsldkqfjmslkdjqf");
+                    $("#incidents").load("http://localhost:8080/accueiltable/accuieilTable.html");
+                });
+            });
+        </script>
 
-        <h4 class="h4">Incidents du réseau en cours {#if countSite lt 1}(rien à afficher pour le moment){#else}<span
-                class="badge bg-primary rounded-pill">{countSite}</span>{/if}</h4>
-        {#if countSite lt 1}
+        <button>Load incidents</button>
+
+        <!-- <h4 class="h4">Incidents du réseau en cours {!#if countSite lt 1!}(rien à afficher pour le moment){!#else!}<span
+                class="badge bg-primary rounded-pill">{!countSite!}</span>{!/if!}</h4>
+        {!#if countSite lt 1!}
         <figure>
             <blockquote class="blockquote">
                 <figcaption class="blockquote-footer">
@@ -56,7 +72,7 @@
                 </figcaption>
             </blockquote>
         </figure>
-        {#else}
+        {!#else!}
         <table class="table table-sm align-middle table-responsive table-striped">
             <thead>
                 <tr>
@@ -71,24 +87,24 @@
                 </tr>
             </thead>
             <tbody>
-                {#for incidentSite in incidentSites}
+                {!#for incidentSite in incidentSites!}
                 <tr>
-                    <td>{incidentSite[8]}</td>
-                    <td>{incidentSite[6]}</td>
-                    <td>{incidentSite[1]}</td>
-                    <td>{incidentSite[2]}</td>
-                    <td>{incidentSite[3]}</td>
-                    <td>{incidentSite[4]}</td>
-                    <td>{incidentSite[5]}</td>
-                    <td>{incidentSite[7]}</td>
+                    <td>{!incidentSite[8]!}</td>
+                    <td>{!incidentSite[6]!}</td>
+                    <td>{!incidentSite[1]!}</td>
+                    <td>{!incidentSite[2]!}</td>
+                    <td>{!incidentSite[3]!}</td>
+                    <td>{!incidentSite[4]!}</td>
+                    <td>{!incidentSite[5]!}</td>
+                    <td>{!incidentSite[7]!}</td>
                 </tr>
-                {/for}
+                {!/for!}
             </tbody>
         </table>
-        {/if}
-        <h4 class="h4">Incidents de service en cours {#if countService lt 1}(rien à afficher pour le moment){#else}<span
-                class="badge bg-primary rounded-pill">{countService}</span>{/if}</h4>
-        {#if countService lt 1}
+        {!/if!}
+        <h4 class="h4">Incidents de service en cours {!#if countService lt 1!}(rien à afficher pour le moment){!#else!}<span
+                class="badge bg-primary rounded-pill">{!countService!}</span>{!/if!}</h4>
+        {!#if countService lt 1!}
         <figure>
             <blockquote class="blockquote">
                 <figcaption class="blockquote-footer">
@@ -96,7 +112,7 @@
                 </figcaption>
             </blockquote>
         </figure>
-        {#else}
+        {!#else!}
         <table class="table table-sm align-middle table-responsive">
             <thead>
                 <tr>
@@ -111,21 +127,21 @@
                 </tr>
             </thead>
             <tbody>
-                {#for incidentService in incidentServices}
+                {!#for incidentService in incidentServices!}
                 <tr>
-                    <td>{incidentService[8]}</td>
-                    <td>{incidentService[6]}</td>
-                    <td>{incidentService[1]}</td>
-                    <td id="start-date">{incidentService[2]}</td>
-                    <td>{incidentService[3]}</td>
-                    <td>{incidentService[4]}</td>
-                    <td>{incidentService[5]}</td>
-                    <td>{incidentService[7]}</td>
+                    <td>{!incidentService[8]!}</td>
+                    <td>{!incidentService[6]!}</td>
+                    <td>{!incidentService[1]!}</td>
+                    <td id="start-date">{!incidentService[2]!}</td>
+                    <td>{!incidentService[3]!}</td>
+                    <td>{!incidentService[4]!}</td>
+                    <td>{!incidentService[5]!}</td>
+                    <td>{!!incidentService[7]!}</td>
                 </tr>
-                {/for}
+                {!/for!}
             </tbody>
         </table>
-        {/if}
+        {!/if!} -->
     </div>
     <script src="./index.js"></script>
 </body>

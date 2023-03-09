@@ -11,11 +11,8 @@
     <script src="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/js/boosted.bundle.min.js"
         integrity="sha384-MANW37RG4MpFWPMCcNZBnvSobOkBpIGlbBkEzTtD4FbbOzJXbW8TddND1ak2lfsB"
         crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.3.js"
-        integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
-    <!-- Unpoly -->
-    <script src="https://unpkg.com/unpoly@2.7.1/unpoly.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/unpoly@2.7.1/unpoly.min.css">
+    <script src="https://unpkg.com/unpoly@2.7.2/unpoly.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/unpoly@2.7.2/unpoly.min.css">
 </head>
 
 <body>
@@ -42,6 +39,10 @@
                         <option value="MOYEN">Moyen</option>
                         <option value="FAIBLE">Faible</option>
                     </select>
+                </div>
+                <div class="mb-3">
+                    <label for="responsable" class="form-label is-required">Responsable</label>
+                    <input type="text" class="form-control" id="responsable" name="responsable">
                 </div>
                 <div class="mb-3">
                     <label for="cause" class="form-label is-required">Cause</label>
@@ -85,11 +86,11 @@
                     <input type="hidden" class="form-control" id="type" name="type" value="2">
                 </div>
                 <!-- Button trigger the modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                     Valider
                 </button>
                 <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                <!-- <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
                     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -98,20 +99,20 @@
                                     sont valides ?</h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"><span
                                         class="visually-hidden">Close</span></button>
-                            </div>
-                            <!-- <div class="modal-body">
+                            </div> -->
+                <!-- <div class="modal-body">
                 Cliquez sur <strong>enregistrer</strong> pour enregistrer l'incident sans envoyer de mail.<br/>
                 Cliquez sur <strong>enregistrer et envoyer</strong> pour enregistrer l'incident puis envoyer de mail.
               </div> -->
-                            <div class="modal-footer">
+                <!-- <div class="modal-footer">
                                 <button type="submit" class="btn btn-secondary"
                                     data-bs-dismiss="modal">Enregistrer</button>
-                                <!-- <button type="button" class="btn btn-primary">Enregistrer & Envoyer</button> -->
-                            </div>
-                        </div>
-                    </div>
-                    <!-- <button type="submit" class="btn btn-primary mt-2">Submit</button> -->
-            </fieldset>
+                                <button type="button" class="btn btn-primary">Enregistrer & Envoyer</button>
+                            </div> -->
+    </div>
+    </div>
+    <!-- <button type="submit" class="btn btn-primary mt-2">Submit</button> -->
+    </fieldset>
 
     </div>
 

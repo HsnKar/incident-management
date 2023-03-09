@@ -28,7 +28,7 @@ public class Incident extends PanacheEntityBase {
     @Column(name = "created_at")
     public LocalDateTime createdAt;
     @Column(name = "closed_at")
-    public LocalDate closedAt;
+    public LocalDateTime closedAt;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category")
 
@@ -58,6 +58,8 @@ public class Incident extends PanacheEntityBase {
     String resolution;
     @Column(name = "duration")
     long duration;
+    @Column(name = "root_cause")
+    public String rootCause;
 
     @PreUpdate
     @PrePersist
@@ -100,11 +102,11 @@ public class Incident extends PanacheEntityBase {
         this.createdAt = createdAt;
     }
 
-    public LocalDate getClosedAt() {
+    public LocalDateTime getClosedAt() {
         return closedAt;
     }
 
-    public void setClosedAt(LocalDate closedAt) {
+    public void setClosedAt(LocalDateTime closedAt) {
         this.closedAt = closedAt;
     }
 
@@ -188,4 +190,11 @@ public class Incident extends PanacheEntityBase {
         this.customId = customId;
     }
 
+    public String getRootCause() {
+        return rootCause;
+    }
+
+    public void setRootCause(String rootCause) {
+        this.rootCause = rootCause;
+    }
 }
