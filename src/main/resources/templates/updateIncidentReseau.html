@@ -14,7 +14,7 @@
   <div class="container-fluid content">
 <!-- <h1>Incident réseau</h1> -->
 <form method="post" action="/reseau/update" id="myform">
-  <input type="hidden" name="id" id="id" value="{incident.id}">
+  <input type="hidden" name="id" id="id" value="{incident.id}"  onsubmit="return validateForm()">
   <fieldset>
     <legend>Fermer un incident du réseau</legend>
     <div class="mb-3">
@@ -78,7 +78,12 @@
         </select>
         <input type="submit" value="Valider">
    </form> -->
-   <script type="text/javascript">
+   <script src="http://localhost:8080/jquery-3.6.3.js">
+
+
+
+
+
     // $(document).ready(function () {
     // $("#submit").click(function (e) {
     //     e.preventDefault();

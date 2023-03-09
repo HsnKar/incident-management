@@ -1127,3 +1127,10 @@ INSERT INTO `type` (`id`, `name`) VALUES
 --INSERT INTO `incident` (`id`, `cause`, `closed_at`, `created_at`, `criticality`, `duration`, `end_date`, `resolution`, `start_date`, `status`, `category`, `nursingle`, `service`, `site`, `type`) VALUES
 --    (1, 'dfg', NULL, '2023-03-03 16:21:21.248963', 'FAIBLE', 0, NULL, 'sdfg', '2023-03-09 03:21:00.000000', 'TERMINE', NULL, 1, NULL, 1, 1),
 --    (2, 'sdfg', NULL, '2023-03-03 16:22:16.622439', 'CRITIQUE', 0, NULL, 'dfgh', '2023-03-01 03:21:00.000000', 'TERMINE', NULL, 9, NULL, 1, 1);
+
+
+INSERT INTO `incident` (`id`, `cause`, `closed_at`, `created_at`, `criticality`, `customId`, `duration`, `end_date`, `resolution`, `root_cause`, `start_date`, `status`, `category`, `nursingle`, `service`, `site`, `type`) VALUES
+	(1, 'sdf', '2023-03-09 15:33:04.479907', '2023-03-09 15:32:37.585767', 'CRITIQUE', 'ALR0001', 10061, '2023-03-09 03:02:00.000000', 'sdf', NULL, '2023-03-02 03:21:00.000000', 'TERMINE', NULL, 1, NULL, 1, 1),
+	(2, 'fsd', NULL, '2023-03-09 15:32:55.418115', 'CRITIQUE', 'ALR0002', 0, NULL, 'd', NULL, '2023-03-10 03:02:00.000000', 'EN_COURS', NULL, 1, NULL, 1, 1),
+	(3, 'f', NULL, '2023-03-09 15:33:38.356248', 'CRITIQUE', 'ALR0003', 0, NULL, 'sdf', NULL, '2023-03-07 03:21:00.000000', 'EN_COURS', NULL, NULL, 1, NULL, 2),
+	(4, 'sdf', NULL, '2023-03-09 15:33:50.209015', 'CRITIQUE', 'ALR0004', 0, NULL, 'sdf', NULL, '2023-03-02 03:21:00.000000', 'EN_COURS', NULL, NULL, 1, NULL, 2);

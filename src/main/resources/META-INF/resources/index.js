@@ -7,8 +7,8 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png'
 
 
 
-
 // fetching the incidents
+
 const ab = () => {
   const incidents = fetch(`http://localhost:8080/incidents/showonmap`);
   incidents.then(data =>
@@ -35,7 +35,7 @@ const ab = () => {
 
         // var marker = L.marker([51.5, -0.09]).addTo(map);
         // var marker = L.marker([lat, lgt]).addTo(map);
-        marker.bindPopup(`<b><strong>Niveau de criticité:</strong> ${criticality}!</b><br><strong>Problème</strong>: ${nursingle.name}<br><strong>Lieu:</strong> ${site.name}<br><strong>date de début: </strong> ${startDate}.`).openPopup();
+        marker.bindPopup(`<b><strong>Niveau de criticité:</strong> ${criticality}!</b><br><strong>Problème</strong>: ${nursingle.name}<br><strong>Lieu:</strong> ${site.name}<br><strong>date de début: </strong> ${startDate}.`);
         // var popup = L.popup()
         // .setLatLng([lat, lgt])
         // .setContent(`<b><strong>Niveau de criticité:</strong> ${criticality}!</b><br><strong>Problème</strong>: ${nursingle.name}<br><strong>Lieu:</strong> ${site.name}<br><strong>date de début: </strong> ${startDate}.`)
@@ -47,8 +47,9 @@ const ab = () => {
     })
   ).catch(error => console.log('There was an error with the fetch operation'));
 };
-
 ab();
+
+// setInterval(ab, 5000);
 
 // var satellite = L.tileLayer(mapboxUrl, { id: 'MapID', tileSize: 512, zoomOffset: -1, attribution: mapboxAttribution });
 

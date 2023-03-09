@@ -22,13 +22,14 @@
         <div class="container-fluid">
             <div class="navbar-brand">
                 <a class="stretched-link" href="#">
-                    <img src="http://localhost:8080/orange-logo.svg" alt="Boosted - Back to Home" loading="lazy" width="50" height="50">
+                    <img src="http://localhost:8080/orange-logo.svg" alt="Boosted - Back to Home" loading="lazy"
+                        width="50" height="50">
                 </a>
                 <h1 class="title">Orange</h1>
             </div>
-    
+
             <!-- new code -->
-    
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
                 aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -39,8 +40,8 @@
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="/accueil">Accueil</a>
                     </li>
-    
-    
+
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
@@ -58,10 +59,11 @@
                             Incident
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a href="/incidents" class="dropdown-item" >Liste de tous les incidents en
+                            <li><a href="/incidents" class="dropdown-item">Liste de tous les incidents en
                                     cours</a></li>
                             <li><a href="/incidents/reseau" class="dropdown-item">Création d'incident du réseau</a></li>
-                            <li><a href="/incidents/service" class="dropdown-item">Création d'incident de service</a></li>
+                            <li><a href="/incidents/service" class="dropdown-item">Création d'incident de service</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -71,20 +73,20 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark">
                             <li><a href="/sites" class="dropdown-item">Administration des sites</a></li>
-                            <li><a href="/incidents/reseau" class="dropdown-item" >Administration des
+                            <li><a href="/incidents/reseau" class="dropdown-item">Administration des
                                     utilisateur</a></li>
-                            <li><a href="/services" class="dropdown-item" >Administration des services</a></li>
+                            <li><a href="/services" class="dropdown-item">Administration des services</a></li>
                         </ul>
                     </li>
                 </ul>
-    
+
             </div>
             <ul class="nav fixed-top justify-content-center">
-    
-    
+
+
             </ul>
         </div>
-    
+
     </nav>
 
 
@@ -237,8 +239,14 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
 
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="http://localhost:8080/jquery-3.6.3.js"></script>
     <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#err").hide();
+            $("#suc").hide();
+        })
+        /*
         $(document).ready(function () {
             $("#err").hide();
             $("#suc").hide();
@@ -261,7 +269,7 @@
                 }
 
                 $.ajax({
-                    url: "/incidents/reseau",
+                    url: "http://localhost:8080/incidents/reseau",
                     type: "POST",
                     data: JSON.stringify(inc),
                     contentType: "application/json; charset=utf-8",
@@ -285,6 +293,7 @@
                 });
             });
         })
+        */
     </script>
 
 

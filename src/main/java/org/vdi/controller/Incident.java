@@ -1,5 +1,6 @@
 package org.vdi.controller;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import io.quarkus.qute.Template;
 import io.quarkus.qute.TemplateInstance;
 import io.quarkus.vertx.web.Route;
@@ -18,6 +19,7 @@ import javax.validation.Valid;
 import javax.validation.Validator;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -60,8 +62,8 @@ public class Incident {
 
     @GET
     public TemplateInstance getAllIncidents() {
-        List<org.vdi.model.Incident> incidentServices = org.vdi.model.Incident.list("select i.id, " + "i.cause, " + "i.startDate, " + "i.endDate, " + "i.duration, " + "i.createdAt, " + "i.closedAt, " + "i.criticality, " + "i.resolution, " + "s.name , i.customId from Incident i join i.service s " + "where i.status = ?1", "EN_COURS");
-        List<org.vdi.model.Incident> incidentSites = org.vdi.model.Incident.list("select i.id, " + "i.cause, " + "i.startDate, " + "i.endDate, " + "i.duration, " + "i.createdAt, " + "i.closedAt, " + "i.criticality, " + "i.resolution, " + "s.name , i.customId from Incident i join i.site s join i.nursingle n " + "where i.status = ?1", "EN_COURS");
+        List<org.vdi.model.Incident> incidentServices = org.vdi.model.Incident.list("select i.id, " + "i.cause, " + "DATE_FORMAT(i.startDate, '%Y-%m-%d %H:%i:%s'), " + "DATE_FORMAT(i.endDate, '%Y-%m-%d %H:%i:%s'), " + "i.duration, " + "i.createdAt, " + "i.closedAt, " + "i.criticality, " + "i.resolution, " + "s.name , i.customId from Incident i join i.service s " + "where i.status = ?1", "EN_COURS");
+        List<org.vdi.model.Incident> incidentSites = org.vdi.model.Incident.list("select i.id, " + "i.cause, " + "DATE_FORMAT(i.startDate,  '%Y-%m-%d %H:%i:%s'), " + "DATE_FORMAT(i.endDate, '%Y-%m-%d %H:%i:%s'), " + "i.duration, " + "i.createdAt, " + "i.closedAt, " + "i.criticality, " + "i.resolution, " + "s.name , i.customId from Incident i join i.site s join i.nursingle n " + "where i.status = ?1", "EN_COURS");
 //        long countIncidentSite = Incident.("select count(i) from Incident i join i.site s where i.status = ?1", "EN_COURS");
         long countIncidentSite = incidentSites.size();
         long countIncidentService = incidentServices.size();
@@ -109,7 +111,6 @@ public class Incident {
     }
 
 
-    // Try validation
 
     @POST
     @Path("/reseau")
@@ -255,7 +256,7 @@ public class Incident {
 //        if (result > 0) {
 //            throw new DataFormatException("this date is not valid");
 //        } else {
-        inc.update("status = ?1 , end_date = ?2, duration = ?3, cause = ?4, closedAt = ?5", rx.request().getFormAttribute("status"), LocalDateTime.parse(rx.request().getFormAttribute("end-date")), Duration.between(LocalDateTime.parse(rx.request().getFormAttribute("start-date")), LocalDateTime.parse(rx.request().getFormAttribute("end-date"))).toMinutes(), rx.request().getFormAttribute("cause"), LocalDateTime.now());
+        inc.update("status = ?1 , end_date = ?2, duration = ?3, cause = ?4, closedAt = ?5 where id = ?6", rx.request().getFormAttribute("status"), LocalDateTime.parse(rx.request().getFormAttribute("end-date")), Duration.between(LocalDateTime.parse(rx.request().getFormAttribute("start-date")), LocalDateTime.parse(rx.request().getFormAttribute("end-date"))).toMinutes(), rx.request().getFormAttribute("cause"), LocalDateTime.now(), Long.valueOf(rx.request().getFormAttribute("id")));
 //            rx.response().end("Incident updated" + inc.getCause());
         rx.response().end(getAllIncidents().render());
 //        }
@@ -286,9 +287,8 @@ public class Incident {
     @Transactional
     @Route(path = "service/update", methods = Route.HttpMethod.POST)
     public void updateService(RoutingExchange rx) {
-        org.vdi.model.Incident incident = new org.vdi.model.Incident();
         org.vdi.model.Incident inc = org.vdi.model.Incident.findById(Long.valueOf(rx.request().getFormAttribute("id")));
-        inc.update("status = ?1 , end_date = ?2, duration = ?3, cause =?4, closedAt = ?5, rootCause = ?6", rx.request().getFormAttribute("status"), LocalDateTime.parse(rx.request().getFormAttribute("end-date")), Duration.between(LocalDateTime.parse(rx.request().getFormAttribute("start-date")), LocalDateTime.parse(rx.request().getFormAttribute("end-date"))).toMinutes(), rx.request().getFormAttribute("cause"), LocalDateTime.now(), rx.request().getFormAttribute("rootCause"));
+        inc.update("status = ?1 , end_date = ?2, duration = ?3, cause =?4, closedAt = ?5 where id = ?6", rx.request().getFormAttribute("status"), LocalDateTime.parse(rx.request().getFormAttribute("end-date")), Duration.between(LocalDateTime.parse(rx.request().getFormAttribute("start-date")), LocalDateTime.parse(rx.request().getFormAttribute("end-date"))).toMinutes(), rx.request().getFormAttribute("cause"), LocalDateTime.now(), Long.valueOf(rx.request().getFormAttribute("id")));
         rx.response().end(getAllIncidents().render());
     }
 
