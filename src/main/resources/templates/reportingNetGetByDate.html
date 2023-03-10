@@ -25,17 +25,15 @@
         </a>
     </nav>
     <div class="table-responsive-sm">
-        <h3 align="center">Historique des tickets</h3><br>
         <h4 class="h4">Nombre de tickets ouverts <span class="badge bg-primary rounded-pill">{countSiteO}</span></h4>
         <h4 class="h4">Nombre de tickets fermés <span class="badge bg-primary rounded-pill">{countSitef}</span></h4>
-        <form method="get" action="/nb/netreportingbydate" id="myform" class="row g-3">
+        <form method="get" action="/nb/servreportingbydate" id="myform" class="row g-3">
             <div class="col-sm-1">
                 <label for="staticEmail2" class="visually-hidden">Du</label>
                 <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Du">
             </div>
-
             <div class="col-md-3">
-                <input type="date" name="from_date" id="from_date" class="form-control" placeholder="From date"><br>
+                <input type="date" name="from_date" id="from_date" class="form-control" placeholder="from date"><br>
             </div>
             <div class="col-sm-1">
                 <label for="staticEmail2" class="visually-hidden">Au</label>
@@ -51,8 +49,6 @@
             <br>
 
         </form>
-
-
         <div id="report">
             <table class="table table-sm align-middle table-responsive">
                 <thead>
@@ -64,7 +60,7 @@
                         <th scope="col">Date de fin</th>
                         <th scope="col">Durée</th>
                         <th scope="col">Résolution</th>
-                        <th scope="col">Site</th>
+                        <th scope="col">Service</th>
                         <th scope="col">Cause principale</th>
                         <th scope="col">Statut</th>
                     </tr>

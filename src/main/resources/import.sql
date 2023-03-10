@@ -81,8 +81,8 @@ DROP TABLE IF EXISTS `incident`;
 CREATE TABLE IF NOT EXISTS `incident` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `cause` varchar(255) DEFAULT NULL,
-  `closed_at` datetime(6) DEFAULT NULL,
-  `created_at` datetime(6) DEFAULT NULL,
+  `closed_at` date DEFAULT NULL,
+  `created_at` date DEFAULT NULL,
   `criticality` varchar(255) DEFAULT NULL,
   `customId` varchar(255) DEFAULT NULL,
   `duration` bigint(20) DEFAULT NULL,

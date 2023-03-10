@@ -48,7 +48,7 @@
                             Reporting
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a href="/reporting/reseau" class="dropdown-item">Tickets liés au réseau</a></li>
+                            <li><a href="/netweeklyreporting" class="dropdown-item">Tickets liés au réseau</a></li>
                             <!-- <li><a href="/reportingService" class="dropdown-item" >Tickets liés aux services</a></li> -->
                             <li><a href="/servweeklyreporting" class="dropdown-item">Tickets liés aux services</a></li>
                         </ul>
@@ -94,14 +94,14 @@
 
 
     <div class="container-fluid content">
-        <div class="alert alert-success" role="alert" id="suc">
+        <!-- <div class="alert alert-success" role="alert" id="suc">
             <span class="alert-icon"><span class="visually-hidden">Success</span></span>
             <p>Ticket enregistré avec succès.</p>
         </div>
         <div class="alert alert-danger" role="alert" id="err">
             <span class="alert-icon"><span class="visually-hidden">Error</span></span>
             <p>Echec de l'enregistrement du ticket.</p>
-        </div>
+        </div> -->
         <!-- <h1>Incident réseau</h1> -->
         <form id="form" method="post"
             action="{#if !isUpdate}/incidents/reseau{#else}/incidents/reseau/{incident.id} {/if}" up-submit>
@@ -242,10 +242,7 @@
     <script src="http://localhost:8080/jquery-3.6.3.js"></script>
     <script type="text/javascript">
 
-        $(document).ready(function () {
-            $("#err").hide();
-            $("#suc").hide();
-        })
+
         /*
         $(document).ready(function () {
             $("#err").hide();

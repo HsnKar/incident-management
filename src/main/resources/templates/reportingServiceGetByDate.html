@@ -12,7 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/boosted@5.2.3/dist/js/boosted.bundle.min.js"
         integrity="sha384-MANW37RG4MpFWPMCcNZBnvSobOkBpIGlbBkEzTtD4FbbOzJXbW8TddND1ak2lfsB"
         crossorigin="anonymous"></script>
-    <title>Reporting des tickets liés au réseau</title>
+    <title>Reporting des tickets liés aux services</title>
 </head>
 
 <body>
@@ -25,17 +25,15 @@
         </a>
     </nav>
     <div class="table-responsive-sm">
-        <h3 align="center">Historique des tickets</h3><br>
-        <h4 class="h4">Nombre de tickets ouverts <span class="badge bg-primary rounded-pill">{countSiteO}</span></h4>
-        <h4 class="h4">Nombre de tickets fermés <span class="badge bg-primary rounded-pill">{countSitef}</span></h4>
-        <form method="get" action="/nb/netreportingbydate" id="myform" class="row g-3">
+        <h4 class="h4">Nombre de tickets ouverts <span class="badge bg-primary rounded-pill">{countServiceO}</span></h4>
+        <h4 class="h4">Nombre de tickets fermés <span class="badge bg-primary rounded-pill">{countServicef}</span></h4>
+        <form method="get" action="/nb/servreportingbydate" id="myform" class="row g-3">
             <div class="col-sm-1">
                 <label for="staticEmail2" class="visually-hidden">Du</label>
                 <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Du">
             </div>
-
             <div class="col-md-3">
-                <input type="date" name="from_date" id="from_date" class="form-control" placeholder="From date"><br>
+                <input type="date" name="from_date" id="from_date" class="form-control" placeholder="from date"><br>
             </div>
             <div class="col-sm-1">
                 <label for="staticEmail2" class="visually-hidden">Au</label>
@@ -51,8 +49,6 @@
             <br>
 
         </form>
-
-
         <div id="report">
             <table class="table table-sm align-middle table-responsive">
                 <thead>
@@ -64,7 +60,7 @@
                         <th scope="col">Date de fin</th>
                         <th scope="col">Durée</th>
                         <th scope="col">Résolution</th>
-                        <th scope="col">Site</th>
+                        <th scope="col">Service</th>
                         <th scope="col">Cause principale</th>
                         <th scope="col">Statut</th>
                     </tr>
@@ -89,6 +85,75 @@
         </div>
 
     </div>
+
+    <!-- Not using this one for the moment -->
+
+    <!-- <div class="table-responsive-sm">
+        <table class="table table-sm align-middle table-responsive">
+            <thead>
+                <tr>
+                    <th></th>
+                    {!#for week in numberOfWeek!}
+                    <th rowspan="{!servicesCount!}">Semaine {!week!}</th>
+                    {!/for!}
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th rowspan="{!servicesCount!}">Temps d'indisponibilité des services</th>
+                </tr>
+                <tr>
+                    {!#for listService in serviceList!}
+                <tr>
+                    <td>{!listService.name!}</td>
+                </tr>
+                {!/for!}
+                </tr>
+            </tbody>
+        </table>
+    </div> -->
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            console.log("ready !");
+            /*$("#filter").click(function () {
+
+                var createAd = $("#from_date").val;
+                var closedAt = $("#to_date").val;
+
+                var inc = {
+                    createdAt: createAd,
+                    closedAt: closedAt
+                };
+
+                $.ajax({
+                    url: "/nb/servreportingbydate",
+                    type: "GET",
+                    data: JSON.stringify(inc),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json"
+                }).done(function () {
+                    $("#report").html(data);
+                    console.log("success");
+                }).fail(function () {
+                    $(".message").html("Unable to call the server");
+                });
+
+
+
+
+
+
+                // $("#report").load("http://localhost/8080/nb/servreportingbydate",
+                //     {
+                //         "createdAt": createAd,
+                //         "closedAt": closedAt
+                //     })
+            });*/
+        });
+    </script>
 </body>
 
 </html>
